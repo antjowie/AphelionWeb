@@ -1,5 +1,9 @@
 #pragma once
 #include "System.hpp"
+#include "Core.hpp"
+
+#include <vector>
+#include <memory>
 
 namespace ap
 {

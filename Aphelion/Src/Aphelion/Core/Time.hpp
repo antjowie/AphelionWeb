@@ -1,11 +1,8 @@
 #pragma once
-
 #include <chrono>
 
 namespace ap
 {
-
-
     class APHELION_API Timer
     {
     public:

@@ -56,7 +56,6 @@
           "type": "BOOL"
         }
       ]
-
     },
     {
       "name": "Win-x64-Debug",
@@ -69,7 +68,13 @@
       "ctestCommandArgs": "",
       "cmakeToolchain": "",
       "inheritEnvironments": [ "msvc_x64_x64" ],
-      "variables": []
+      "variables": [
+        {
+          "name": "BUILD_SHARED_LIBS",
+          "value": "False",
+          "type": "BOOL"
+        }
+      ]
     },
     {
       "name": "Win-x64-Release",
@@ -82,7 +87,13 @@
       "ctestCommandArgs": "",
       "cmakeToolchain": "",
       "inheritEnvironments": [ "msvc_x64_x64" ],
-      "variables": []
+      "variables": [
+        {
+          "name": "BUILD_SHARED_LIBS",
+          "value": "False",
+          "type": "BOOL"
+        }
+      ]
     },
     {
       "name": "Win-x64-Shipping",

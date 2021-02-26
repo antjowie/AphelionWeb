@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.18)
 
 project(Aphelion)
 
+# Can't build shared library. Causes a lot of errors. Can't create a vector of unique pointers???
+# Since building this project to a shared lib is no priority of mine, I will ignore it for now...
+# option(BUILD_SHARED_LIBS false CACHE)
+
 # Setup emscripten compiler if we compile to WASM
 option(WASM false CACHE)
 if(WASM)

@@ -1,6 +1,8 @@
 #include "Engine.hpp"
 #include "Time.hpp"
 
+#include <memory>
+
 namespace ap
 {
     Engine::Engine()

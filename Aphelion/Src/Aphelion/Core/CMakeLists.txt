@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.18)
 
-option(FORCE_ASSERT false)
-
-CPMAddPackage(gh:gabime/spdlog@1.8.2)
+option(APHELION_FORCE_ASSERT false)
 
 add_library(Core
     Core.hpp
@@ -14,11 +12,13 @@ add_library(Core
     Time.hpp
 )
 
+add_library(Aphelion::Core ALIAS Core)
+
+CPMAddPackage(gh:gabime/spdlog@1.8.2)
+
 target_link_libraries(Core PUBLIC
     spdlog::spdlog
 )
-
-add_library(Aphelion::Core ALIAS Core)
 
 target_precompile_headers(Core
     PUBLIC
@@ -50,6 +50,11 @@ target_precompile_headers(Core
 
 target_include_directories(Core PUBLIC ../../)
 
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_compile_definitions(Core PUBLIC AP_DEBUG)
-endif()
+target_compile_definitions(Core 
+    PUBLIC 
+    $<$<BOOL:${APHELION_FORCE_ASSERT}>:FORCE_ASSERT>
+    $<$<STREQUAL:${CMAKE_BUILD_TYPE},Debug>:AP_DEBUG>
+    $<$<BOOL:${BUILD_SHARED_LIBS}>:AP_DYNAMIC_LINK>
+    PRIVATE
+    $<$<BOOL:${BUILD_SHARED_LIBS}>:AP_BUILD_DLL>
+)
