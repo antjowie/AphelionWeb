@@ -10,6 +10,8 @@ add_library(Core
     Engine.cpp
     Log.hpp
     Log.cpp
+    System.hpp
+    Time.hpp
 )
 
 target_link_libraries(Core PUBLIC
@@ -42,6 +44,7 @@ target_precompile_headers(Core
     # <glm/gtx/quaternion.hpp>
     # <glm/gtx/hash.hpp>
 
+    Core.hpp
     Log.hpp
 )
 
