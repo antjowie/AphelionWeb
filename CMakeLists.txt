@@ -5,14 +5,7 @@ project(Aphelion)
 # Can't build shared library. Causes a lot of errors. Can't create a vector of unique pointers???
 # Since building this project to a shared lib is no priority of mine, I will ignore it for now...
 # option(BUILD_SHARED_LIBS false CACHE)
-
-# Setup emscripten compiler if we compile to WASM
-option(WASM false CACHE)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-if(CMAKE_SYSTEM_NAME STREQUAL Emscripten)
-    set(CMAKE_EXECUTABLE_SUFFIX ".html")
-    set_property(GLOBAL PROPERTY LINK_OPTIONS "-s WASM=1")
-endif()
 
 # Setup CPM as our dependency manager
 set(CPM_DOWNLOAD_VERSION 0.31.1) 

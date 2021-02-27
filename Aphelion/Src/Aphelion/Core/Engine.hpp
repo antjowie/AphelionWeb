@@ -20,10 +20,13 @@ namespace ap
         Engine();
         
         void Run();
+        void Loop(float ts);
+        
         void AddSystem(std::unique_ptr<System>&& system);
         void AddSystems(std::vector<std::unique_ptr<System>>&& systems);
 
     private:
+    
         std::vector<std::unique_ptr<System>> m_systems;
     };
 }

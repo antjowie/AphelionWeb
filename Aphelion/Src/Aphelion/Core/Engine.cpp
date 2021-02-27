@@ -1,6 +1,6 @@
-#include "Engine.hpp"
-#include "Log.hpp"
-#include "Time.hpp"
+#include "Aphelion/Core/Engine.hpp"
+#include "Aphelion/Core/Time.hpp"
+#include "Aphelion/Core/Log.hpp"
 
 #include <memory>
 
@@ -10,23 +10,13 @@ namespace ap
     {
         Log::Init();
     }
-    
-    void Engine::Run()
+
+    void Engine::Loop(float ts)
     {
-        // Initialize all systems
         for (auto& system : m_systems)
-            system->Init();
-
-        Timer timer;
-        while (true)
-        {
-            float ts = timer.Reset();
-
-            for (auto& system : m_systems)
-                system->Update(ts);
-            for (auto& system : m_systems)
-                system->Draw();
-        }
+            system->Update(ts);
+        for (auto& system : m_systems)
+            system->Draw();
     }
 
     void Engine::AddSystem(std::unique_ptr<System>&& system)
