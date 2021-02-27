@@ -1,4 +1,5 @@
 #include "Engine.hpp"
+#include "Log.hpp"
 #include "Time.hpp"
 
 #include <memory>

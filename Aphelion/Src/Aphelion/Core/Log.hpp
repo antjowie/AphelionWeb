@@ -1,5 +1,5 @@
 #pragma once
-#include "Aphelion/Core/Core.hpp"
+#include "Core.hpp"
 
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
@@ -11,7 +11,7 @@
 #endif
 
 namespace ap 
-{
+{	
 	class APHELION_API Log
 	{
 	public:

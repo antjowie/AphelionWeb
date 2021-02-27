@@ -6,6 +6,8 @@ add_executable(WASMGraphic
 
 target_include_directories(WASMGraphic PUBLIC /Src/)
 
+# target_precompile_headers(WASMGraphic REUSE_FROM Aphelion::Core)
+
 target_link_libraries(WASMGraphic PRIVATE
     Aphelion::Core
 )

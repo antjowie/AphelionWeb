@@ -1,6 +1,6 @@
 #pragma once
-#include "System.hpp"
 #include "Core.hpp"
+#include "System.hpp"
 
 #include <vector>
 #include <memory>
@@ -18,7 +18,7 @@ namespace ap
     {
     public: 
         Engine();
-
+        
         void Run();
         void AddSystem(std::unique_ptr<System>&& system);
         void AddSystems(std::vector<std::unique_ptr<System>>&& systems);

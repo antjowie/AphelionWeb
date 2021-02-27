@@ -6,11 +6,13 @@
 #ifdef _WIN64
     /* Windows x64  */
     #define AP_PLATFORM_WINDOWS
-#elif _WIN32
+#elif defined(_WIN32)
     /* Windows x86 */
     #error "x86 Builds are not supported!"
 #elif defined(__APPLE__) || defined(__MACH__)
     #error "Others platforms are not yet supported"
+#elif defined(__EMSCRIPTEN__)
+    #define AP_PLATFORM_WEB
 #endif // End of platform detection
 
 /**
