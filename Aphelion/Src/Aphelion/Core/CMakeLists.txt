@@ -21,33 +21,33 @@ target_link_libraries(Core PUBLIC
     spdlog::spdlog
 )
 
-# target_precompile_headers(Core
-#     PUBLIC
-#     <iostream>
-#     <memory>
-#     <utility>
-#     <algorithm>
-#     <functional>
-#     <string>
-#     <sstream>
-#     <array>
-#     <vector>
-#     <unordered_map>
-#     <unordered_set>
-#     <type_traits>
+target_precompile_headers(Core
+    PRIVATE
+    <iostream>
+    <memory>
+    <utility>
+    <algorithm>
+    <functional>
+    <string>
+    <sstream>
+    <array>
+    <vector>
+    <unordered_map>
+    <unordered_set>
+    <type_traits>
 
-#     # <glm/vec3.hpp>
-#     # <glm/mat4x4.hpp>
-#     # <glm/gtc/quaternion.hpp>
-#     # <glm/gtc/matrix_transform.hpp>
-#     # <glm/gtc/matrix_transform.hpp>
-#     # <glm/gtc/type_ptr.hpp>
-#     # <glm/gtx/quaternion.hpp>
-#     # <glm/gtx/hash.hpp>
+    # <glm/vec3.hpp>
+    # <glm/mat4x4.hpp>
+    # <glm/gtc/quaternion.hpp>
+    # <glm/gtc/matrix_transform.hpp>
+    # <glm/gtc/matrix_transform.hpp>
+    # <glm/gtc/type_ptr.hpp>
+    # <glm/gtx/quaternion.hpp>
+    # <glm/gtx/hash.hpp>
 
-#     Core.hpp
-#     Log.hpp
-# )
+    Core.hpp
+    Log.hpp
+)
 
 target_include_directories(Core PUBLIC ../../)
 

@@ -6,6 +6,7 @@ add_executable(WASMGraphic
 
 target_include_directories(WASMGraphic PUBLIC /Src/)
 
+# This command breaks IntelliSense on my installation so I guess I'll do without
 # target_precompile_headers(WASMGraphic REUSE_FROM Aphelion::Core)
 
 target_link_libraries(WASMGraphic PRIVATE
