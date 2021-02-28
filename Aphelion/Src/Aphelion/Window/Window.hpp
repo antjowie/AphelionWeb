@@ -1,24 +1,25 @@
 #pragma once
-#include "Aphelion/Core/Core.h"
-#include "Aphelion/Core/Event/Event.h"
+#include "Aphelion/Core/Core.hpp"
+
+#include <string>
 
 namespace ap
 {
     /**
      * This function is the function that the Window forwards the events to. 
      */
-    using EventCallbackFn = std::function<void(Event&)>;
+    // using EventCallbackFn = std::function<void(Event&)>;
 
     /**
      * The WindowProps struct contains all the data consistent among all window classes
      */
-    struct WindowProps
+    struct APHELION_API WindowProps
     {
     public:
         std::string title;
         unsigned width;
         unsigned height;
-        EventCallbackFn eventCallback;
+        // EventCallbackFn eventCallback;
 
         WindowProps(const std::string& title = "Aphelion Engine",
             unsigned width = 1280,
@@ -33,35 +34,34 @@ namespace ap
     class APHELION_API Window
     {
     public:
+        /**
+         * We override the static create function so that we won't have to bother with 
+         * checking the platform in other code
+         */
+        static std::unique_ptr<Window> Create(WindowProps props = WindowProps());
+
         virtual ~Window() = default;
 
         virtual unsigned GetWidth() const = 0;
         virtual unsigned GetHeight() const = 0;
 
         /**
-         * Updates the buffers and polls the events
+         * Poll events, swap buffers. Whatever a window needs to do on frame
          */
-        virtual void OnUpdate() = 0;
-
-        virtual void SetVSync(bool enable) = 0;
-        
+        virtual void Update() = 0;
         /**
          * Application owns a window. The window needs to send events to the application. To do this,
          * Applications gives the Window an event callback function. 
          */
-        virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
+        // virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
 
+        virtual void SetVSync(bool enable) = 0;
+        
         /**
          * Return the native window
          * 
          * This is required to set up the ImGui renderer
          */
-        virtual void* GetNativeWindow() = 0; 
-
-        /**
-         * We override the static create function so that we won't have to bother with 
-         * checking the platform in other code
-         */
-        static std::unique_ptr<Window> Create(WindowProps props = WindowProps());
+        virtual void* GetNativeWindow() = 0;
     };
 }

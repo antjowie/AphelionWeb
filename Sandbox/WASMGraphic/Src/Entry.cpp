@@ -1,23 +1,23 @@
 #include "Aphelion/Core/Core.hpp"
 #include "Aphelion/Core/Log.hpp"
 #include "Aphelion/Core/Engine.hpp"
-
-// #include <GLES2/gl2.h>
-// #include <EGL/egl.h>
-
+#include "Aphelion/Window/Window.hpp"
 class RenderSystem : public ap::System
 {
 public:
     virtual void Init() override final
     {
+        m_window = ap::Window::Create();
     }
 
     virtual void Draw() override final
     {
     }
+private:
+    std::unique_ptr<ap::Window> m_window;
 };
 
-int mainOld()
+int main()
 {
     ap::Engine engine;
     engine.AddSystem(std::make_unique<RenderSystem>());
@@ -209,7 +209,7 @@ void Draw(ESContext *esContext)
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
-int main(int argc, char *argv[])
+int mainOld(int argc, char *argv[])
 {
     ESContext esContext;
     UserData userData;

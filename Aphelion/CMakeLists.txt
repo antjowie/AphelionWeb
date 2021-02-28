@@ -10,8 +10,14 @@ if(CMAKE_SYSTEM_NAME STREQUAL Emscripten)
     # TODO: Figure out a way to set variable globally. Cache doesn't seem to work
     # This won't work is Aphelion is used as a dependency of a dependency
     set(CMAKE_EXECUTABLE_SUFFIX ".html" PARENT_SCOPE)
-    set_property(GLOBAL PROPERTY LINK_OPTIONS "-s WASM=1")
+    set(USE_FLAGS "-s USE_SDL=2 -s MAX_WEBGL_VERSION=2 -s WASM=1" CACHE INTERNAL "")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${USE_FLAGS}" CACHE INTERNAL "")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${USE_FLAGS}" CACHE INTERNAL "")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${USE_FLAGS}" CACHE INTERNAL "")
+    set_property(GLOBAL PROPERTY LINK_OPTIONS "${USE_FLAGS}")
+
 endif()
 
 add_subdirectory(Src/Aphelion/Core)
 add_subdirectory(Src/Aphelion/Renderer)
+add_subdirectory(Src/Aphelion/Window)
