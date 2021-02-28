@@ -6,6 +6,12 @@
 
 namespace ap
 {
+    Engine& Engine::Get()
+    {
+        static Engine engine;
+        return engine;
+    }
+    
     Engine::Engine()
     {
         Log::Init();

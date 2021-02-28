@@ -59,15 +59,14 @@ namespace ap
         if (SDL_Init(SDL_INIT_VIDEO) != 0)
         {
             AP_CORE_CRITICAL("Window creation SDL Init failed! {}", SDL_GetError());
-            // printf("Error: %s\n", SDL_GetError());
             throw -1;
         }
 
-        const char* glsl_version = "#version 100";
-        // const char* glsl_version = "#version 300 es";
+        const char* glsl_version = "#version 300 es";
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+        SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 
         // Create window with graphics context
@@ -78,17 +77,18 @@ namespace ap
         SDL_GetCurrentDisplayMode(0, &current);
         SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
         m_window = SDL_CreateWindow(props.title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, props.width, props.height, window_flags);
-        auto context = SDL_GL_CreateContext(m_window);
+        static auto context = SDL_GL_CreateContext(m_window);
         if (!context)
         {
             AP_CORE_CRITICAL("Window creation SDL Context failed! {}", SDL_GetError());
             throw 1;
         }
-        AP_CORE_TRACE("Created Window"
-            "  Vendor: {0}"
-            "  Renderer: {1}"
-            "  Version: {2}", 
-            glGetString(GL_VENDOR), glGetString(GL_RENDERER), glGetString(GL_VERSION));
+        SDL_GL_SetSwapInterval(1); // Enable vsync
+        AP_CORE_TRACE("Created Window");
+        AP_CORE_INFO("OpenGL Specs:");
+        AP_CORE_INFO("  Vendor: {}", glGetString(GL_VENDOR));
+        AP_CORE_INFO("  Renderer: {}", glGetString(GL_RENDERER));
+        AP_CORE_INFO("  Version: {}", glGetString(GL_VERSION));
     }
 
     unsigned WebWindow::GetWidth() const
@@ -109,8 +109,7 @@ namespace ap
 
     void WebWindow::Update()
     {
-        // Poll the events
-        
+        // Poll the events   
         SDL_Event event;
         while(SDL_PollEvent(&event))
         {

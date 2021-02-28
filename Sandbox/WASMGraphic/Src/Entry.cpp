@@ -12,6 +12,7 @@ public:
 
     virtual void Draw() override final
     {
+        if(m_window) m_window->Update();
     }
 private:
     std::unique_ptr<ap::Window> m_window;
@@ -19,9 +20,8 @@ private:
 
 int main()
 {
-    ap::Engine engine;
-    engine.AddSystem(std::make_unique<RenderSystem>());
-    engine.Run();
+    ap::Engine::Get().AddSystem(std::make_unique<RenderSystem>());
+    ap::Engine::Get().Run();
 }
 
 //

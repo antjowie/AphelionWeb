@@ -1,5 +1,6 @@
 #include "Engine.hpp"
 #include "Time.hpp"
+#include "Log.hpp"
 
 #include <emscripten.h>
 
@@ -9,15 +10,16 @@ namespace ap
 {       
     void Engine::Run()
     {
-        // Initialize all systems
+        AP_CORE_INFO("Intializing systems");
         for (auto& system : m_systems)
             system->Init();
 
-        emscripten_set_main_loop_arg([](void* engine)
+        AP_CORE_INFO("Starting main loop");
+        emscripten_set_main_loop([]()
         {
             static Timer time;
-            reinterpret_cast<Engine*>(engine)->Loop(time.Reset());
+            Engine::Get().Loop(time.Reset());
         },
-        this, 0, true);
+        0, true);
     }
 } // namespace ap

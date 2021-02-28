@@ -17,7 +17,7 @@ namespace ap
     class APHELION_API Engine
     {
     public: 
-        Engine();
+        static Engine& Get();
         
         void Run();
         void Loop(float ts);
@@ -26,6 +26,7 @@ namespace ap
         void AddSystems(std::vector<std::unique_ptr<System>>&& systems);
 
     private:
+        Engine();
     
         std::vector<std::unique_ptr<System>> m_systems;
     };
