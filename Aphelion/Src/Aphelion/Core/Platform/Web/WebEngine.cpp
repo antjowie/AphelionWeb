@@ -1,5 +1,5 @@
-#include "Aphelion/Core/Engine.hpp"
-#include "Aphelion/Core/Time.hpp"
+#include "Engine.hpp"
+#include "Time.hpp"
 
 #include <emscripten.h>
 
@@ -12,17 +12,6 @@ namespace ap
         // Initialize all systems
         for (auto& system : m_systems)
             system->Init();
-
-        // auto frameFunc = [this]()
-        // {
-        //     Timer timer;
-        //     float ts = timer.Reset();
-
-        //     for (auto& system : m_systems)
-        //         system->Update(ts);
-        //     for (auto& system : m_systems)
-        //         system->Draw();
-        // };
 
         emscripten_set_main_loop_arg([](void* engine)
         {

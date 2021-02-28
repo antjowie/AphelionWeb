@@ -6,12 +6,12 @@ class TestSystem : public ap::System
 {
 public:
     virtual void Init() override final {
-        //AP_TRACE("Hello WASM! {:2f}", ts);
+        AP_TRACE("Hello WASM!");
 
     }
 
     virtual void Update(float ts) override final {
-        AP_TRACE("Hello there fps:{}", 1.f/ts);
+        // AP_TRACE("Hello there fps:{}", 1.f/ts);
         
     }
 
@@ -24,7 +24,6 @@ public:
 
 int main() {
     ap::Engine engine;
-    AP_TRACE("Hello WASM!");
     engine.AddSystem(std::make_unique<TestSystem>());
     engine.Run();
 }

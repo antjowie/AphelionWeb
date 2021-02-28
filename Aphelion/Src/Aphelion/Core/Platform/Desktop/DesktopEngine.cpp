@@ -1,5 +1,5 @@
-#include "Aphelion/Core/Engine.hpp"
-#include "Aphelion/Core/Time.hpp"
+#include "Engine.hpp"
+#include "Time.hpp"
 
 namespace ap
 {   

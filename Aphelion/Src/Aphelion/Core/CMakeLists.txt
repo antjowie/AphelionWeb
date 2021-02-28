@@ -12,12 +12,12 @@ add_library(Core
     System.hpp
     Time.hpp
     
-    $<$<PLATFORM_ID:Emscripten>:
-        ../../Platform/Web/WebEngine.cpp
+    $<$<PLATFORM_ID:Windows>:
+        Platform/Desktop/DesktopEngine.cpp
     >
 
-    $<$<PLATFORM_ID:Windows>:
-        ../../Platform/Desktop/DesktopEngine.cpp
+    $<$<PLATFORM_ID:Emscripten>:
+        Platform/Web/WebEngine.cpp
     >
 )
 
@@ -58,7 +58,10 @@ target_link_libraries(Core PUBLIC
 #     Log.hpp
 # )
 
-target_include_directories(Core PUBLIC ../../)
+target_include_directories(Core 
+    PUBLIC ../../
+    PRIVATE ./
+)
 
 target_compile_definitions(Core 
     PUBLIC 
