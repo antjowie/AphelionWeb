@@ -20,7 +20,7 @@ cmake --build build
 ```
 Depending on your CMake Generator this is supposed to compile for every desktop platform. I only implemented and tested Windows though. If you want to target the web however. Addition steps need to be taken.
 
-### Targetting the web
+### Targeting the web
 You need to set up [Emscripten](https://emscripten.org/docs/getting_started/downloads.html) first.
 > TODO: I could also download Emscripten in the project which I may do. Setting it up takes a while though. I first have to figure out how to set the toolchain file. Task for future me
 Make sure Emscripten is in your PATH. Then do the following:
