@@ -12,7 +12,8 @@ std::unique_ptr<ImGUI> ImGUI::Create(const std::unique_ptr<Window>& window) {
   return std::make_unique<WebImGUI>(window);
 }
 
-constexpr inline SDL_Window* ToSDLWindow(const std::unique_ptr<Window>& window) {
+constexpr inline SDL_Window* ToSDLWindow(
+    const std::unique_ptr<Window>& window) {
   return reinterpret_cast<SDL_Window*>(window->GetNativeWindow());
 }
 

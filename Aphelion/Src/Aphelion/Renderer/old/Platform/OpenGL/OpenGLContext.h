@@ -5,18 +5,16 @@
 
 struct GLFWwindow;
 
-namespace ap
-{
-    class APHELION_API OpenGLContext : public GraphicsContext
-    {
-    public:
-        OpenGLContext(GLFWwindow* windowHandle);
+namespace ap {
+class APHELION_API OpenGLContext : public GraphicsContext {
+ public:
+  OpenGLContext(GLFWwindow* windowHandle);
 
-        virtual void Init();
-        virtual void SwapBuffers();
+  virtual void Init();
+  virtual void SwapBuffers();
 
-    private:
-        GLFWwindow* m_window;
-    };
+ private:
+  GLFWwindow* m_window;
+};
 
-}
+}  // namespace ap
