@@ -20,11 +20,9 @@ add_library(Core
         Platform/Web/WebEngine.cpp
     >
 )
-
 add_library(Aphelion::Core ALIAS Core)
 
 CPMAddPackage(gh:gabime/spdlog@1.8.2)
-
 target_link_libraries(Core PUBLIC
     spdlog::spdlog
 )

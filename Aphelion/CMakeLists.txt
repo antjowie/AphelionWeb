@@ -19,5 +19,6 @@ if(CMAKE_SYSTEM_NAME STREQUAL Emscripten)
 endif()
 
 add_subdirectory(Src/Aphelion/Core)
+add_subdirectory(Src/Aphelion/ImGUI)
 add_subdirectory(Src/Aphelion/Renderer)
 add_subdirectory(Src/Aphelion/Window)

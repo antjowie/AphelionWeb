@@ -13,46 +13,6 @@ namespace ap
         return std::make_unique<WebWindow>(props);
     }
 
-    /*
-    WebWindow::WebWindow()
-    {
-        EGLint attribList[] =
-            {
-                EGL_RED_SIZE, 5,
-                EGL_GREEN_SIZE, 6,
-                EGL_BLUE_SIZE, 5,
-                EGL_ALPHA_SIZE, (flags & ES_WINDOW_ALPHA) ? 8 : EGL_DONT_CARE,
-                EGL_DEPTH_SIZE, (flags & ES_WINDOW_DEPTH) ? 8 : EGL_DONT_CARE,
-                EGL_STENCIL_SIZE, (flags & ES_WINDOW_STENCIL) ? 8 : EGL_DONT_CARE,
-                EGL_SAMPLE_BUFFERS, (flags & ES_WINDOW_MULTISAMPLE) ? 1 : 0,
-                EGL_NONE};
-
-        if (esContext == NULL)
-        {
-            return GL_FALSE;
-        }
-
-        esContext->width = width;
-        esContext->height = height;
-
-        if (!WinCreate(esContext, title))
-        {
-            return GL_FALSE;
-        }
-
-        if (!CreateEGLContext(esContext->hWnd,
-                              &esContext->eglDisplay,
-                              &esContext->eglContext,
-                              &esContext->eglSurface,
-                              attribList))
-        {
-            return GL_FALSE;
-        }
-
-        return GL_TRUE;
-    }
-*/
-
     WebWindow::WebWindow(WindowProps props)
     {
         // Setup SDL
@@ -62,7 +22,6 @@ namespace ap
             throw -1;
         }
 
-        const char* glsl_version = "#version 300 es";
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
         SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
@@ -113,6 +72,7 @@ namespace ap
         SDL_Event event;
         while(SDL_PollEvent(&event))
         {
+            AP_CORE_TRACE("Event {}", event.type);
             // TODO: Handle them event :)
         }
         
