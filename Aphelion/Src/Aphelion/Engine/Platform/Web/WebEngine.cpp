@@ -1,8 +1,8 @@
 #include <emscripten.h>
 
+#include "Aphelion/Core/Log.hpp"
+#include "Aphelion/Core/Time.hpp"
 #include "Engine.hpp"
-#include "Log.hpp"
-#include "Time.hpp"
 
 // https://emscripten.org/docs/porting/emscripten-runtime-environment.html#browser-main-loop
 // We can't have an infinite loop for web browsers since the js code expects to

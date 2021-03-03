@@ -2,11 +2,12 @@
 #include <memory>
 #include <vector>
 
-#include "Core.hpp"
-#include "System.hpp"
+#include "Aphelion/Core/Core.hpp"
+#include "Aphelion/Core/System.hpp"
+#include "Aphelion/ImGUI/ImGUI.hpp"
+#include "Aphelion/Window/Window.hpp"
 
 namespace ap {
-// class System;
 
 /**
  * Engine is the runtime of the application. The user creates
@@ -27,5 +28,7 @@ class APHELION_API Engine {
   Engine();
 
   std::vector<std::unique_ptr<System>> m_systems;
+  std::unique_ptr<Window> m_window;
+  std::unique_ptr<ImGUI> m_imgui;
 };
 }  // namespace ap

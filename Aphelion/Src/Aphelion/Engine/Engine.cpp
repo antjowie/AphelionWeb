@@ -1,4 +1,4 @@
-#include "Aphelion/Core/Engine.hpp"
+#include "Aphelion/Engine/Engine.hpp"
 
 #include <memory>
 
@@ -11,11 +11,20 @@ Engine& Engine::Get() {
   return engine;
 }
 
-Engine::Engine() { Log::Init(); }
+Engine::Engine() {
+  Log::Init();
+  m_window = Window::Create();
+  m_imgui = ImGUI::Create(m_window.get());
+}
 
 void Engine::Loop(float ts) {
   for (auto& system : m_systems) system->Update(ts);
+
+  m_imgui->BeginFrame();
   for (auto& system : m_systems) system->Draw();
+  m_imgui->EndFrame();
+
+  m_window->Update();
 }
 
 void Engine::AddSystem(std::unique_ptr<System>&& system) {

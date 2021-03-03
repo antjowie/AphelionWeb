@@ -6,18 +6,19 @@
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_sdl.h>
 
+#include "Aphelion/Window/Window.hpp"
+
 // https://github.com/ocornut/imgui/blob/master/examples/example_emscripten_opengl3/main.cpp
 namespace ap {
-std::unique_ptr<ImGUI> ImGUI::Create(const std::unique_ptr<Window>& window) {
+std::unique_ptr<ImGUI> ImGUI::Create(Window* window) {
   return std::make_unique<WebImGUI>(window);
 }
 
-constexpr inline SDL_Window* ToSDLWindow(
-    const std::unique_ptr<Window>& window) {
+inline SDL_Window* ToSDLWindow(Window* window) {
   return reinterpret_cast<SDL_Window*>(window->GetNativeWindow());
 }
 
-WebImGUI::WebImGUI(const std::unique_ptr<Window>& window) : m_window(window) {
+WebImGUI::WebImGUI(Window* window) : m_window(window) {
   // Setup Dear ImGui context
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
