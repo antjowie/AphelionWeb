@@ -17,8 +17,8 @@ class APHELION_API System {
  public:
   virtual void Init(){};
   virtual void Deinit(){};
-  virtual void Update(float ts){};
-  virtual void Draw(){};
-  virtual void Event(Event& event){};
+  virtual void OnUpdate(float ts){};
+  virtual void OnDraw(){};
+  virtual void OnEvent(Event& event){};
 };
 }  // namespace ap

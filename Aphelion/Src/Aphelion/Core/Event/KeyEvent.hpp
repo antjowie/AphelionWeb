@@ -30,12 +30,6 @@ class APHELION_API KeyPressedEvent : public KeyEvent {
 
   inline unsigned GetRepeatCount() const { return m_repeatCount; }
 
-  std::string ToString() const override {
-    std::stringstream ss;
-    ss << "KeyPressedEvent: key " << m_keyCode << " repeat " << m_repeatCount;
-    return ss.str();
-  }
-
   EVENT_CLASS_TYPE(EventType::KeyPressed)
 
  private:

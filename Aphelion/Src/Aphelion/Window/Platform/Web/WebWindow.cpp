@@ -203,10 +203,10 @@ void WebWindow::Update() {
         m_props.eventCallback(
             KeyReleasedEvent(event.key.keysym.sym)); /**< Key pressed */
       case SDL_TEXTEDITING:
-        AP_CORE_WARN("SDL_TEXTEDITING not handled in window");
+        m_props.eventCallback(KeyTypedEvent(event.key.keysym.sym));
         break; /**< Keyboard text editing (composition) */
       case SDL_TEXTINPUT:
-        m_props.eventCallback(KeyTypedEvent(event.key.keysym.sym));
+        AP_CORE_WARN("SDL_TEXTINPUT not handled in window");
         break; /**< Keyboard text input */
       case SDL_KEYMAPCHANGED:
         AP_CORE_WARN("SDL_KEYMAPCHANGED not handled in window");

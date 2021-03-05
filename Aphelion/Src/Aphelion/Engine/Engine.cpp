@@ -29,17 +29,20 @@ void Engine::Init() {
 }
 
 void Engine::Loop(float ts) {
-  for (auto& system : m_systems) system->Update(ts);
+  for (auto& system : m_systems) system->OnUpdate(ts);
 
   m_imgui->BeginFrame();
-  for (auto& system : m_systems) system->Draw();
+  for (auto& system : m_systems) system->OnDraw();
   m_imgui->EndFrame();
 
   m_window->Update();
 }
 
 void Engine::PushEvent(Event&& event) {
-    for (auto& system : m_systems) {
+  int i = 0;
+  for (auto iter = m_systems.rbegin(); iter != m_systems.rend(); iter++) {
+    (*iter)->OnEvent(event);
+    if (event.handled) return;
   }
 }
 
