@@ -3,6 +3,14 @@ cmake_minimum_required(VERSION 3.18)
 option(APHELION_FORCE_ASSERT false)
 
 add_library(Core
+  Event/Event.hpp
+  Event/KeyEvent.hpp
+  Event/MouseEvent.hpp
+  Event/WindowEvent.hpp
+
+  Input/KeyCodes.hpp
+  Input/MouseCodes.hpp
+  
   Core.hpp
   Helper.hpp
   Log.cpp
@@ -49,8 +57,9 @@ if(CMAKE_HOST_SYSTEM_NAME STREQUAL Emscripten)
 endif()
 
 target_include_directories(Core 
-  PUBLIC ../../
-  PRIVATE ./
+  PUBLIC 
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../ 
+  ${CMAKE_CURRENT_SOURCE_DIR}/.
 )
 
 target_compile_definitions(Core 

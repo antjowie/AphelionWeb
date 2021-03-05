@@ -11,19 +11,8 @@ class APHELION_API WebWindow : public Window {
   virtual unsigned GetWidth() const override final;
   virtual unsigned GetHeight() const override final;
 
-  /**
-   * Polls the events
-   */
+  virtual void SetEventMiddleware(EventMiddlewareFn fn) override final;
   virtual void Update() override final;
-
-  /**
-   * Application owns a window. The window needs to send events to the
-   * application. To do this, Applications gives the Window an event callback
-   * function.
-   */
-  // virtual void SetEventCallback(const EventCallbackFn& callback) override
-  // final;
-
   virtual void SetVSync(bool enable) override final;
 
   /**
@@ -35,5 +24,7 @@ class APHELION_API WebWindow : public Window {
 
  private:
   SDL_Window* m_window;
+  WindowProps m_props;
+  EventMiddlewareFn m_eventMiddleware;
 };
 }  // namespace ap

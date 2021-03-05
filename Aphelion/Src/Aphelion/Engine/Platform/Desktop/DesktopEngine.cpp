@@ -3,8 +3,7 @@
 
 namespace ap {
 void Engine::Run() {
-  // Initialize all systems
-  for (auto& system : m_systems) system->Init();
+  Init();
 
   Timer timer;
   while (true) {

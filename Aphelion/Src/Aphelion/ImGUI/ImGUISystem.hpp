@@ -3,17 +3,18 @@
 #include "Aphelion/Core/Core.hpp"
 
 namespace ap {
+class Event;
 class Window;
 /**
  * Interface for the class that handles our ImGUI state
  * The engine creates an instance of this class
  */
-class APHELION_API ImGUI {
+class APHELION_API ImGUISystem {
  public:
-  static std::unique_ptr<ImGUI> Create(Window* window);
+  static std::unique_ptr<ImGUISystem> Create(Window* window);
 
-  // ImGUI(const std::unique_ptr<Window>& window) = default;
-  virtual ~ImGUI() = default;
+  // ImGUISystem(const std::unique_ptr<Window>& window) = default;
+  virtual ~ImGUISystem() = default;
 
   virtual void BeginFrame() = 0;
   virtual void EndFrame() = 0;

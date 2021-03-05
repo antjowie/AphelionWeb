@@ -1,13 +1,17 @@
 #pragma once
+#include <functional>
 #include <string>
 
 #include "Aphelion/Core/Core.hpp"
+#include "Aphelion/Core/Event/Event.hpp"
 
 namespace ap {
 /**
  * This function is the function that the Window forwards the events to.
  */
-// using EventCallbackFn = std::function<void(Event&)>;
+using EventCallbackFn = std::function<void(Event&&)>;
+// Return true if handled
+using EventMiddlewareFn = std::function<bool(void*)>;
 
 /**
  * The WindowProps struct contains all the data consistent among all window
@@ -18,7 +22,7 @@ struct APHELION_API WindowProps {
   std::string title;
   unsigned width;
   unsigned height;
-  // EventCallbackFn eventCallback;
+  EventCallbackFn eventCallback;
 
   WindowProps(const std::string& title = "Aphelion Engine",
               unsigned width = 1280, unsigned height = 720)
@@ -41,6 +45,14 @@ class APHELION_API Window {
 
   virtual unsigned GetWidth() const = 0;
   virtual unsigned GetHeight() const = 0;
+
+  /**
+   * Before events get handled by the window, we may want to pass them to other
+   * systems first. For example, our ImGUI library wants to handle the events
+   * before they are propogated to our main systems. By setting the
+   * EventMiddleware, we allow our ImGUI system to handle the events first
+   */
+  virtual void SetEventMiddleware(EventMiddlewareFn fn) = 0;
 
   /**
    * Poll events, swap buffers. Whatever a window needs to do on frame

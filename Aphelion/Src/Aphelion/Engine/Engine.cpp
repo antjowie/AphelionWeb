@@ -13,8 +13,19 @@ Engine& Engine::Get() {
 
 Engine::Engine() {
   Log::Init();
-  m_window = Window::Create();
-  m_imgui = ImGUI::Create(m_window.get());
+
+  // Create window
+  WindowProps props;
+  props.eventCallback = [&](Event&& e) { PushEvent(std::move(e)); };
+  m_window = Window::Create(props);
+
+  // Create ImGUI
+  m_imgui = ImGUISystem::Create(m_window.get());
+}
+
+void Engine::Init() {
+  AP_CORE_INFO("Intializing systems");
+  for (auto& system : m_systems) system->Init();
 }
 
 void Engine::Loop(float ts) {
@@ -25,6 +36,11 @@ void Engine::Loop(float ts) {
   m_imgui->EndFrame();
 
   m_window->Update();
+}
+
+void Engine::PushEvent(Event&& event) {
+    for (auto& system : m_systems) {
+  }
 }
 
 void Engine::AddSystem(std::unique_ptr<System>&& system) {

@@ -6,11 +6,18 @@
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_sdl.h>
 
+#include "Aphelion/Core/Event/Event.hpp"
 #include "Aphelion/Window/Window.hpp"
 
 // https://github.com/ocornut/imgui/blob/master/examples/example_emscripten_opengl3/main.cpp
 namespace ap {
-std::unique_ptr<ImGUI> ImGUI::Create(Window* window) {
+bool OnNativeEvent(void* event) {
+  ImGui_ImplSDL2_ProcessEvent(reinterpret_cast<SDL_Event*>(event));
+  ImGuiIO& io = ImGui::GetIO();
+  return io.WantCaptureMouse || io.WantCaptureKeyboard;
+}
+
+std::unique_ptr<ImGUISystem> ImGUISystem::Create(Window* window) {
   return std::make_unique<WebImGUI>(window);
 }
 
@@ -61,6 +68,9 @@ WebImGUI::WebImGUI(Window* window) : m_window(window) {
   // - Emscripten allows preloading a file or folder to be accessible at
   // runtime. See Makefile for details.
   // io.Fonts->AddFontDefault();
+
+  // Setup event middleware
+  window->SetEventMiddleware(OnNativeEvent);
 }
 
 WebImGUI::~WebImGUI() {

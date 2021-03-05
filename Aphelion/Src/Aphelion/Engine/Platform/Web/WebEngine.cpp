@@ -9,8 +9,7 @@
 // return
 namespace ap {
 void Engine::Run() {
-  AP_CORE_INFO("Intializing systems");
-  for (auto& system : m_systems) system->Init();
+  Init();
 
   AP_CORE_INFO("Starting main loop");
   emscripten_set_main_loop(

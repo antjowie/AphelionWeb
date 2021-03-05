@@ -1,10 +1,9 @@
 #pragma once
-#include <glm/vec2.hpp>
 #include <memory>
 
-#include "Aphelion/Core/Core.h"
-#include "Aphelion/Core/Input/KeyCodes.h"
-#include "Aphelion/Core/Input/MouseCodes.h"
+#include "Core.hpp"
+#include "Input/KeyCodes.hpp"
+#include "Input/MouseCodes.hpp"
 
 namespace ap {
 /**

@@ -1,10 +1,9 @@
 #pragma once
-/**
- * This header has all the mouse related events
- */
+#include <sstream>
 
-#include "Aphelion/Core/Core.h"
-#include "Aphelion/Core/Event/Event.h"
+#include "Core.hpp"
+#include "Event/Event.hpp"
+#include "Input/MouseCodes.hpp"
 
 namespace ap {
 class APHELION_API MouseButtonPressedEvent : public Event {

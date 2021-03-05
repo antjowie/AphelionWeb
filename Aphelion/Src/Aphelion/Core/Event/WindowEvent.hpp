@@ -1,9 +1,6 @@
 #pragma once
-/**
- * This header contains all the Application type events
- */
-#include "Aphelion/Core/Core.h"
-#include "Aphelion/Core/Event/Event.h"
+#include "Core.hpp"
+#include "Event/Event.hpp"
 
 namespace ap {
 class APHELION_API WindowCloseEvent : public Event {

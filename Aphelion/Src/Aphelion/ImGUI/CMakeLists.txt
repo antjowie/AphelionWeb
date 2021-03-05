@@ -6,7 +6,7 @@ add_library(ImGUI
     Platform/Web/WebImGUI.hpp
   >
   
-  ImGUI.hpp
+  ImGUISystem.hpp
 )
 add_library(Aphelion::ImGUI ALIAS ImGUI)
 

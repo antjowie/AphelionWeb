@@ -1,7 +1,7 @@
-#include "ImGUI.hpp"
+#include "ImGUISystem.hpp"
 
 namespace ap {
-class APHELION_API WebImGUI : public ImGUI {
+class APHELION_API WebImGUI : public ImGUISystem {
  public:
   WebImGUI(Window* window);
   virtual ~WebImGUI();

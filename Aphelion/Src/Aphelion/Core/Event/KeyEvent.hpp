@@ -1,10 +1,7 @@
 #pragma once
-/**
- * This header has all the Keyboard related events
- */
-
-#include "Aphelion/Core/Core.h"
-#include "Aphelion/Core/Event/Event.h"
+#include "Core.hpp"
+#include "Event/Event.hpp"
+#include "Input/KeyCodes.hpp"
 
 namespace ap {
 class APHELION_API KeyEvent : public Event {
