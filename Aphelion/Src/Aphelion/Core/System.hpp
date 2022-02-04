@@ -2,7 +2,8 @@
 #include "Core.hpp"
 #include "Event/Event.hpp"
 
-namespace ap {
+namespace ap
+{
 /**
  * The engine runs systems.
  * At the moment systems runs synchroniously, but
@@ -13,12 +14,13 @@ namespace ap {
  * Events are propogate in the opposite direction however. This allows us to
  * push a debug system that may want to intercept some events
  */
-class APHELION_API System {
- public:
-  virtual void Init(){};
-  virtual void Deinit(){};
-  virtual void OnUpdate(float ts){};
-  virtual void OnDraw(){};
-  virtual void OnEvent(Event& event){};
+class APHELION_API System
+{
+public:
+    virtual void Init(){};
+    virtual void Deinit(){};
+    virtual void OnUpdate(float ts){};
+    virtual void OnDraw(){};
+    virtual void OnEvent(Event& event){};
 };
-}  // namespace ap
+} // namespace ap

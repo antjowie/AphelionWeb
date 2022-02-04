@@ -5,21 +5,21 @@ add_library(ImGUI
     Platform/Web/WebImGUI.cpp
     Platform/Web/WebImGUI.hpp
   >
-  
+
   ImGUISystem.hpp
 )
 add_library(Aphelion::ImGUI ALIAS ImGUI)
 
 CPMAddPackage(
   NAME DearImGUI
-  GIT_REPOSITORY https://github.com/ocornut/imgui 
+  GIT_REPOSITORY https://github.com/ocornut/imgui
   GIT_TAG 732cd837a9ed8ecb2ce4035e7d40a1c9a04ae240
   DOWNLOAD_ONLY YES
 )
 
 if (DearImGUI_ADDED)
   # FILE(GLOB DearImGUI_sources ${DearImGUI_SOURCE_DIR}/*.cpp)
-  add_library(DearImGUI STATIC 
+  add_library(DearImGUI STATIC
     ${DearImGUI_SOURCE_DIR}/imconfig.h
     ${DearImGUI_SOURCE_DIR}/imgui.cpp
     ${DearImGUI_SOURCE_DIR}/imgui.h
@@ -31,7 +31,7 @@ if (DearImGUI_ADDED)
     ${DearImGUI_SOURCE_DIR}/imstb_rectpack.h
     ${DearImGUI_SOURCE_DIR}/imstb_textedit.h
     ${DearImGUI_SOURCE_DIR}/imstb_truetype.h
-    
+
   $<$<PLATFORM_ID:Emscripten>:
     ${DearImGUI_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
     ${DearImGUI_SOURCE_DIR}/backends/imgui_impl_opengl3.h
@@ -49,10 +49,10 @@ else()
 endif()
 
 target_include_directories(ImGUI PRIVATE ./)
-target_link_libraries(ImGUI 
-  PUBLIC 
-    Aphelion::Core 
+target_link_libraries(ImGUI
+  PUBLIC
+    Aphelion::Core
     # DearImGUI
-  PRIVATE 
+  PRIVATE
     Aphelion::Window
 )

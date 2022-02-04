@@ -8,7 +8,8 @@
 #include "Aphelion/ImGUI/ImGUISystem.hpp"
 #include "Aphelion/Window/Window.hpp"
 
-namespace ap {
+namespace ap
+{
 
 /**
  * Engine is the runtime of the application. To use this either check the Sanbox
@@ -22,24 +23,25 @@ namespace ap {
  * 3. Run the engine
  *  instance.Run();
  */
-class APHELION_API Engine {
- public:
-  static Engine& Get();
+class APHELION_API Engine
+{
+public:
+    static Engine& Get();
 
-  void Run();
+    void Run();
 
-  void AddSystem(std::unique_ptr<System>&& system);
-  void AddSystems(std::vector<std::unique_ptr<System>>&& systems);
+    void AddSystem(std::unique_ptr<System>&& system);
+    void AddSystems(std::vector<std::unique_ptr<System>>&& systems);
 
- private:
-  Engine();
+private:
+    Engine();
 
-  void Init();
-  void Loop(float ts);
-  void PushEvent(Event&& event);
+    void Init();
+    void Loop(float ts);
+    void PushEvent(Event&& event);
 
-  std::vector<std::unique_ptr<System>> m_systems;
-  std::unique_ptr<Window> m_window;
-  std::unique_ptr<ImGUISystem> m_imgui;
+    std::vector<std::unique_ptr<System>> m_systems;
+    std::unique_ptr<Window> m_window;
+    std::unique_ptr<ImGUISystem> m_imgui;
 };
-}  // namespace ap
+} // namespace ap

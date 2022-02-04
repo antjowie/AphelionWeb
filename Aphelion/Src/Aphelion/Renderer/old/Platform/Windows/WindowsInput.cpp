@@ -4,46 +4,63 @@
 
 #include "Aphelion/Core/Application.h"
 
-namespace ap {
-GLFWwindow* GetNativeWindow() {
-  return static_cast<GLFWwindow*>(
-      Application::Get().GetWindow().GetNativeWindow());
+namespace ap
+{
+GLFWwindow* GetNativeWindow()
+{
+    return static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 }
 
-Window& GetWindow() { return Application::Get().GetWindow(); }
-
-void WindowsInput::EnableCursorImpl(bool enable) {
-  glfwSetInputMode(GetNativeWindow(), GLFW_CURSOR,
-                   enable ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
+Window& GetWindow()
+{
+    return Application::Get().GetWindow();
 }
 
-bool WindowsInput::IsKeyPressedImpl(KeyCode code) {
-  return glfwGetKey(GetNativeWindow(), static_cast<int>(code));
+void WindowsInput::EnableCursorImpl(bool enable)
+{
+    glfwSetInputMode(
+        GetNativeWindow(), GLFW_CURSOR, enable ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
 }
 
-bool WindowsInput::IsButtonPressedImpl(ButtonCode code) {
-  return glfwGetMouseButton(GetNativeWindow(), static_cast<int>(code));
+bool WindowsInput::IsKeyPressedImpl(KeyCode code)
+{
+    return glfwGetKey(GetNativeWindow(), static_cast<int>(code));
 }
 
-void WindowsInput::SetCursorPosImpl(const glm::vec2& pos) {
-  glfwSetCursorPos(GetNativeWindow(), pos.x, pos.y);
+bool WindowsInput::IsButtonPressedImpl(ButtonCode code)
+{
+    return glfwGetMouseButton(GetNativeWindow(), static_cast<int>(code));
 }
 
-void WindowsInput::SetCursorXImpl(float x) {
-  glfwSetCursorPos(GetNativeWindow(), x, GetCursorYImpl());
+void WindowsInput::SetCursorPosImpl(const glm::vec2& pos)
+{
+    glfwSetCursorPos(GetNativeWindow(), pos.x, pos.y);
 }
 
-void WindowsInput::SetCursorYImpl(float y) {
-  glfwSetCursorPos(GetNativeWindow(), GetCursorXImpl(), y);
+void WindowsInput::SetCursorXImpl(float x)
+{
+    glfwSetCursorPos(GetNativeWindow(), x, GetCursorYImpl());
 }
 
-glm::dvec2 WindowsInput::GetCursorPosImpl() {
-  glm::dvec2 ret;
-  glfwGetCursorPos(GetNativeWindow(), &ret.x, &ret.y);
-  return ret;
+void WindowsInput::SetCursorYImpl(float y)
+{
+    glfwSetCursorPos(GetNativeWindow(), GetCursorXImpl(), y);
 }
 
-float WindowsInput::GetCursorXImpl() { return GetCursorPosImpl().x; }
+glm::dvec2 WindowsInput::GetCursorPosImpl()
+{
+    glm::dvec2 ret;
+    glfwGetCursorPos(GetNativeWindow(), &ret.x, &ret.y);
+    return ret;
+}
 
-float WindowsInput::GetCursorYImpl() { return GetCursorPosImpl().y; }
-}  // namespace ap
+float WindowsInput::GetCursorXImpl()
+{
+    return GetCursorPosImpl().x;
+}
+
+float WindowsInput::GetCursorYImpl()
+{
+    return GetCursorPosImpl().y;
+}
+} // namespace ap

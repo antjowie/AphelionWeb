@@ -7,28 +7,39 @@
 
 struct GLFWwindow;
 
-namespace ap {
-class APHELION_API WindowsWindow : public Window {
- public:
-  WindowsWindow(WindowProps& props);
-  virtual ~WindowsWindow() override final;
+namespace ap
+{
+class APHELION_API WindowsWindow : public Window
+{
+public:
+    WindowsWindow(WindowProps& props);
+    virtual ~WindowsWindow() override final;
 
-  virtual unsigned GetWidth() const override final { return m_props.width; }
-  virtual unsigned GetHeight() const override final { return m_props.height; }
+    virtual unsigned GetWidth() const override final
+    {
+        return m_props.width;
+    }
+    virtual unsigned GetHeight() const override final
+    {
+        return m_props.height;
+    }
 
-  virtual void OnUpdate() override final;
-  virtual void SetVSync(bool enable) override final;
+    virtual void OnUpdate() override final;
+    virtual void SetVSync(bool enable) override final;
 
-  inline virtual void SetEventCallback(
-      const EventCallbackFn& callback) override final {
-    m_props.eventCallback = callback;
-  }
+    inline virtual void SetEventCallback(const EventCallbackFn& callback) override final
+    {
+        m_props.eventCallback = callback;
+    }
 
-  inline virtual void* GetNativeWindow() override final { return m_window; }
+    inline virtual void* GetNativeWindow() override final
+    {
+        return m_window;
+    }
 
- private:
-  std::unique_ptr<GraphicsContext> m_context;
-  GLFWwindow* m_window;
-  WindowProps m_props;
+private:
+    std::unique_ptr<GraphicsContext> m_context;
+    GLFWwindow* m_window;
+    WindowProps m_props;
 };
-}  // namespace ap
+} // namespace ap

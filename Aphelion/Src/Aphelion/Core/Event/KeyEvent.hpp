@@ -3,44 +3,61 @@
 #include "Event/Event.hpp"
 #include "Input/KeyCodes.hpp"
 
-namespace ap {
-class APHELION_API KeyEvent : public Event {
- public:
-  KeyEvent(int keyCode) : m_keyCode(keyCode) {}
+namespace ap
+{
+class APHELION_API KeyEvent : public Event
+{
+public:
+    KeyEvent(int keyCode)
+        : m_keyCode(keyCode)
+    { }
 
-  inline int GetKeyCode() const { return m_keyCode; }
+    inline int GetKeyCode() const
+    {
+        return m_keyCode;
+    }
 
-  std::string ToString() const override {
-    std::stringstream ss;
+    std::string ToString() const override
+    {
+        std::stringstream ss;
 
-    ss << GetName() << ": key " << m_keyCode;
-    return ss.str();
-  }
+        ss << GetName() << ": key " << m_keyCode;
+        return ss.str();
+    }
 
-  EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryKeyboard)
+    EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryKeyboard)
 
- protected:
-  int m_keyCode;
+protected:
+    int m_keyCode;
 };
 
-class APHELION_API KeyPressedEvent : public KeyEvent {
- public:
-  KeyPressedEvent(int keyCode, unsigned repeatCount)
-      : KeyEvent(keyCode), m_repeatCount(repeatCount) {}
+class APHELION_API KeyPressedEvent : public KeyEvent
+{
+public:
+    KeyPressedEvent(int keyCode, unsigned repeatCount)
+        : KeyEvent(keyCode)
+        , m_repeatCount(repeatCount)
+    { }
 
-  inline unsigned GetRepeatCount() const { return m_repeatCount; }
+    inline unsigned GetRepeatCount() const
+    {
+        return m_repeatCount;
+    }
 
-  EVENT_CLASS_TYPE(EventType::KeyPressed)
+    EVENT_CLASS_TYPE(EventType::KeyPressed)
 
- private:
-  unsigned m_repeatCount;
+private:
+    unsigned m_repeatCount;
 };
 
-class APHELION_API KeyReleasedEvent : public KeyEvent {
- public:
-  KeyReleasedEvent(int keyCode) : KeyEvent(keyCode) {}
+class APHELION_API KeyReleasedEvent : public KeyEvent
+{
+public:
+    KeyReleasedEvent(int keyCode)
+        : KeyEvent(keyCode)
+    { }
 
-  EVENT_CLASS_TYPE(EventType::KeyReleased)
+    EVENT_CLASS_TYPE(EventType::KeyReleased)
 };
 
 /**
@@ -51,10 +68,13 @@ class APHELION_API KeyReleasedEvent : public KeyEvent {
  * GLFW documentation</a> we have a character callback. Characters can be
  * more than one character so the KeyPressedEvent doesn't suffice
  */
-class APHELION_API KeyTypedEvent : public KeyEvent {
- public:
-  KeyTypedEvent(int keyCode) : KeyEvent(keyCode) {}
+class APHELION_API KeyTypedEvent : public KeyEvent
+{
+public:
+    KeyTypedEvent(int keyCode)
+        : KeyEvent(keyCode)
+    { }
 
-  EVENT_CLASS_TYPE(EventType::KeyTyped)
+    EVENT_CLASS_TYPE(EventType::KeyTyped)
 };
-}  // namespace ap
+} // namespace ap

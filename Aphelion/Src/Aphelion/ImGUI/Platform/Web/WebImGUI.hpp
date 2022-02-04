@@ -1,16 +1,18 @@
 #include "ImGUISystem.hpp"
 
-namespace ap {
-class APHELION_API WebImGUI : public ImGUISystem {
- public:
-  WebImGUI(Window* window);
-  virtual ~WebImGUI();
+namespace ap
+{
+class APHELION_API WebImGUI : public ImGUISystem
+{
+public:
+    WebImGUI(Window* window);
+    virtual ~WebImGUI();
 
-  virtual void BeginFrame() override final;
-  virtual void EndFrame() override final;
+    virtual void BeginFrame() override final;
+    virtual void EndFrame() override final;
 
- private:
-  Window* m_window;
+private:
+    Window* m_window;
 };
 
-}  // namespace ap
+} // namespace ap
