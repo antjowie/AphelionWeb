@@ -7,7 +7,7 @@ void Engine::Run() {
 
   Timer timer;
   while (true) {
-    Loop(ts);
+    Loop(timer.Reset());
   }
 }
 }  // namespace ap

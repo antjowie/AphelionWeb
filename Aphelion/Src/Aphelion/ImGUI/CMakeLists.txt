@@ -32,10 +32,12 @@ if (DearImGUI_ADDED)
     ${DearImGUI_SOURCE_DIR}/imstb_textedit.h
     ${DearImGUI_SOURCE_DIR}/imstb_truetype.h
     
+  $<$<PLATFORM_ID:Emscripten>:
     ${DearImGUI_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
     ${DearImGUI_SOURCE_DIR}/backends/imgui_impl_opengl3.h
     ${DearImGUI_SOURCE_DIR}/backends/imgui_impl_sdl.cpp
     ${DearImGUI_SOURCE_DIR}/backends/imgui_impl_sdl.h
+    >
   )
 
   target_include_directories(DearImGUI PUBLIC
@@ -48,6 +50,9 @@ endif()
 
 target_include_directories(ImGUI PRIVATE ./)
 target_link_libraries(ImGUI 
-  PUBLIC Aphelion::Core DearImGUI 
-  PRIVATE Aphelion::Window
+  PUBLIC 
+    Aphelion::Core 
+    # DearImGUI
+  PRIVATE 
+    Aphelion::Window
 )
