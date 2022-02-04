@@ -7,13 +7,12 @@ namespace ap
 {
 class APHELION_API Timer
 {
-public:
+  public:
     using Clock = std::chrono::high_resolution_clock;
 
-    Timer()
-        : m_begin(Clock::now())
-        , m_last(m_begin)
-    { }
+    Timer() : m_begin(Clock::now()), m_last(m_begin)
+    {
+    }
 
     float Total() const
     {
@@ -32,7 +31,7 @@ public:
         return ts;
     }
 
-private:
+  private:
     Clock::time_point m_begin;
     Clock::time_point m_last;
 };

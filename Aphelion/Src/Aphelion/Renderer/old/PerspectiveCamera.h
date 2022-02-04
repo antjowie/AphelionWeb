@@ -10,7 +10,7 @@ namespace ap
 {
 class APHELION_API PerspectiveCamera
 {
-public:
+  public:
     PerspectiveCamera(float fovY, float aspectRatio, float zNear, float zFar);
 
     void SetProjection(float fovY, float aspectRatio, float zNear, float zFar);
@@ -53,34 +53,34 @@ public:
         return m_far;
     }
 
-    const glm::mat4& GetProjectionMatrix() const
+    const glm::mat4 &GetProjectionMatrix() const
     {
         CalculateMatrices();
         return m_projectionMatrix;
     }
-    const glm::mat4& GetViewMatrix() const
+    const glm::mat4 &GetViewMatrix() const
     {
         CalculateMatrices();
         return m_viewMatrix;
     }
-    const glm::mat4& GetViewProjectionMatrix() const
+    const glm::mat4 &GetViewProjectionMatrix() const
     {
         CalculateMatrices();
         return m_viewProjectionMatrix;
     }
     /**
-   * The camera views along the -z direction. The forward points towards the +z
-   * direction The transform forward and camera view direction are not the same
-   */
+     * The camera views along the -z direction. The forward points towards the +z
+     * direction The transform forward and camera view direction are not the same
+     */
     const glm::vec3 GetViewDirection() const
     {
         return -transform.GetForward();
     }
 
-public:
+  public:
     Transform transform;
 
-private:
+  private:
     void CalculateMatrices() const;
 
     // We calculate the matrices only upon request and cache it

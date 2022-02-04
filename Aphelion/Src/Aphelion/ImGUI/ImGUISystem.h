@@ -12,8 +12,8 @@ class Window;
  */
 class APHELION_API ImGUISystem
 {
-public:
-    static std::unique_ptr<ImGUISystem> Create(Window* window);
+  public:
+    static std::unique_ptr<ImGUISystem> Create(Window *window);
 
     // ImGUISystem(const std::unique_ptr<Window>& window) = default;
     virtual ~ImGUISystem() = default;

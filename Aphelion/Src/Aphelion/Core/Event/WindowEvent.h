@@ -6,18 +6,17 @@ namespace ap
 {
 class APHELION_API WindowCloseEvent : public Event
 {
-public:
+  public:
     EVENT_CLASS_TYPE(EventType::WindowClose)
     EVENT_CLASS_CATEGORY(EventCategoryApplication)
 };
 
 class APHELION_API WindowResizeEvent : public Event
 {
-public:
-    WindowResizeEvent(unsigned width, unsigned height)
-        : m_width(width)
-        , m_height(height)
-    { }
+  public:
+    WindowResizeEvent(unsigned width, unsigned height) : m_width(width), m_height(height)
+    {
+    }
 
     inline unsigned GetWidth() const
     {
@@ -38,7 +37,7 @@ public:
     EVENT_CLASS_TYPE(EventType::WindowResize)
     EVENT_CLASS_CATEGORY(EventCategoryApplication)
 
-private:
+  private:
     unsigned m_width;
     unsigned m_height;
 };
@@ -46,11 +45,10 @@ private:
 /// Upper left screen coordinates
 class APHELION_API WindowMoveEvent : public Event
 {
-public:
-    WindowMoveEvent(int x, int y)
-        : m_x(x)
-        , m_y(y)
-    { }
+  public:
+    WindowMoveEvent(int x, int y) : m_x(x), m_y(y)
+    {
+    }
 
     inline int GetX() const
     {
@@ -71,17 +69,17 @@ public:
     EVENT_CLASS_TYPE(EventType::WindowMove)
     EVENT_CLASS_CATEGORY(EventCategoryApplication)
 
-private:
+  private:
     int m_x;
     int m_y;
 };
 
 class APHELION_API WindowIconifyEvent : public Event
 {
-public:
-    WindowIconifyEvent(bool iconified)
-        : m_iconified(iconified)
-    { }
+  public:
+    WindowIconifyEvent(bool iconified) : m_iconified(iconified)
+    {
+    }
 
     inline bool IsIconified() const
     {
@@ -98,16 +96,16 @@ public:
     EVENT_CLASS_TYPE(EventType::WindowIconify)
     EVENT_CLASS_CATEGORY(EventCategoryApplication)
 
-private:
+  private:
     bool m_iconified;
 };
 
 class APHELION_API WindowFocusEvent : public Event
 {
-public:
-    WindowFocusEvent(bool focused)
-        : m_focused(focused)
-    { }
+  public:
+    WindowFocusEvent(bool focused) : m_focused(focused)
+    {
+    }
 
     inline bool IsFocused() const
     {
@@ -124,7 +122,7 @@ public:
     EVENT_CLASS_TYPE(EventType::WindowFocus)
     EVENT_CLASS_CATEGORY(EventCategoryApplication)
 
-private:
+  private:
     bool m_focused;
 };
 

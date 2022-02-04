@@ -6,15 +6,10 @@
 
 namespace ap
 {
-void OpenGLMessageCallback(unsigned source,
-                           unsigned type,
-                           unsigned id,
-                           unsigned severity,
-                           int length,
-                           const char* message,
-                           const void* userParam)
+void OpenGLMessageCallback(unsigned source, unsigned type, unsigned id, unsigned severity, int length,
+                           const char *message, const void *userParam)
 {
-    switch(severity)
+    switch (severity)
     {
     case GL_DEBUG_SEVERITY_HIGH:
         AP_CORE_CRITICAL(message);
@@ -42,8 +37,7 @@ void OpenGLRendererAPI::Init()
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     glDebugMessageCallback(OpenGLMessageCallback, nullptr);
 
-    glDebugMessageControl(
-        GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
+    glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
 #endif
 
     glEnable(GL_CULL_FACE);
@@ -63,8 +57,7 @@ void OpenGLRendererAPI::SetClearColor(float r, float g, float b, float a)
     glClearColor(r, g, b, a);
 }
 
-void OpenGLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray,
-                                    uint32_t indexCount)
+void OpenGLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray> &vertexArray, uint32_t indexCount)
 {
     unsigned count = indexCount == 0 ? vertexArray->GetIndexBuffer()->GetCount() : indexCount;
 

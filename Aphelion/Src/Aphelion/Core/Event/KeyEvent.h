@@ -7,10 +7,10 @@ namespace ap
 {
 class APHELION_API KeyEvent : public Event
 {
-public:
-    KeyEvent(int keyCode)
-        : m_keyCode(keyCode)
-    { }
+  public:
+    KeyEvent(int keyCode) : m_keyCode(keyCode)
+    {
+    }
 
     inline int GetKeyCode() const
     {
@@ -27,17 +27,16 @@ public:
 
     EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryKeyboard)
 
-protected:
+  protected:
     int m_keyCode;
 };
 
 class APHELION_API KeyPressedEvent : public KeyEvent
 {
-public:
-    KeyPressedEvent(int keyCode, unsigned repeatCount)
-        : KeyEvent(keyCode)
-        , m_repeatCount(repeatCount)
-    { }
+  public:
+    KeyPressedEvent(int keyCode, unsigned repeatCount) : KeyEvent(keyCode), m_repeatCount(repeatCount)
+    {
+    }
 
     inline unsigned GetRepeatCount() const
     {
@@ -46,16 +45,16 @@ public:
 
     EVENT_CLASS_TYPE(EventType::KeyPressed)
 
-private:
+  private:
     unsigned m_repeatCount;
 };
 
 class APHELION_API KeyReleasedEvent : public KeyEvent
 {
-public:
-    KeyReleasedEvent(int keyCode)
-        : KeyEvent(keyCode)
-    { }
+  public:
+    KeyReleasedEvent(int keyCode) : KeyEvent(keyCode)
+    {
+    }
 
     EVENT_CLASS_TYPE(EventType::KeyReleased)
 };
@@ -70,10 +69,10 @@ public:
  */
 class APHELION_API KeyTypedEvent : public KeyEvent
 {
-public:
-    KeyTypedEvent(int keyCode)
-        : KeyEvent(keyCode)
-    { }
+  public:
+    KeyTypedEvent(int keyCode) : KeyEvent(keyCode)
+    {
+    }
 
     EVENT_CLASS_TYPE(EventType::KeyTyped)
 };

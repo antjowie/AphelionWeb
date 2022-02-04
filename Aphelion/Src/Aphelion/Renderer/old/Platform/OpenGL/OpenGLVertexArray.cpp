@@ -6,7 +6,7 @@ namespace ap
 {
 GLenum BaseTypeToOpenGLType(ShaderDataType type)
 {
-    switch(type)
+    switch (type)
     {
     case ShaderDataType::Float:
         return GL_FLOAT;
@@ -53,27 +53,23 @@ void OpenGLVertexArray::Unbind()
     glBindVertexArray(0);
 }
 
-void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& buffer)
+void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer> &buffer)
 {
     Bind();
     buffer->Bind();
 
     // Calculate stride
     unsigned stride = 0;
-    for(auto elem : buffer->GetElements())
+    for (auto elem : buffer->GetElements())
         stride += elem.size;
 
     unsigned index = 0;
     unsigned offset = 0;
-    for(auto elem : buffer->GetElements())
+    for (auto elem : buffer->GetElements())
     {
         glEnableVertexAttribArray(index);
-        glVertexAttribPointer(index,
-                              elem.GetComponentCount(),
-                              BaseTypeToOpenGLType(elem.type),
-                              elem.normalized ? GL_TRUE : GL_FALSE,
-                              stride,
-                              (void*)offset);
+        glVertexAttribPointer(index, elem.GetComponentCount(), BaseTypeToOpenGLType(elem.type),
+                              elem.normalized ? GL_TRUE : GL_FALSE, stride, (void *)offset);
 
         index++;
         offset += elem.size;
@@ -82,7 +78,7 @@ void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& buf
     m_buffers.push_back(buffer);
 }
 
-void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& buffer)
+void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer> &buffer)
 {
     Bind();
     buffer->Bind();
@@ -95,12 +91,12 @@ VertexBufferRef OpenGLVertexArray::GetVertexBuffer(unsigned index)
     return m_buffers[index];
 }
 
-const VertexBufferRef& OpenGLVertexArray::GetVertexBuffer(unsigned index) const
+const VertexBufferRef &OpenGLVertexArray::GetVertexBuffer(unsigned index) const
 {
     return m_buffers[index];
 }
 
-const std::shared_ptr<IndexBuffer>& OpenGLVertexArray::GetIndexBuffer() const
+const std::shared_ptr<IndexBuffer> &OpenGLVertexArray::GetIndexBuffer() const
 {
     return m_indexBuffer;
 }

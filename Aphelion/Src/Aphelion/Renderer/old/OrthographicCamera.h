@@ -8,12 +8,12 @@ namespace ap
 {
 class APHELION_API OrthographicCamera
 {
-public:
+  public:
     OrthographicCamera(float left, float right, float bottom, float top);
 
     void SetProjection(float left, float right, float bottom, float top);
 
-    void SetPosition(const glm::vec3& pos)
+    void SetPosition(const glm::vec3 &pos)
     {
         m_position = pos;
         m_dirtyFlag = true;
@@ -33,23 +33,23 @@ public:
         return m_degrees;
     }
 
-    const glm::mat4& GetProjectionMatrix() const
+    const glm::mat4 &GetProjectionMatrix() const
     {
         CalculateMatrices();
         return m_projectionMatrix;
     }
-    const glm::mat4& GetViewMatrix() const
+    const glm::mat4 &GetViewMatrix() const
     {
         CalculateMatrices();
         return m_viewMatrix;
     }
-    const glm::mat4& GetViewProjectionMatrix() const
+    const glm::mat4 &GetViewProjectionMatrix() const
     {
         CalculateMatrices();
         return m_viewProjectionMatrix;
     }
 
-private:
+  private:
     void CalculateMatrices() const;
 
     // We calculate the matrices only upon request and cache it

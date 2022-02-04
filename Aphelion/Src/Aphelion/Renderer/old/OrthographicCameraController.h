@@ -8,17 +8,17 @@ namespace ap
 {
 class APHELION_API OrthographicCameraController
 {
-public:
+  public:
     OrthographicCameraController(float aspectRatio, float degrees = 0);
 
     void OnUpdate(Timestep ts);
-    void OnEvent(Event& e);
+    void OnEvent(Event &e);
 
-    OrthographicCamera& GetCamera()
+    OrthographicCamera &GetCamera()
     {
         return m_camera;
     }
-    const OrthographicCamera& GetCamera() const
+    const OrthographicCamera &GetCamera() const
     {
         return m_camera;
     }
@@ -33,7 +33,7 @@ public:
         return m_zoom;
     }
 
-private:
+  private:
     void UpdateProjection();
 
     float m_aspectRatio;

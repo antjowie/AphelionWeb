@@ -19,7 +19,6 @@ void Engine::Run()
             static Timer time;
             Engine::Get().Loop(time.Reset());
         },
-        0,
-        true);
+        0, true);
 }
 } // namespace ap

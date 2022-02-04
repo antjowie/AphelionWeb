@@ -16,7 +16,7 @@ namespace ap
 {
 class APHELION_API RenderCommand
 {
-public:
+  public:
     static void Init()
     {
         m_rendererAPI->Init();
@@ -37,12 +37,12 @@ public:
         m_rendererAPI->Clear();
     }
 
-    static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, unsigned count = 0)
+    static void DrawIndexed(const std::shared_ptr<VertexArray> &vertexArray, unsigned count = 0)
     {
         m_rendererAPI->DrawIndexed(vertexArray, count);
     }
 
-private:
+  private:
     static std::unique_ptr<RendererAPI> m_rendererAPI;
 };
 } // namespace ap

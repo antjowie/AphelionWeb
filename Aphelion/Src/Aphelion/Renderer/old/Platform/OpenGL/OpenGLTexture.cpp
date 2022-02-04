@@ -7,9 +7,7 @@
 
 namespace ap
 {
-OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
-    : m_width(width)
-    , m_height(height)
+OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height) : m_width(width), m_height(height)
 {
     m_internalFormat = GL_RGBA8;
     m_dataFormat = GL_RGBA;
@@ -24,11 +22,11 @@ OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
     glTextureParameteri(m_id, GL_TEXTURE_WRAP_T, GL_REPEAT);
 }
 
-OpenGLTexture2D::OpenGLTexture2D(const char* path)
+OpenGLTexture2D::OpenGLTexture2D(const char *path)
 {
     int width, height, channels;
     stbi_set_flip_vertically_on_load(true);
-    stbi_uc* data = nullptr;
+    stbi_uc *data = nullptr;
     {
         data = stbi_load(path, &width, &height, &channels, 0);
     }
@@ -37,12 +35,12 @@ OpenGLTexture2D::OpenGLTexture2D(const char* path)
     m_height = height;
 
     GLenum internalFormat = 0, dataFormat = 0;
-    if(channels == 4)
+    if (channels == 4)
     {
         internalFormat = GL_RGBA8;
         dataFormat = GL_RGBA;
     }
-    else if(channels == 3)
+    else if (channels == 3)
     {
         internalFormat = GL_RGB8;
         dataFormat = GL_RGB;
@@ -92,19 +90,18 @@ uint32_t OpenGLTexture2D::GetHeight() const
     return m_height;
 }
 
-void OpenGLTexture2D::SetData(const void* data, uint32_t size)
+void OpenGLTexture2D::SetData(const void *data, uint32_t size)
 {
     uint32_t bpp = m_dataFormat == GL_RGBA ? 4 : 3;
     AP_CORE_ASSERT(size == m_width * m_height * bpp, "Data must be entire texture!");
     glTextureSubImage2D(m_id, 0, 0, 0, m_width, m_height, m_dataFormat, GL_UNSIGNED_BYTE, data);
 }
 
-OpenGLArrayTexture2D::OpenGLArrayTexture2D(uint32_t x, uint32_t y, const char* path)
-    : m_layer(0)
+OpenGLArrayTexture2D::OpenGLArrayTexture2D(uint32_t x, uint32_t y, const char *path) : m_layer(0)
 {
     int width, height, channels;
     stbi_set_flip_vertically_on_load(true);
-    stbi_uc* data = nullptr;
+    stbi_uc *data = nullptr;
     {
         data = stbi_load(path, &width, &height, &channels, 0);
     }
@@ -113,12 +110,12 @@ OpenGLArrayTexture2D::OpenGLArrayTexture2D(uint32_t x, uint32_t y, const char* p
     m_height = height;
 
     GLenum internalFormat = 0, dataFormat = 0;
-    if(channels == 4)
+    if (channels == 4)
     {
         internalFormat = GL_RGBA8;
         dataFormat = GL_RGBA;
     }
-    else if(channels == 3)
+    else if (channels == 3)
     {
         internalFormat = GL_RGB8;
         dataFormat = GL_RGB;
@@ -134,16 +131,15 @@ OpenGLArrayTexture2D::OpenGLArrayTexture2D(uint32_t x, uint32_t y, const char* p
     auto image{std::make_unique<unsigned char[]>(width * height * channels)};
 
     unsigned offset = 0;
-    for(unsigned yI = 0; yI < height / texSize; yI++)
+    for (unsigned yI = 0; yI < height / texSize; yI++)
     {
-        for(unsigned xI = 0; xI < width / texSize; xI++)
+        for (unsigned xI = 0; xI < width / texSize; xI++)
         {
             // Read 64 rows
-            for(unsigned row = 0; row < texSize; row++)
+            for (unsigned row = 0; row < texSize; row++)
             {
                 memcpy(&image[offset],
-                       &data[(yI * width * texSize * channels) + (xI * texSize * channels) +
-                             row * width * channels],
+                       &data[(yI * width * texSize * channels) + (xI * texSize * channels) + row * width * channels],
                        texSize * channels);
                 offset += texSize * channels;
             }
@@ -155,8 +151,7 @@ OpenGLArrayTexture2D::OpenGLArrayTexture2D(uint32_t x, uint32_t y, const char* p
     glCreateTextures(GL_TEXTURE_2D_ARRAY, 1, &m_id);
     glTextureStorage3D(m_id, 4, m_internalFormat, texSize, texSize, size);
 
-    glTextureSubImage3D(
-        m_id, 0, 0, 0, 0, texSize, texSize, size, m_dataFormat, GL_UNSIGNED_BYTE, image.get());
+    glTextureSubImage3D(m_id, 0, 0, 0, 0, texSize, texSize, size, m_dataFormat, GL_UNSIGNED_BYTE, image.get());
 
     stbi_image_free(data);
 
@@ -195,12 +190,11 @@ uint32_t OpenGLArrayTexture2D::GetHeight() const
     return m_height;
 }
 
-void OpenGLArrayTexture2D::SetData(const void* data, uint32_t size)
+void OpenGLArrayTexture2D::SetData(const void *data, uint32_t size)
 {
     uint32_t bpp = m_dataFormat == GL_RGBA ? 4 : 3;
     AP_CORE_ASSERT(size == m_width * m_height * bpp, "Data must be entire texture!");
-    glTextureSubImage3D(
-        m_id, 0, 0, 0, 0, m_width, m_height, m_layer, m_dataFormat, GL_UNSIGNED_BYTE, data);
+    glTextureSubImage3D(m_id, 0, 0, 0, 0, m_width, m_height, m_layer, m_dataFormat, GL_UNSIGNED_BYTE, data);
 }
 
 void OpenGLArrayTexture2D::SetLayer(unsigned layer)

@@ -16,11 +16,11 @@ namespace ap
  */
 class APHELION_API System
 {
-public:
+  public:
     virtual void Init(){};
     virtual void Deinit(){};
     virtual void OnUpdate(float ts){};
     virtual void OnDraw(){};
-    virtual void OnEvent(Event& event){};
+    virtual void OnEvent(Event &event){};
 };
 } // namespace ap

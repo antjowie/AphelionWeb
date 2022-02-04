@@ -5,8 +5,7 @@
 
 namespace ap
 {
-OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
-    : m_window(windowHandle)
+OpenGLContext::OpenGLContext(GLFWwindow *windowHandle) : m_window(windowHandle)
 {
     AP_CORE_ASSERT(m_window, "Window handle can't be null");
 }

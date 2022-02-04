@@ -5,5 +5,6 @@
 namespace ap
 {
 class APHELION_API Renderer
-{ };
+{
+};
 } // namespace ap

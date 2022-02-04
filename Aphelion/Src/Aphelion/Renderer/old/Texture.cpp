@@ -7,7 +7,7 @@ namespace ap
 {
 TextureRef Texture2D::Create(uint32_t width, uint32_t height)
 {
-    switch(RendererAPI::GetAPI())
+    switch (RendererAPI::GetAPI())
     {
     case RendererAPI::API::None:
         AP_CORE_CRITICAL("Texture 2D not yet implemented");
@@ -18,9 +18,9 @@ TextureRef Texture2D::Create(uint32_t width, uint32_t height)
     // return std::shared_ptr<Texture2D>();
 }
 
-TextureRef Texture2D::Create(const char* path)
+TextureRef Texture2D::Create(const char *path)
 {
-    switch(RendererAPI::GetAPI())
+    switch (RendererAPI::GetAPI())
     {
     case RendererAPI::API::None:
         AP_CORE_CRITICAL("Texture 2D not yet implemented");
@@ -31,9 +31,9 @@ TextureRef Texture2D::Create(const char* path)
     // return std::shared_ptr<Texture2D>();
 }
 
-TextureRef ArrayTexture2D::Create(uint32_t x, uint32_t y, const char* path)
+TextureRef ArrayTexture2D::Create(uint32_t x, uint32_t y, const char *path)
 {
-    switch(RendererAPI::GetAPI())
+    switch (RendererAPI::GetAPI())
     {
     case RendererAPI::API::None:
         AP_CORE_CRITICAL("Array Texture 2D None not yet implemented");

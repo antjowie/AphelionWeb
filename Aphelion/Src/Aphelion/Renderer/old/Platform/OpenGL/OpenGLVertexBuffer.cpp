@@ -13,7 +13,7 @@ OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
     // glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 }
 
-OpenGLVertexBuffer::OpenGLVertexBuffer(const float* vertices, uint32_t size)
+OpenGLVertexBuffer::OpenGLVertexBuffer(const float *vertices, uint32_t size)
 {
     glCreateBuffers(1, &m_id);
     SetData(vertices, size);
@@ -37,7 +37,7 @@ void OpenGLVertexBuffer::Unbind() const
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
+void OpenGLVertexBuffer::SetData(const void *data, uint32_t size)
 {
     // Bind();
     /*
@@ -52,9 +52,9 @@ void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
     m_size = size;
 }
 
-const std::vector<float>& OpenGLVertexBuffer::GetData() const
+const std::vector<float> &OpenGLVertexBuffer::GetData() const
 {
-    if(m_dirty)
+    if (m_dirty)
     {
         m_dirty = false;
         m_data.clear();
@@ -71,8 +71,7 @@ const std::vector<float>& OpenGLVertexBuffer::GetData() const
 ///////////////////////////////////
 // Vertex buffer
 ///////////////////////////////////
-OpenGLIndexBuffer::OpenGLIndexBuffer(const uint32_t* indices, uint32_t count)
-    : m_count(count)
+OpenGLIndexBuffer::OpenGLIndexBuffer(const uint32_t *indices, uint32_t count) : m_count(count)
 {
     // glGenBuffers(1, &m_id);
     glCreateBuffers(1, &m_id);
@@ -97,9 +96,9 @@ void OpenGLIndexBuffer::Unbind() const
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
 }
 
-const std::vector<uint32_t>& OpenGLIndexBuffer::GetData() const
+const std::vector<uint32_t> &OpenGLIndexBuffer::GetData() const
 {
-    if(m_dirty)
+    if (m_dirty)
     {
         m_dirty = false;
         m_data.clear();

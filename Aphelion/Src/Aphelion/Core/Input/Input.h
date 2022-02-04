@@ -13,13 +13,13 @@ namespace ap
  */
 class APHELION_API Input
 {
-public:
+  public:
     /**
-   * When cursor is disabled, the cursor will be invisible and stay centered.
-   * CursorMoveEvents will still contain the new cursor position
-   *
-   * TODO: This maybe should be a window specific function
-   */
+     * When cursor is disabled, the cursor will be invisible and stay centered.
+     * CursorMoveEvents will still contain the new cursor position
+     *
+     * TODO: This maybe should be a window specific function
+     */
     static void EnableCursor(bool enable)
     {
         return m_instance->EnableCursorImpl(enable);
@@ -34,7 +34,7 @@ public:
         return m_instance->IsButtonPressedImpl(code);
     }
 
-    static void SetCursorPos(const glm::vec2& pos)
+    static void SetCursorPos(const glm::vec2 &pos)
     {
         return m_instance->SetCursorPosImpl(pos);
     }
@@ -48,8 +48,8 @@ public:
     }
 
     /**
-   * Returns the position in screen coordinates
-   */
+     * Returns the position in screen coordinates
+     */
     static glm::dvec2 GetCursorPos()
     {
         return m_instance->GetCursorPosImpl();
@@ -63,13 +63,13 @@ public:
         return m_instance->GetCursorYImpl();
     }
 
-private:
+  private:
     virtual void EnableCursorImpl(bool enable) = 0;
 
     virtual bool IsKeyPressedImpl(KeyCode code) = 0;
     virtual bool IsButtonPressedImpl(ButtonCode code) = 0;
 
-    virtual void SetCursorPosImpl(const glm::vec2& pos) = 0;
+    virtual void SetCursorPosImpl(const glm::vec2 &pos) = 0;
     virtual void SetCursorXImpl(float x) = 0;
     virtual void SetCursorYImpl(float y) = 0;
 

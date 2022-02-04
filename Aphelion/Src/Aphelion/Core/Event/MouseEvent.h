@@ -9,10 +9,10 @@ namespace ap
 {
 class APHELION_API MouseButtonPressedEvent : public Event
 {
-public:
-    MouseButtonPressedEvent(int button)
-        : m_button(button)
-    { }
+  public:
+    MouseButtonPressedEvent(int button) : m_button(button)
+    {
+    }
 
     inline int GetButton() const
     {
@@ -33,17 +33,17 @@ public:
     EVENT_CLASS_TYPE(EventType::MouseButtonPressed)
     EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouseButton)
 
-private:
+  private:
     int m_button;
     unsigned m_repeatCount;
 };
 
 class APHELION_API MouseButtonReleasedEvent : public Event
 {
-public:
-    MouseButtonReleasedEvent(int button)
-        : m_button(button)
-    { }
+  public:
+    MouseButtonReleasedEvent(int button) : m_button(button)
+    {
+    }
 
     inline int GetButton() const
     {
@@ -60,7 +60,7 @@ public:
     EVENT_CLASS_TYPE(EventType::MouseButtonReleased)
     EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouseButton)
 
-private:
+  private:
     int m_button;
 };
 
@@ -69,11 +69,10 @@ private:
  */
 class APHELION_API MouseMovedEvent : public Event
 {
-public:
-    MouseMovedEvent(float x, float y)
-        : m_x(x)
-        , m_y(y)
-    { }
+  public:
+    MouseMovedEvent(float x, float y) : m_x(x), m_y(y)
+    {
+    }
 
     inline float GetX() const
     {
@@ -98,18 +97,17 @@ public:
     EVENT_CLASS_TYPE(EventType::MouseMoved)
     EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
 
-private:
+  private:
     float m_x;
     float m_y;
 };
 
 class APHELION_API MouseScrolledEvent : public Event
 {
-public:
-    MouseScrolledEvent(float xOffset, float Offset)
-        : m_xOffset(xOffset)
-        , m_yOffset(Offset)
-    { }
+  public:
+    MouseScrolledEvent(float xOffset, float Offset) : m_xOffset(xOffset), m_yOffset(Offset)
+    {
+    }
 
     inline float GetXOffset() const
     {
@@ -134,7 +132,7 @@ public:
     EVENT_CLASS_TYPE(EventType::MouseScrolled)
     EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
 
-private:
+  private:
     float m_xOffset;
     float m_yOffset;
 };

@@ -7,7 +7,7 @@ namespace ap
 {
 uint32_t BufferElement::GetComponentCount() const
 {
-    switch(type)
+    switch (type)
     {
     case ShaderDataType::Float:
         return 1;
@@ -37,19 +37,19 @@ uint32_t BufferElement::GetComponentCount() const
     return 0;
 }
 
-void VertexBuffer::AddElement(const BufferElement& elem)
+void VertexBuffer::AddElement(const BufferElement &elem)
 {
     m_elements.push_back(elem);
 }
 
-const std::vector<BufferElement>& VertexBuffer::GetElements() const
+const std::vector<BufferElement> &VertexBuffer::GetElements() const
 {
     return m_elements;
 }
 
 std::shared_ptr<VertexBuffer> VertexBuffer::Create(uint32_t size)
 {
-    switch(RendererAPI::GetAPI())
+    switch (RendererAPI::GetAPI())
     {
     case RendererAPI::API::None:
         AP_CORE_CRITICAL("Buffer NONE is not yet implemented");
@@ -58,9 +58,9 @@ std::shared_ptr<VertexBuffer> VertexBuffer::Create(uint32_t size)
     }
 }
 
-std::shared_ptr<VertexBuffer> VertexBuffer::Create(const float* vertices, uint32_t size)
+std::shared_ptr<VertexBuffer> VertexBuffer::Create(const float *vertices, uint32_t size)
 {
-    switch(RendererAPI::GetAPI())
+    switch (RendererAPI::GetAPI())
     {
     case RendererAPI::API::None:
         AP_CORE_CRITICAL("Buffer NONE is not yet implemented");
@@ -69,9 +69,9 @@ std::shared_ptr<VertexBuffer> VertexBuffer::Create(const float* vertices, uint32
     }
 }
 
-std::shared_ptr<IndexBuffer> IndexBuffer::Create(const uint32_t* indices, uint32_t count)
+std::shared_ptr<IndexBuffer> IndexBuffer::Create(const uint32_t *indices, uint32_t count)
 {
-    switch(RendererAPI::GetAPI())
+    switch (RendererAPI::GetAPI())
     {
     case RendererAPI::API::None:
         AP_CORE_CRITICAL("Index Buffer NONE is not yet implemented");

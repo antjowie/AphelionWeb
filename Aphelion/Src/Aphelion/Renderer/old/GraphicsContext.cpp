@@ -5,15 +5,15 @@
 
 namespace ap
 {
-std::unique_ptr<GraphicsContext> GraphicsContext::Create(void* windowHandle)
+std::unique_ptr<GraphicsContext> GraphicsContext::Create(void *windowHandle)
 {
-    switch(RendererAPI::GetAPI())
+    switch (RendererAPI::GetAPI())
     {
     case RendererAPI::API::None:
         // TODO: Implement null interface
         break;
     case RendererAPI::API::OpenGL:
-        return std::make_unique<OpenGLContext>(static_cast<GLFWwindow*>(windowHandle));
+        return std::make_unique<OpenGLContext>(static_cast<GLFWwindow *>(windowHandle));
         break;
     }
 

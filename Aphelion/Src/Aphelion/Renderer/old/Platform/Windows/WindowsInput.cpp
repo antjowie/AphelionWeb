@@ -6,20 +6,19 @@
 
 namespace ap
 {
-GLFWwindow* GetNativeWindow()
+GLFWwindow *GetNativeWindow()
 {
-    return static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+    return static_cast<GLFWwindow *>(Application::Get().GetWindow().GetNativeWindow());
 }
 
-Window& GetWindow()
+Window &GetWindow()
 {
     return Application::Get().GetWindow();
 }
 
 void WindowsInput::EnableCursorImpl(bool enable)
 {
-    glfwSetInputMode(
-        GetNativeWindow(), GLFW_CURSOR, enable ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(GetNativeWindow(), GLFW_CURSOR, enable ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
 }
 
 bool WindowsInput::IsKeyPressedImpl(KeyCode code)
@@ -32,7 +31,7 @@ bool WindowsInput::IsButtonPressedImpl(ButtonCode code)
     return glfwGetMouseButton(GetNativeWindow(), static_cast<int>(code));
 }
 
-void WindowsInput::SetCursorPosImpl(const glm::vec2& pos)
+void WindowsInput::SetCursorPosImpl(const glm::vec2 &pos)
 {
     glfwSetCursorPos(GetNativeWindow(), pos.x, pos.y);
 }

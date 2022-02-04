@@ -14,7 +14,7 @@ namespace ap
  */
 class APHELION_API Renderer
 {
-public:
+  public:
     static void Init();
     static void Deinit();
 
@@ -22,12 +22,11 @@ public:
 
     // TODO: Upload scene data (lighting, camera, everything that is consistent
     // for all objects in the scene)
-    static void BeginScene(const PerspectiveCamera& camera);
+    static void BeginScene(const PerspectiveCamera &camera);
     static void EndScene();
 
-    static void Submit(const ShaderRef& shader,
-                       const VertexArrayRef& vertexArray,
-                       const glm::mat4& transform = glm::mat4(1.0f));
+    static void Submit(const ShaderRef &shader, const VertexArrayRef &vertexArray,
+                       const glm::mat4 &transform = glm::mat4(1.0f));
 
     static RendererAPI::API GetAPI()
     {

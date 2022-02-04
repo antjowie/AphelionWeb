@@ -16,13 +16,12 @@ constexpr inline APHELION_API unsigned Bit(unsigned bit)
  *
  * NOTE: Doesn't seem to work for Emscripten...
  */
-template <typename T>
-class Reverse
+template <typename T> class Reverse
 {
-public:
-    explicit Reverse(T& iterable)
-        : m_iterable{iterable}
-    { }
+  public:
+    explicit Reverse(T &iterable) : m_iterable{iterable}
+    {
+    }
     auto begin() const
     {
         return std::rbegin(m_iterable);
@@ -32,7 +31,7 @@ public:
         return std::rend(m_iterable);
     }
 
-private:
-    T& m_iterable;
+  private:
+    T &m_iterable;
 };
 } // namespace ap

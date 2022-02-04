@@ -7,18 +7,14 @@
 
 namespace ap
 {
-PerspectiveCameraController::PerspectiveCameraController(float fovYRadians,
-                                                         float aspectRatio,
-                                                         float zNear,
-                                                         float zFar)
-    : m_camera(fovYRadians, aspectRatio, zNear, zFar)
-    , m_isRotating(false)
-    , m_oldCursorPos(0)
-{ }
+PerspectiveCameraController::PerspectiveCameraController(float fovYRadians, float aspectRatio, float zNear, float zFar)
+    : m_camera(fovYRadians, aspectRatio, zNear, zFar), m_isRotating(false), m_oldCursorPos(0)
+{
+}
 
 void PerspectiveCameraController::OnUpdate(Timestep ts)
 {
-    if(!m_isRotating)
+    if (!m_isRotating)
         return;
 
     glm::vec3 offset(0);
@@ -30,40 +26,40 @@ void PerspectiveCameraController::OnUpdate(Timestep ts)
     const glm::vec3 right(m_camera.transform.GetRight());
     const glm::vec3 up(m_camera.transform.GetWorldUp());
 
-    if(Input::IsKeyPressed(KeyCode::W))
+    if (Input::IsKeyPressed(KeyCode::W))
         offset += forward;
-    if(Input::IsKeyPressed(KeyCode::A))
+    if (Input::IsKeyPressed(KeyCode::A))
         offset += -right;
-    if(Input::IsKeyPressed(KeyCode::S))
+    if (Input::IsKeyPressed(KeyCode::S))
         offset += -forward;
-    if(Input::IsKeyPressed(KeyCode::D))
+    if (Input::IsKeyPressed(KeyCode::D))
         offset += right;
-    if(Input::IsKeyPressed(KeyCode::E))
+    if (Input::IsKeyPressed(KeyCode::E))
         offset += up;
-    if(Input::IsKeyPressed(KeyCode::Q))
+    if (Input::IsKeyPressed(KeyCode::Q))
         offset += -up;
 
-    if(Input::IsKeyPressed(KeyCode::LeftShift))
+    if (Input::IsKeyPressed(KeyCode::LeftShift))
         offset *= 10.f;
 
     m_camera.transform.SetPosition(m_camera.transform.GetPosition() + offset * ts.Seconds() * 5.f);
 }
 
-void PerspectiveCameraController::OnEvent(Event& e)
+void PerspectiveCameraController::OnEvent(Event &e)
 {
     EventDispatcher d(e);
 
     static bool initial = true;
-    if(m_isRotating)
+    if (m_isRotating)
     {
         // For some reason camera tends to jump on first frame when capturing, so we
         // ignore first frame
-        d.Dispatch<MouseMovedEvent>([&](MouseMovedEvent& e) {
+        d.Dispatch<MouseMovedEvent>([&](MouseMovedEvent &e) {
             // TODO: Add a sensitivity variable for offset
             auto offset = glm::dvec2(e.GetX(), e.GetY()) - m_oldCursorPos;
             offset = offset / 25. * glm::two_pi<double>();
 
-            if(initial)
+            if (initial)
             {
                 offset = glm::dvec2(0);
                 // AP_CORE_ERROR("{:.2f}{:.2f}", offset.x, offset.y);
@@ -110,7 +106,7 @@ void PerspectiveCameraController::OnEvent(Event& e)
 
 void PerspectiveCameraController::Enable(bool enable)
 {
-    if(enable)
+    if (enable)
     {
         Input::EnableCursor(false);
         m_oldCursorPos = Input::GetCursorPos();

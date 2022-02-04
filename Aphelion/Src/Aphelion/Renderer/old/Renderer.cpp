@@ -32,17 +32,17 @@ void Renderer::OnWindowResize(uint32_t width, uint32_t height)
     RenderCommand::SetViewport(0, 0, width, height);
 }
 
-void Renderer::BeginScene(const PerspectiveCamera& camera)
+void Renderer::BeginScene(const PerspectiveCamera &camera)
 {
     data.view = camera.GetViewMatrix();
     data.projection = camera.GetProjectionMatrix();
 }
 
-void Renderer::EndScene() { }
+void Renderer::EndScene()
+{
+}
 
-void Renderer::Submit(const ShaderRef& shader,
-                      const VertexArrayRef& vertexArray,
-                      const glm::mat4& transform)
+void Renderer::Submit(const ShaderRef &shader, const VertexArrayRef &vertexArray, const glm::mat4 &transform)
 {
     // shader->Bind();
 

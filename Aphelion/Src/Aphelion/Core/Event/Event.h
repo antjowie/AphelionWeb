@@ -44,24 +44,24 @@ enum EventCategory
     EventCategoryMouseButton = Bit(4),
 };
 
-#define EVENT_CLASS_TYPE(type)                                                                     \
-    static EventType GetStaticType()                                                               \
-    {                                                                                              \
-        return type;                                                                               \
-    }                                                                                              \
-    virtual EventType GetEventType() const override                                                \
-    {                                                                                              \
-        return GetStaticType();                                                                    \
-    }                                                                                              \
-    virtual const char* GetName() const override                                                   \
-    {                                                                                              \
-        return #type;                                                                              \
+#define EVENT_CLASS_TYPE(type)                                                                                         \
+    static EventType GetStaticType()                                                                                   \
+    {                                                                                                                  \
+        return type;                                                                                                   \
+    }                                                                                                                  \
+    virtual EventType GetEventType() const override                                                                    \
+    {                                                                                                                  \
+        return GetStaticType();                                                                                        \
+    }                                                                                                                  \
+    virtual const char *GetName() const override                                                                       \
+    {                                                                                                                  \
+        return #type;                                                                                                  \
     }
 
-#define EVENT_CLASS_CATEGORY(category)                                                             \
-    virtual int GetCategoryFlags() const override                                                  \
-    {                                                                                              \
-        return EventCategory::category;                                                            \
+#define EVENT_CLASS_CATEGORY(category)                                                                                 \
+    virtual int GetCategoryFlags() const override                                                                      \
+    {                                                                                                                  \
+        return EventCategory::category;                                                                                \
     }
 
 /**
@@ -72,11 +72,11 @@ enum EventCategory
  */
 class APHELION_API Event
 {
-public:
+  public:
     bool handled = false;
 
     virtual EventType GetEventType() const = 0;
-    virtual const char* GetName() const = 0;
+    virtual const char *GetName() const = 0;
     virtual int GetCategoryFlags() const = 0;
     virtual std::string ToString() const
     {
@@ -95,32 +95,31 @@ public:
  */
 class APHELION_API EventDispatcher
 {
-public:
-    EventDispatcher(Event& event)
-        : m_event(event)
-    { }
+  public:
+    EventDispatcher(Event &event) : m_event(event)
+    {
+    }
 
     /**
-   * Dispatches the event if the function type corresponds with T
-   * Returns true if the callback was called (meaning the event was of correct
-   * type)
-   */
-    template <typename T, typename F>
-    bool Dispatch(const F& func)
+     * Dispatches the event if the function type corresponds with T
+     * Returns true if the callback was called (meaning the event was of correct
+     * type)
+     */
+    template <typename T, typename F> bool Dispatch(const F &func)
     {
-        if(m_event.GetEventType() == T::GetStaticType())
+        if (m_event.GetEventType() == T::GetStaticType())
         {
-            m_event.handled = func(static_cast<T&>(m_event));
+            m_event.handled = func(static_cast<T &>(m_event));
             return true;
         }
         return false;
     }
 
-private:
-    Event& m_event;
+  private:
+    Event &m_event;
 };
 
-inline std::ostream& operator<<(std::ostream& os, const Event& e)
+inline std::ostream &operator<<(std::ostream &os, const Event &e)
 {
     return os << e.ToString();
 }

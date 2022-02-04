@@ -2,7 +2,7 @@
 
 namespace ap
 {
-void SetVBOElements(ap::VertexBufferRef& buffer)
+void SetVBOElements(ap::VertexBufferRef &buffer)
 {
     buffer->AddElement({ap::ShaderDataType::Float3, "aPos"});
     buffer->AddElement({ap::ShaderDataType::Float3, "aNormal"});
@@ -216,14 +216,13 @@ constexpr float cubeVertices[]{
     1.f,
 };
 
-template <unsigned faceCount>
-ap::IndexBufferRef GenerateIndices()
+template <unsigned faceCount> ap::IndexBufferRef GenerateIndices()
 {
     constexpr auto elementCount = faceCount * 6u;
 
     std::array<unsigned, elementCount> ebo;
     unsigned offset = 0;
-    for(unsigned i = 0; i < elementCount; i += 6)
+    for (unsigned i = 0; i < elementCount; i += 6)
     {
         ebo[i + 0] = 3 + offset;
         ebo[i + 1] = 0 + offset;

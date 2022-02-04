@@ -25,7 +25,7 @@ enum class ShaderDataType
 
 static uint32_t ShaderDataTypeSize(ShaderDataType type)
 {
-    switch(type)
+    switch (type)
     {
     case ShaderDataType::Float:
         return 4;
@@ -59,13 +59,10 @@ struct BufferElement
 {
     BufferElement() = default;
 
-    BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
-        : name(name)
-        , type(type)
-        , size(ShaderDataTypeSize(type))
-        , offset(0)
-        , normalized(normalized)
-    { }
+    BufferElement(ShaderDataType type, const std::string &name, bool normalized = false)
+        : name(name), type(type), size(ShaderDataTypeSize(type)), offset(0), normalized(normalized)
+    {
+    }
 
     uint32_t GetComponentCount() const;
 
@@ -81,22 +78,22 @@ using VertexBufferRef = std::shared_ptr<VertexBuffer>;
 
 class APHELION_API VertexBuffer
 {
-public:
+  public:
     virtual ~VertexBuffer() = default;
 
     virtual void Bind() const = 0;
     virtual void Unbind() const = 0;
 
-    virtual void SetData(const void* data, uint32_t size) = 0;
-    virtual const std::vector<float>& GetData() const = 0;
+    virtual void SetData(const void *data, uint32_t size) = 0;
+    virtual const std::vector<float> &GetData() const = 0;
 
-    virtual void AddElement(const BufferElement& elem);
-    virtual const std::vector<BufferElement>& GetElements() const;
+    virtual void AddElement(const BufferElement &elem);
+    virtual const std::vector<BufferElement> &GetElements() const;
 
     static VertexBufferRef Create(uint32_t size);
-    static VertexBufferRef Create(const float* vertices, uint32_t size);
+    static VertexBufferRef Create(const float *vertices, uint32_t size);
 
-private:
+  private:
     std::vector<BufferElement> m_elements;
 };
 
@@ -106,15 +103,15 @@ using IndexBufferRef = std::shared_ptr<IndexBuffer>;
 // Currently supports 32-bit index buffers
 class APHELION_API IndexBuffer
 {
-public:
+  public:
     virtual ~IndexBuffer() = default;
 
     virtual void Bind() const = 0;
     virtual void Unbind() const = 0;
-    virtual const std::vector<uint32_t>& GetData() const = 0;
+    virtual const std::vector<uint32_t> &GetData() const = 0;
 
     virtual uint32_t GetCount() const = 0;
 
-    static IndexBufferRef Create(const uint32_t* indices, uint32_t count);
+    static IndexBufferRef Create(const uint32_t *indices, uint32_t count);
 };
 } // namespace ap

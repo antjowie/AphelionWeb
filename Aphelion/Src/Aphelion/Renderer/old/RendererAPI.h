@@ -15,22 +15,21 @@ namespace ap
  */
 class APHELION_API RendererAPI
 {
-public:
+  public:
     enum class API
     {
         None,
         OpenGL
     };
 
-public:
+  public:
     virtual void Init() = 0;
     virtual void SetViewport(unsigned x, unsigned y, unsigned width, unsigned height) = 0;
     virtual void SetClearColor(float r, float g, float b, float a) = 0;
 
     virtual void Clear() = 0;
 
-    virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray,
-                             uint32_t indexCount = 0) = 0;
+    virtual void DrawIndexed(const std::shared_ptr<VertexArray> &vertexArray, uint32_t indexCount = 0) = 0;
 
     static API GetAPI()
     {
@@ -38,7 +37,7 @@ public:
     }
     static std::unique_ptr<RendererAPI> Create();
 
-private:
+  private:
     static API m_api;
 };
 } // namespace ap

@@ -31,22 +31,7 @@ void Renderer2D::Init()
 
     // Set up buffers
     constexpr float vert[] = {
-        -0.5f,
-        -0.5f,
-        0.f,
-        0.f,
-        0.5f,
-        -0.5f,
-        1.f,
-        0.f,
-        0.5f,
-        0.5f,
-        1.f,
-        1.f,
-        -0.5f,
-        0.5f,
-        0.f,
-        1.f,
+        -0.5f, -0.5f, 0.f, 0.f, 0.5f, -0.5f, 1.f, 0.f, 0.5f, 0.5f, 1.f, 1.f, -0.5f, 0.5f, 0.f, 1.f,
     };
 
     constexpr uint32_t indices[] = {0, 1, 2, 0, 2, 3};
@@ -61,9 +46,11 @@ void Renderer2D::Init()
     data.vertexArray->SetIndexBuffer(index);
 }
 
-void Renderer2D::Deinit() { }
+void Renderer2D::Deinit()
+{
+}
 
-void Renderer2D::BeginScene(const OrthographicCamera& camera)
+void Renderer2D::BeginScene(const OrthographicCamera &camera)
 {
     data.shader->Bind();
     data.shader->SetMat4("aVP", glm::value_ptr(camera.GetViewProjectionMatrix()));
@@ -71,11 +58,13 @@ void Renderer2D::BeginScene(const OrthographicCamera& camera)
     data.vertexArray->Bind();
 }
 
-void Renderer2D::EndScene() { }
-
-void Renderer2D::Submit(const Render2DData& rData)
+void Renderer2D::EndScene()
 {
-    if(rData.texture)
+}
+
+void Renderer2D::Submit(const Render2DData &rData)
+{
+    if (rData.texture)
         rData.texture->Bind();
     else
         data.whiteTexture->Bind();

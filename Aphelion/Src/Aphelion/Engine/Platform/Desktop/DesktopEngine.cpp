@@ -8,7 +8,7 @@ void Engine::Run()
     Init();
 
     Timer timer;
-    while(true)
+    while (true)
     {
         Loop(timer.Reset());
     }

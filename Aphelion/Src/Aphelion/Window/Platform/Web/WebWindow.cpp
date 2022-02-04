@@ -16,11 +16,10 @@ std::unique_ptr<Window> Window::Create(WindowProps props)
     return std::make_unique<WebWindow>(props);
 }
 
-WebWindow::WebWindow(WindowProps props)
-    : m_props(props)
+WebWindow::WebWindow(WindowProps props) : m_props(props)
 {
     // Setup SDL
-    if(SDL_Init(SDL_INIT_VIDEO) != 0)
+    if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
         AP_CORE_CRITICAL("Window creation SDL Init failed! {}", SDL_GetError());
         throw -1;
@@ -40,14 +39,10 @@ WebWindow::WebWindow(WindowProps props)
     SDL_GetCurrentDisplayMode(0, &current);
     SDL_WindowFlags window_flags =
         (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
-    m_window = SDL_CreateWindow(props.title.c_str(),
-                                SDL_WINDOWPOS_CENTERED,
-                                SDL_WINDOWPOS_CENTERED,
-                                props.width,
-                                props.height,
-                                window_flags);
+    m_window = SDL_CreateWindow(props.title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, props.width,
+                                props.height, window_flags);
     static auto context = SDL_GL_CreateContext(m_window);
-    if(!context)
+    if (!context)
     {
         AP_CORE_CRITICAL("Window creation SDL Context failed! {}", SDL_GetError());
         throw 1;
@@ -85,21 +80,21 @@ void WebWindow::Update()
 {
     // Poll the events
     SDL_Event event;
-    while(SDL_PollEvent(&event))
+    while (SDL_PollEvent(&event))
     {
         // If we have a middleware, have it handle it first
-        if(m_eventMiddleware && m_eventMiddleware(&event))
+        if (m_eventMiddleware && m_eventMiddleware(&event))
             continue;
 
         // Convert SDL event to Aphelion event and propogate to systems
-        switch(event.type)
+        switch (event.type)
         {
         case SDL_QUIT: /**< User-requested quit */
             m_props.eventCallback(WindowCloseEvent());
             break;
 
         /* These application events have special meaning on iOS, see README-ios.md
-       * for details */
+         * for details */
         case SDL_APP_TERMINATING:
             AP_CORE_WARN("SDL_APP_TERMINATING not handled in window");
             break; /**< The application is being terminated by the OS
@@ -148,8 +143,8 @@ void WebWindow::Update()
 
         /* Window events */
         case SDL_WINDOWEVENT: {
-            auto& window = event.window;
-            switch(window.event)
+            auto &window = event.window;
+            switch (window.event)
             {
             case SDL_WINDOWEVENT_SHOWN:
                 m_props.eventCallback(WindowIconifyEvent(false));
@@ -212,8 +207,7 @@ void WebWindow::Update()
 
         /* Keyboard events */
         case SDL_KEYDOWN:
-            m_props.eventCallback(
-                KeyPressedEvent(event.key.keysym.sym, event.key.repeat)); /**< Key pressed */
+            m_props.eventCallback(KeyPressedEvent(event.key.keysym.sym, event.key.repeat)); /**< Key pressed */
         case SDL_KEYUP:
             m_props.eventCallback(KeyReleasedEvent(event.key.keysym.sym)); /**< Key pressed */
         case SDL_TEXTEDITING:
@@ -355,7 +349,7 @@ void WebWindow::SetVSync(bool enable)
     SDL_GL_SetSwapInterval(enable ? 1 : 0); // Enable vsync
 }
 
-void* WebWindow::GetNativeWindow()
+void *WebWindow::GetNativeWindow()
 {
     return m_window;
 }

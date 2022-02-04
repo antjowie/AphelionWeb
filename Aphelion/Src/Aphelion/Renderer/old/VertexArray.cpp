@@ -7,7 +7,7 @@ namespace ap
 {
 std::shared_ptr<VertexArray> VertexArray::Create()
 {
-    switch(RendererAPI::GetAPI())
+    switch (RendererAPI::GetAPI())
     {
     case RendererAPI::API::None:
         AP_CORE_CRITICAL("VertexArray none not yet implemented");

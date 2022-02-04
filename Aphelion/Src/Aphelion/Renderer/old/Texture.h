@@ -11,7 +11,7 @@ using TextureRef = std::shared_ptr<Texture>;
 
 class APHELION_API Texture
 {
-public:
+  public:
     virtual ~Texture() = default;
 
     virtual void Bind(uint32_t slot = 0) const = 0;
@@ -20,7 +20,7 @@ public:
     virtual uint32_t GetWidth() const = 0;
     virtual uint32_t GetHeight() const = 0;
 
-    virtual void SetData(const void* data, uint32_t size) = 0;
+    virtual void SetData(const void *data, uint32_t size) = 0;
 
     // Not sure if this function belongs here, since a path is not necessarily
     // associated with a texture. The texture is just the wrapper around data that
@@ -34,15 +34,15 @@ public:
 
 class APHELION_API Texture2D : public Texture
 {
-public:
+  public:
     static TextureRef Create(uint32_t width, uint32_t height);
-    static TextureRef Create(const char* path);
+    static TextureRef Create(const char *path);
 };
 
 class APHELION_API ArrayTexture2D : public Texture
 {
-public:
-    static TextureRef Create(uint32_t x, uint32_t y, const char* path);
+  public:
+    static TextureRef Create(uint32_t x, uint32_t y, const char *path);
 
     virtual void SetLayer(unsigned layer) = 0;
 };

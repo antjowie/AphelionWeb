@@ -5,9 +5,9 @@
 
 namespace ap
 {
-std::shared_ptr<Shader> Shader::Create(const std::string& filepath)
+std::shared_ptr<Shader> Shader::Create(const std::string &filepath)
 {
-    switch(RendererAPI::GetAPI())
+    switch (RendererAPI::GetAPI())
     {
     case RendererAPI::API::None:
         // AP_CORE_CRITICAL()
@@ -18,11 +18,10 @@ std::shared_ptr<Shader> Shader::Create(const std::string& filepath)
     }
 }
 
-std::shared_ptr<Shader> Shader::Create(const std::string& name,
-                                       const std::string& vertexSrc,
-                                       const std::string& fragmentSrc)
+std::shared_ptr<Shader> Shader::Create(const std::string &name, const std::string &vertexSrc,
+                                       const std::string &fragmentSrc)
 {
-    switch(RendererAPI::GetAPI())
+    switch (RendererAPI::GetAPI())
     {
     case RendererAPI::API::None:
         // AP_CORE_CRITICAL()
