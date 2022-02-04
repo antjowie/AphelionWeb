@@ -1,6 +1,6 @@
 #pragma once
-#include "Core.hpp"
-#include "Event/Event.hpp"
+#include "Core.h"
+#include "Event/Event.h"
 
 namespace ap
 {

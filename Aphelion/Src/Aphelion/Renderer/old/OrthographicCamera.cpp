@@ -1,6 +1,6 @@
 #include "Aphelion/Renderer/OrthographicCamera.h"
 
-#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/matrix_transform.h>
 
 namespace ap
 {

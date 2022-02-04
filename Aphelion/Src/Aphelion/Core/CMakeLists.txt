@@ -3,20 +3,19 @@ cmake_minimum_required(VERSION 3.18)
 option(APHELION_FORCE_ASSERT false)
 
 add_library(Core
-  Event/Event.hpp
-  Event/KeyEvent.hpp
-  Event/MouseEvent.hpp
-  Event/WindowEvent.hpp
+  "Event/Event.h"  Event/KeyEvent.h
+  Event/MouseEvent.h
+  Event/WindowEvent.h
 
-  Input/KeyCodes.hpp
-  Input/MouseCodes.hpp
+  Input/KeyCodes.h
+  Input/MouseCodes.h
 
-  Core.hpp
-  Helper.hpp
+  Core.h
+  Helper.h
   Log.cpp
-  Log.hpp
-  System.hpp
-  Time.hpp
+  Log.h
+  System.h
+  Time.h
 )
 add_library(Aphelion::Core ALIAS Core)
 
@@ -51,8 +50,8 @@ if(CMAKE_HOST_SYSTEM_NAME STREQUAL Emscripten)
     # <glm/gtx/quaternion.hpp>
     # <glm/gtx/hash.hpp>
 
-    Core.hpp
-    Log.hpp
+    Core.h
+    Log.h
   )
 endif()
 

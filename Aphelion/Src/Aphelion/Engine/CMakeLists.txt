@@ -4,7 +4,7 @@ option(APHELION_FORCE_ASSERT false)
 
 add_library(Engine
   Engine.cpp
-  Engine.hpp
+  Engine.h
 
   $<$<PLATFORM_ID:Windows>:
     Platform/Desktop/DesktopEngine.cpp

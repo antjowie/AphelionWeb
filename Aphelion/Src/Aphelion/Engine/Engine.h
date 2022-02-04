@@ -2,11 +2,11 @@
 #include <memory>
 #include <vector>
 
-#include "Aphelion/Core/Core.hpp"
-#include "Aphelion/Core/Event/Event.hpp"
-#include "Aphelion/Core/System.hpp"
-#include "Aphelion/ImGUI/ImGUISystem.hpp"
-#include "Aphelion/Window/Window.hpp"
+#include "Aphelion/Core/Core.h"
+#include "Aphelion/Core/Event/Event.h"
+#include "Aphelion/Core/System.h"
+#include "Aphelion/ImGUI/ImGUISystem.h"
+#include "Aphelion/Window/Window.h"
 
 namespace ap
 {

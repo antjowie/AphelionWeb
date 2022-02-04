@@ -1,9 +1,9 @@
 #pragma once
 #include <memory>
 
-#include "Core.hpp"
-#include "Input/KeyCodes.hpp"
-#include "Input/MouseCodes.hpp"
+#include "Core.h"
+#include "Input/KeyCodes.h"
+#include "Input/MouseCodes.h"
 
 namespace ap
 {

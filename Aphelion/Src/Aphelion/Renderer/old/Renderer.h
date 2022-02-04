@@ -1,5 +1,5 @@
 #pragma once
-#include <glm/glm.hpp>
+#include <glm/glm.h>
 #include <memory>
 
 #include "Aphelion/Core/Core.h"

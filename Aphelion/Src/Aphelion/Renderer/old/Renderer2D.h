@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glm/glm.hpp>
+#include <glm/glm.h>
 
 #include "Aphelion/Core/Core.h"
 #include "Aphelion/Renderer/OrthographicCamera.h"

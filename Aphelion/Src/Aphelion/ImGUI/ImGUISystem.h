@@ -1,6 +1,6 @@
 #include <memory>
 
-#include "Aphelion/Core/Core.hpp"
+#include "Aphelion/Core/Core.h"
 
 namespace ap
 {

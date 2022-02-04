@@ -1,9 +1,9 @@
 #pragma once
 #include <sstream>
 
-#include "Core.hpp"
-#include "Event/Event.hpp"
-#include "Input/MouseCodes.hpp"
+#include "Core.h"
+#include "Event/Event.h"
+#include "Input/MouseCodes.h"
 
 namespace ap
 {

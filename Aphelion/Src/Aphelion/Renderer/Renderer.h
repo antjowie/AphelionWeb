@@ -1,6 +1,6 @@
 #pragma once
-#include "Aphelion/Core/Core.hpp"
-#include "Aphelion/Core/System.hpp"
+#include "Aphelion/Core/Core.h"
+#include "Aphelion/Core/System.h"
 
 namespace ap
 {

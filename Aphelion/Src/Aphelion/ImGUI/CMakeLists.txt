@@ -3,10 +3,10 @@ cmake_minimum_required(VERSION 3.18)
 add_library(ImGUI
   $<$<PLATFORM_ID:Emscripten>:
     Platform/Web/WebImGUI.cpp
-    Platform/Web/WebImGUI.hpp
+    Platform/Web/WebImGUI.h
   >
 
-  ImGUISystem.hpp
+  ImGUISystem.h
 )
 add_library(Aphelion::ImGUI ALIAS ImGUI)
 

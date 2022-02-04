@@ -1,9 +1,9 @@
-#include "Aphelion/Engine/Engine.hpp"
+#include "Aphelion/Engine/Engine.h"
 
 #include <memory>
 
-#include "Aphelion/Core/Log.hpp"
-#include "Aphelion/Core/Time.hpp"
+#include "Aphelion/Core/Log.h"
+#include "Aphelion/Core/Time.h"
 
 namespace ap
 {

@@ -1,7 +1,7 @@
 #pragma once
-#include <glm/gtc/quaternion.hpp>
-#include <glm/mat4x4.hpp>
-#include <glm/vec3.hpp>
+#include <glm/gtc/quaternion.h>
+#include <glm/mat4x4.h>
+#include <glm/vec3.h>
 
 #include "Aphelion/Core/Core.h"
 #include "Aphelion/Core/Transform.h"

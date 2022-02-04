@@ -1,6 +1,6 @@
 #include "Aphelion/Renderer/Renderer2D.h"
 
-#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/type_ptr.h>
 #include <memory>
 
 #include "Aphelion/Renderer/RenderCommand.h"

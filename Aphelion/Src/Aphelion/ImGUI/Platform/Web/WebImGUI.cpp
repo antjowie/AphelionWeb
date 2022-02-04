@@ -1,4 +1,4 @@
-#include "Platform/Web/WebImGUI.hpp"
+#include "Platform/Web/WebImGUI.h"
 
 #include <GLES3/gl3.h>
 #include <SDL2/SDL.h>
@@ -6,8 +6,8 @@
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_sdl.h>
 
-#include "Aphelion/Core/Event/Event.hpp"
-#include "Aphelion/Window/Window.hpp"
+#include "Aphelion/Core/Event/Event.h"
+#include "Aphelion/Window/Window.h"
 
 // https://github.com/ocornut/imgui/blob/master/examples/example_emscripten_opengl3/main.cpp
 namespace ap

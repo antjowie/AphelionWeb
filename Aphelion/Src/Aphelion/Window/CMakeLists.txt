@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.18)
 
 add_library(Window
-    Window.hpp
+    Window.h
 
     $<$<PLATFORM_ID:Emscripten>:
         Platform/Web/WebWindow.cpp
-        Platform/Web/WebWindow.hpp
+        Platform/Web/WebWindow.h
     >
 )
 

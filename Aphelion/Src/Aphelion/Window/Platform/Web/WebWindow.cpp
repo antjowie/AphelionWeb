@@ -1,12 +1,12 @@
-#include "Platform/Web/WebWindow.hpp"
+#include "Platform/Web/WebWindow.h"
 
 #include <GLES3/gl3.h>
 #include <SDL2/sdl.h>
 
-#include "Aphelion/Core/Event/KeyEvent.hpp"
-#include "Aphelion/Core/Event/MouseEvent.hpp"
-#include "Aphelion/Core/Event/WindowEvent.hpp"
-#include "Aphelion/Core/Log.hpp"
+#include "Aphelion/Core/Event/KeyEvent.h"
+#include "Aphelion/Core/Event/MouseEvent.h"
+#include "Aphelion/Core/Event/WindowEvent.h"
+#include "Aphelion/Core/Log.h"
 
 namespace ap
 {

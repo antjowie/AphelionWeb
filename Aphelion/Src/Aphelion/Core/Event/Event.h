@@ -3,8 +3,8 @@
 #include <sstream>
 #include <string>
 
-#include "Core.hpp"
-#include "Helper.hpp"
+#include "Core.h"
+#include "Helper.h"
 /**
  * Events are used to communicate between major systems that we want to keep
  * decoupled. One example is input. Input events have to be abstracted since

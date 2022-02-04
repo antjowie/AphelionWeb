@@ -2,8 +2,8 @@
 #include <functional>
 #include <string>
 
-#include "Aphelion/Core/Core.hpp"
-#include "Aphelion/Core/Event/Event.hpp"
+#include "Aphelion/Core/Core.h"
+#include "Aphelion/Core/Event/Event.h"
 
 namespace ap
 {

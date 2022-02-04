@@ -2,7 +2,7 @@
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
 
-#include "Core.hpp"
+#include "Core.h"
 
 // Ignore the warning about shared pointer needing a dll interface
 #ifdef _MSC_VER

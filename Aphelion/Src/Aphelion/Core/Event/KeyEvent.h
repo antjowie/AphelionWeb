@@ -1,7 +1,7 @@
 #pragma once
-#include "Core.hpp"
-#include "Event/Event.hpp"
-#include "Input/KeyCodes.hpp"
+#include "Core.h"
+#include "Event/Event.h"
+#include "Input/KeyCodes.h"
 
 namespace ap
 {
