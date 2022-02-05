@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.18)
 
-option(APHELION_FORCE_ASSERT false)
-
 add_library(Engine
     Engine.cpp
     Engine.h

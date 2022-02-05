@@ -17,7 +17,7 @@ endif()
 
 # Can't build shared library. Causes a lot of errors. Can't create a vector of unique pointers???
 # Since building this project to a shared lib is no priority of mine, I will ignore it for now...
-# option(BUILD_SHARED_LIBS false CACHE)
+option(BUILD_SHARED_LIBS false)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
