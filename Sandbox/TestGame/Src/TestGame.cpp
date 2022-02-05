@@ -2,9 +2,14 @@
 #include "Aphelion/Core/Log.h"
 #include "Aphelion/Core/System.h"
 #include "Aphelion/Engine/Engine.h"
+//#include <Aphelion/Core/Event/KeyEvent.h>
+#include "Aphelion/Core/Event/MouseEvent.h"
 
 //#include "Aphelion/Window/Window.h"
 //#include "imgui.h"
+
+#include <chrono>
+#include <thread>
 
 class RenderSystem : public ap::System
 {
@@ -15,7 +20,9 @@ class RenderSystem : public ap::System
 
     virtual void OnUpdate(float ts) override final
     {
-        AP_TRACE("Hello {}", ts);
+        ap::MouseButtonPressedEvent event(0);
+
+        AP_TRACE("Hello {}", event.GetName());
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 
@@ -34,9 +41,19 @@ class RenderSystem : public ap::System
     }
 };
 
-#include <iostream>
 int main()
 {
     ap::Engine::Get().AddSystem(std::make_unique<RenderSystem>());
     ap::Engine::Get().Run();
 }
+
+//#include "Aphelion/Core/Log.h"
+//#include "Print.h"
+// int main()
+//{
+//    Printer print;
+//    while (true)
+//    {
+//        AP_TRACE("TEST");
+//    }
+//}

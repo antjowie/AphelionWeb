@@ -29,7 +29,7 @@ inline SDL_Window *ToSDLWindow(Window *window)
     return reinterpret_cast<SDL_Window *>(window->GetNativeWindow());
 }
 
-WebImGUI::WebImGUI(Window *window) : m_window(window)
+WebImGUI::WebImGUI(Window *window) : window(window)
 {
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -52,7 +52,7 @@ WebImGUI::WebImGUI(Window *window) : m_window(window)
     // Setup Platform/Renderer backends
     const char *glsl_version = "#version 300 es";
     SDL_GLContext context = SDL_GL_GetCurrentContext();
-    ImGui_ImplSDL2_InitForOpenGL(ToSDLWindow(m_window), &context);
+    ImGui_ImplSDL2_InitForOpenGL(ToSDLWindow(window), &context);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
     // Load Fonts
@@ -88,20 +88,20 @@ WebImGUI::~WebImGUI()
 void WebImGUI::BeginFrame()
 {
     ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplSDL2_NewFrame(ToSDLWindow(m_window));
+    ImGui_ImplSDL2_NewFrame(ToSDLWindow(window));
     ImGui::NewFrame();
 }
 
 void WebImGUI::EndFrame()
 {
     ImGui::Render();
-    SDL_GL_MakeCurrent(ToSDLWindow(m_window), SDL_GL_GetCurrentContext());
-    glViewport(0, 0, m_window->GetWidth(), m_window->GetHeight());
+    SDL_GL_MakeCurrent(ToSDLWindow(window), SDL_GL_GetCurrentContext());
+    glViewport(0, 0, window->GetWidth(), window->GetHeight());
     // glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w,
     //              clear_color.z * clear_color.w, clear_color.w);
     glClear(GL_COLOR_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-    SDL_GL_SwapWindow(ToSDLWindow(m_window));
+    SDL_GL_SwapWindow(ToSDLWindow(window));
 }
 
 } // namespace ap

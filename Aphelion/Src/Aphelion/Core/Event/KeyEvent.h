@@ -1,58 +1,58 @@
 #pragma once
-#include "Core.h"
-#include "Event/Event.h"
-#include "Input/KeyCodes.h"
+#include "Aphelion/Core/Core.h"
+#include "Aphelion/Core/Event/Event.h"
+#include "Aphelion/Core/Input/KeyCodes.h"
 
 namespace ap
 {
-class APHELION_API KeyEvent : public Event
+class KeyEvent : public Event
 {
   public:
-    KeyEvent(int keyCode) : m_keyCode(keyCode)
+    APHELION_API KeyEvent(int keyCode) : keyCode(keyCode)
     {
     }
 
-    inline int GetKeyCode() const
+    APHELION_API int GetKeyCode() const
     {
-        return m_keyCode;
+        return keyCode;
     }
 
-    std::string ToString() const override
+    APHELION_API std::string ToString() const override
     {
         std::stringstream ss;
 
-        ss << GetName() << ": key " << m_keyCode;
+        ss << GetName() << ": key " << keyCode;
         return ss.str();
     }
 
     EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryKeyboard)
 
   protected:
-    int m_keyCode;
+    int keyCode;
 };
 
-class APHELION_API KeyPressedEvent : public KeyEvent
+class KeyPressedEvent : public KeyEvent
 {
   public:
-    KeyPressedEvent(int keyCode, unsigned repeatCount) : KeyEvent(keyCode), m_repeatCount(repeatCount)
+    APHELION_API KeyPressedEvent(int keyCode, unsigned repeatCount) : KeyEvent(keyCode), repeatCount(repeatCount)
     {
     }
 
-    inline unsigned GetRepeatCount() const
+    APHELION_API unsigned GetRepeatCount() const
     {
-        return m_repeatCount;
+        return repeatCount;
     }
 
     EVENT_CLASS_TYPE(EventType::KeyPressed)
 
   private:
-    unsigned m_repeatCount;
+    unsigned repeatCount;
 };
 
-class APHELION_API KeyReleasedEvent : public KeyEvent
+class KeyReleasedEvent : public KeyEvent
 {
   public:
-    KeyReleasedEvent(int keyCode) : KeyEvent(keyCode)
+    APHELION_API KeyReleasedEvent(int keyCode) : KeyEvent(keyCode)
     {
     }
 
@@ -67,10 +67,10 @@ class APHELION_API KeyReleasedEvent : public KeyEvent
  * GLFW documentation</a> we have a character callback. Characters can be
  * more than one character so the KeyPressedEvent doesn't suffice
  */
-class APHELION_API KeyTypedEvent : public KeyEvent
+class KeyTypedEvent : public KeyEvent
 {
   public:
-    KeyTypedEvent(int keyCode) : KeyEvent(keyCode)
+    APHELION_API KeyTypedEvent(int keyCode) : KeyEvent(keyCode)
     {
     }
 

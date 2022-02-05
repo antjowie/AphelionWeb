@@ -2,5 +2,5 @@
 
 namespace ap
 {
-std::unique_ptr<RendererAPI> RenderCommand::m_rendererAPI = RendererAPI::Create();
+std::unique_ptr<RendererAPI> RenderCommand::rendererAPI = RendererAPI::Create();
 }

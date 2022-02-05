@@ -5,11 +5,8 @@ add_executable(TestGame
 )
 
 target_include_directories(TestGame PUBLIC /Src/)
+target_precompile_headers(TestGame PRIVATE ${APHELION_PCH})
 message(STATUS "Suffix: ${CMAKE_EXECUTABLE_SUFFIX}")
 
-
-target_link_libraries(TestGame PRIVATE
-	# Print
-	Aphelion::Engine
-	# Aphelion::Core
-)
+target_add_dependency(TestGame Aphelion::Core)
+target_add_dependency(TestGame Aphelion::Engine)

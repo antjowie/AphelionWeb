@@ -25,8 +25,8 @@ class APHELION_API WebWindow : public Window
     virtual void *GetNativeWindow() override final;
 
   private:
-    SDL_Window *m_window;
-    WindowProps m_props;
-    EventMiddlewareFn m_eventMiddleware;
+    SDL_Window *window;
+    WindowProps props;
+    EventMiddlewareFn eventMiddleware;
 };
 } // namespace ap

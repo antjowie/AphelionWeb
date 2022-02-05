@@ -1,36 +1,36 @@
 #pragma once
-#include "Core.h"
-#include "Event/Event.h"
+#include "Aphelion/Core/Core.h"
+#include "Aphelion/Core/Event/Event.h"
 
 namespace ap
 {
-class APHELION_API WindowCloseEvent : public Event
+class WindowCloseEvent : public Event
 {
   public:
     EVENT_CLASS_TYPE(EventType::WindowClose)
     EVENT_CLASS_CATEGORY(EventCategoryApplication)
 };
 
-class APHELION_API WindowResizeEvent : public Event
+class WindowResizeEvent : public Event
 {
   public:
-    WindowResizeEvent(unsigned width, unsigned height) : m_width(width), m_height(height)
+    APHELION_API WindowResizeEvent(unsigned width, unsigned height) : width(width), height(height)
     {
     }
 
-    inline unsigned GetWidth() const
+    APHELION_API unsigned GetWidth() const
     {
-        return m_width;
+        return width;
     }
-    inline unsigned GetHeight() const
+    APHELION_API unsigned GetHeight() const
     {
-        return m_height;
+        return height;
     }
 
-    std::string ToString() const override
+    APHELION_API std::string ToString() const override
     {
         std::stringstream ss;
-        ss << "WindowResizeEvent: " << m_width << ", " << m_height;
+        ss << "WindowResizeEvent: " << width << ", " << height;
         return ss.str();
     }
 
@@ -38,31 +38,31 @@ class APHELION_API WindowResizeEvent : public Event
     EVENT_CLASS_CATEGORY(EventCategoryApplication)
 
   private:
-    unsigned m_width;
-    unsigned m_height;
+    unsigned width;
+    unsigned height;
 };
 
 /// Upper left screen coordinates
-class APHELION_API WindowMoveEvent : public Event
+class WindowMoveEvent : public Event
 {
   public:
-    WindowMoveEvent(int x, int y) : m_x(x), m_y(y)
+    APHELION_API WindowMoveEvent(int x, int y) : x(x), y(y)
     {
     }
 
-    inline int GetX() const
+    APHELION_API int GetX() const
     {
-        return m_x;
+        return x;
     }
-    inline int GetY() const
+    APHELION_API int GetY() const
     {
-        return m_y;
+        return y;
     }
 
-    std::string ToString() const override
+    APHELION_API std::string ToString() const override
     {
         std::stringstream ss;
-        ss << "WindowMoveEvent: " << m_x << ", " << m_y;
+        ss << "WindowMoveEvent: " << x << ", " << y;
         return ss.str();
     }
 
@@ -70,26 +70,26 @@ class APHELION_API WindowMoveEvent : public Event
     EVENT_CLASS_CATEGORY(EventCategoryApplication)
 
   private:
-    int m_x;
-    int m_y;
+    int x;
+    int y;
 };
 
-class APHELION_API WindowIconifyEvent : public Event
+class WindowIconifyEvent : public Event
 {
   public:
-    WindowIconifyEvent(bool iconified) : m_iconified(iconified)
+    APHELION_API WindowIconifyEvent(bool iconified) : iconified(iconified)
     {
     }
 
-    inline bool IsIconified() const
+    APHELION_API bool IsIconified() const
     {
-        return m_iconified;
+        return iconified;
     }
 
-    std::string ToString() const override
+    APHELION_API std::string ToString() const override
     {
         std::stringstream ss;
-        ss << "WindowIconifiedEvent: " << m_iconified;
+        ss << "WindowIconifiedEvent: " << iconified;
         return ss.str();
     }
 
@@ -97,25 +97,25 @@ class APHELION_API WindowIconifyEvent : public Event
     EVENT_CLASS_CATEGORY(EventCategoryApplication)
 
   private:
-    bool m_iconified;
+    bool iconified;
 };
 
-class APHELION_API WindowFocusEvent : public Event
+class WindowFocusEvent : public Event
 {
   public:
-    WindowFocusEvent(bool focused) : m_focused(focused)
+    APHELION_API WindowFocusEvent(bool focused) : focused(focused)
     {
     }
 
-    inline bool IsFocused() const
+    APHELION_API bool IsFocused() const
     {
-        return m_focused;
+        return focused;
     }
 
-    std::string ToString() const override
+    APHELION_API std::string ToString() const override
     {
         std::stringstream ss;
-        ss << "WindowFocusedEvent: " << m_focused;
+        ss << "WindowFocusedEvent: " << focused;
         return ss.str();
     }
 
@@ -123,7 +123,7 @@ class APHELION_API WindowFocusEvent : public Event
     EVENT_CLASS_CATEGORY(EventCategoryApplication)
 
   private:
-    bool m_focused;
+    bool focused;
 };
 
 } // namespace ap

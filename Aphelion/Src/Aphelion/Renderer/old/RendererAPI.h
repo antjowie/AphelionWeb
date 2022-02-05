@@ -33,11 +33,11 @@ class APHELION_API RendererAPI
 
     static API GetAPI()
     {
-        return m_api;
+        return api;
     }
     static std::unique_ptr<RendererAPI> Create();
 
   private:
-    static API m_api;
+    static API api;
 };
 } // namespace ap

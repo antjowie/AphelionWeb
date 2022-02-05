@@ -26,8 +26,8 @@ class APHELION_API OpenGLVertexArray : public VertexArray
     virtual const std::shared_ptr<IndexBuffer> &GetIndexBuffer() const override final;
 
   private:
-    std::vector<std::shared_ptr<VertexBuffer>> m_buffers;
-    std::shared_ptr<IndexBuffer> m_indexBuffer;
-    unsigned m_id;
+    std::vector<std::shared_ptr<VertexBuffer>> buffers;
+    std::shared_ptr<IndexBuffer> indexBuffer;
+    unsigned id;
 };
 } // namespace ap

@@ -30,11 +30,11 @@ class APHELION_API OpenGLVertexBuffer : public VertexBuffer
     virtual const std::vector<float> &GetData() const override final;
 
   private:
-    uint32_t m_size; // NOTE: size is bytes, count is amount
-    mutable std::vector<float> m_data;
-    mutable bool m_dirty = true;
+    uint32_t size; // NOTE: size is bytes, count is amount
+    mutable std::vector<float> data;
+    mutable bool dirty = true;
 
-    unsigned m_id;
+    unsigned id;
 };
 
 // Currently supports 32-bit index buffers
@@ -52,12 +52,12 @@ class APHELION_API OpenGLIndexBuffer : public IndexBuffer
     virtual uint32_t GetCount() const override final;
 
   private:
-    uint32_t m_size;
-    mutable std::vector<uint32_t> m_data;
-    mutable bool m_dirty = true;
+    uint32_t size;
+    mutable std::vector<uint32_t> data;
+    mutable bool dirty = true;
 
-    unsigned m_id;
-    unsigned m_count;
+    unsigned id;
+    unsigned count;
 };
 
 } // namespace ap

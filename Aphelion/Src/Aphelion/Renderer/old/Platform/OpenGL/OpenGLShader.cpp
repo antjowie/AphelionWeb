@@ -110,7 +110,7 @@ std::unordered_map<unsigned, std::string> PreProcess(const std::string &source)
 
 void OpenGLShader::Compile(const std::unordered_map<unsigned, std::string> &shaders)
 {
-    m_id = glCreateProgram();
+    id = glCreateProgram();
     std::vector<unsigned> ids;
     for (const auto &shader : shaders)
     {
@@ -120,17 +120,17 @@ void OpenGLShader::Compile(const std::unordered_map<unsigned, std::string> &shad
         glShaderSource(id, 1, &source, NULL);
         glCompileShader(id);
         CheckCompileErrors(id, TypeToString(shader.first).c_str());
-        glAttachShader(m_id, id);
+        glAttachShader(id, id);
 
         ids.push_back(id);
     }
 
-    glLinkProgram(m_id);
-    CheckCompileErrors(m_id, "Program");
+    glLinkProgram(id);
+    CheckCompileErrors(id, "Program");
     // delete the shaders as they're linked into our program now and no longer necessary
     for (auto id : ids)
     {
-        glDetachShader(m_id, id);
+        glDetachShader(id, id);
         glDeleteShader(id);
     }
 }
@@ -143,7 +143,7 @@ OpenGLShader::OpenGLShader(const char *filepath)
     lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
     auto lastDot = path.rfind('.');
     auto count = lastDot == std::string::npos ? path.size() - lastSlash : lastDot - lastSlash;
-    m_name = path.substr(lastSlash, count);
+    name = path.substr(lastSlash, count);
 
     std::string source = ReadFile(filepath);
     auto shaderSources = PreProcess(source);
@@ -152,7 +152,7 @@ OpenGLShader::OpenGLShader(const char *filepath)
 
 OpenGLShader::OpenGLShader(const char *name, const char *vertexSrc, const char *fragmentSrc)
 {
-    m_name = name;
+    name = name;
     std::unordered_map<GLenum, std::string> sources;
     sources[GL_VERTEX_SHADER] = vertexSrc;
     sources[GL_FRAGMENT_SHADER] = fragmentSrc;
@@ -161,12 +161,12 @@ OpenGLShader::OpenGLShader(const char *name, const char *vertexSrc, const char *
 
 OpenGLShader::~OpenGLShader()
 {
-    glDeleteProgram(m_id);
+    glDeleteProgram(id);
 }
 
 void OpenGLShader::Bind() const
 {
-    glUseProgram(m_id);
+    glUseProgram(id);
 }
 void OpenGLShader::Unbind() const
 {
@@ -175,11 +175,11 @@ void OpenGLShader::Unbind() const
 
 int OpenGLShader::GetUniformLocation(const char *name) const
 {
-    int loc = glGetUniformLocation(m_id, name);
+    int loc = glGetUniformLocation(id, name);
 
 #ifdef AP_DEBUG
     if (loc == -1)
-        AP_CORE_WARN("Shader {} can't find uniform {}", m_name, name);
+        AP_CORE_WARN("Shader {} can't find uniform {}", name, name);
 #endif
 
     return loc;
@@ -187,33 +187,33 @@ int OpenGLShader::GetUniformLocation(const char *name) const
 
 void OpenGLShader::SetInt(const char *name, const int val) const
 {
-    glProgramUniform1i(m_id, GetUniformLocation(name), val);
+    glProgramUniform1i(id, GetUniformLocation(name), val);
 }
 void OpenGLShader::SetFloat(const char *name, const float val) const
 {
-    glProgramUniform1f(m_id, GetUniformLocation(name), val);
+    glProgramUniform1f(id, GetUniformLocation(name), val);
 }
 void OpenGLShader::SetBool(const char *name, const bool val) const
 {
-    glProgramUniform1i(m_id, GetUniformLocation(name), val);
+    glProgramUniform1i(id, GetUniformLocation(name), val);
 }
 void OpenGLShader::SetMat4(const char *name, const float *val) const
 {
-    glProgramUniformMatrix4fv(m_id, GetUniformLocation(name), 1, GL_FALSE, val);
+    glProgramUniformMatrix4fv(id, GetUniformLocation(name), 1, GL_FALSE, val);
 }
 
 void OpenGLShader::SetVec2(const char *name, const float *val) const
 {
-    glProgramUniform2fv(m_id, GetUniformLocation(name), 1, val);
+    glProgramUniform2fv(id, GetUniformLocation(name), 1, val);
 }
 
 void OpenGLShader::SetVec3(const char *name, const float *val) const
 {
-    glProgramUniform3fv(m_id, GetUniformLocation(name), 1, val);
+    glProgramUniform3fv(id, GetUniformLocation(name), 1, val);
 }
 
 void OpenGLShader::SetVec4(const char *name, const float *val) const
 {
-    glProgramUniform4fv(m_id, GetUniformLocation(name), 1, val);
+    glProgramUniform4fv(id, GetUniformLocation(name), 1, val);
 }
 } // namespace ap

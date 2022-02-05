@@ -12,7 +12,7 @@ class APHELION_API WebImGUI : public ImGUISystem
     virtual void EndFrame() override final;
 
   private:
-    Window *m_window;
+    Window *window;
 };
 
 } // namespace ap

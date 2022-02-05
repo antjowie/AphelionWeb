@@ -35,17 +35,17 @@ GLenum BaseTypeToOpenGLType(ShaderDataType type)
 
 OpenGLVertexArray::OpenGLVertexArray()
 {
-    glCreateVertexArrays(1, &m_id);
+    glCreateVertexArrays(1, &id);
 }
 
 OpenGLVertexArray::~OpenGLVertexArray()
 {
-    glDeleteVertexArrays(1, &m_id);
+    glDeleteVertexArrays(1, &id);
 }
 
 void OpenGLVertexArray::Bind()
 {
-    glBindVertexArray(m_id);
+    glBindVertexArray(id);
 }
 
 void OpenGLVertexArray::Unbind()
@@ -75,7 +75,7 @@ void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer> &buf
         offset += elem.size;
     }
 
-    m_buffers.push_back(buffer);
+    buffers.push_back(buffer);
 }
 
 void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer> &buffer)
@@ -83,21 +83,21 @@ void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer> &buffe
     Bind();
     buffer->Bind();
 
-    m_indexBuffer = buffer;
+    indexBuffer = buffer;
 }
 
 VertexBufferRef OpenGLVertexArray::GetVertexBuffer(unsigned index)
 {
-    return m_buffers[index];
+    return buffers[index];
 }
 
 const VertexBufferRef &OpenGLVertexArray::GetVertexBuffer(unsigned index) const
 {
-    return m_buffers[index];
+    return buffers[index];
 }
 
 const std::shared_ptr<IndexBuffer> &OpenGLVertexArray::GetIndexBuffer() const
 {
-    return m_indexBuffer;
+    return indexBuffer;
 }
 } // namespace ap

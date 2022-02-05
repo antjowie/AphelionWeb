@@ -16,29 +16,29 @@ class APHELION_API OrthographicCameraController
 
     OrthographicCamera &GetCamera()
     {
-        return m_camera;
+        return camera;
     }
     const OrthographicCamera &GetCamera() const
     {
-        return m_camera;
+        return camera;
     }
 
     void SetZoom(float zoom)
     {
-        m_zoom = zoom;
+        zoom = zoom;
         UpdateProjection();
     }
     float GetZoom() const
     {
-        return m_zoom;
+        return zoom;
     }
 
   private:
     void UpdateProjection();
 
-    float m_aspectRatio;
-    float m_zoom;
+    float aspectRatio;
+    float zoom;
 
-    OrthographicCamera m_camera;
+    OrthographicCamera camera;
 };
 } // namespace ap

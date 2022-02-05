@@ -15,9 +15,9 @@ jobs:
   build:
     strategy:
       matrix:
-       #platforms: [windows-latest, ubuntu-latest]
-       platforms: [windows-latest]
-       archetypes: [Debug, Release]
+       platforms: [windows-latest, ubuntu-latest]
+       archetypes: [Release]
+       #archetypes: [Debug, Release]
        linkage: [BUILD_SHARED_LIBS=ON, BUILD_SHARED_LIBS=OFF]
 
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.

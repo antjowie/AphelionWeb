@@ -5,30 +5,24 @@
 #include "Core.h"
 
 // Ignore the warning about shared pointer needing a dll interface
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable : 4251)
-#endif
+// #ifdef _MSC_VER
+// #pragma warning(push)
+// #pragma warning(disable : 4251)
+// #endif
 
 namespace ap
 {
-class APHELION_API Log
+class Log
 {
   public:
-    static void Init();
+    APHELION_API static void Init();
 
-    inline static std::shared_ptr<spdlog::logger> &GetCoreLogger()
-    {
-        return m_CoreLogger;
-    }
-    inline static std::shared_ptr<spdlog::logger> &GetClientLogger()
-    {
-        return m_ClientLogger;
-    }
+    APHELION_API static std::shared_ptr<spdlog::logger> &GetCoreLogger();
+    APHELION_API static std::shared_ptr<spdlog::logger> &GetClientLogger();
 
   private:
-    static std::shared_ptr<spdlog::logger> m_CoreLogger;
-    static std::shared_ptr<spdlog::logger> m_ClientLogger;
+    static std::shared_ptr<spdlog::logger> coreLogger;
+    static std::shared_ptr<spdlog::logger> clientLogger;
 };
 } // namespace ap
 
@@ -46,6 +40,6 @@ class APHELION_API Log
 #define AP_ERROR(...) ::ap::Log::GetClientLogger()->error(__VA_ARGS__)
 #define AP_CRITICAL(...) ::ap::Log::GetClientLogger()->critical(__VA_ARGS__)
 
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
+//#ifdef _MSC_VER
+//#pragma warning(pop)
+//#endif

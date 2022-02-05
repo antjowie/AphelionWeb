@@ -4,7 +4,7 @@ add_library(Engine
     Engine.cpp
     Engine.h
 
-    $<$<PLATFORM_ID:Windows>:
+    $<$<PLATFORM_ID:Windows,Linux>:
         Platform/Desktop/DesktopEngine.cpp
     >
 

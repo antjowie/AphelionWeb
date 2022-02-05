@@ -8,6 +8,13 @@
 #include "Aphelion/ImGUI/ImGUISystem.h"
 #include "Aphelion/Window/Window.h"
 
+//#ifdef AP_BUILD_DLL
+////#define APHELION_API __declspec(dllexport)
+//#error Dope
+//#else
+//#error NOTDOPE
+//#endif
+
 namespace ap
 {
 
@@ -23,15 +30,15 @@ namespace ap
  * 3. Run the engine
  *  instance.Run();
  */
-class APHELION_API Engine
+class Engine
 {
   public:
-    static Engine &Get();
+    APHELION_API static Engine &Get();
 
-    void Run();
+    APHELION_API void Run();
 
-    void AddSystem(std::unique_ptr<System> &&system);
-    void AddSystems(std::vector<std::unique_ptr<System>> &&systems);
+    APHELION_API void AddSystem(std::unique_ptr<System> &&system);
+    APHELION_API void AddSystems(std::vector<std::unique_ptr<System>> &&systems);
 
   private:
     Engine();

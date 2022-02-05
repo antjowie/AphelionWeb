@@ -20,9 +20,9 @@ class APHELION_API OpenGLTexture2D : public Texture2D
     virtual void SetData(const void *data, uint32_t size) override final;
 
   private:
-    uint32_t m_width, m_height;
-    uint32_t m_id;
-    unsigned m_internalFormat, m_dataFormat;
+    uint32_t width, height;
+    uint32_t id;
+    unsigned internalFormat, dataFormat;
 };
 
 class APHELION_API OpenGLArrayTexture2D : public ArrayTexture2D
@@ -41,9 +41,9 @@ class APHELION_API OpenGLArrayTexture2D : public ArrayTexture2D
     virtual void SetLayer(unsigned layer) override final;
 
   private:
-    uint32_t m_width, m_height;
-    uint32_t m_id;
-    unsigned m_internalFormat, m_dataFormat;
-    unsigned m_layer;
+    uint32_t width, height;
+    uint32_t id;
+    unsigned internalFormat, dataFormat;
+    unsigned layer;
 };
 } // namespace ap

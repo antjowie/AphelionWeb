@@ -5,7 +5,7 @@
 namespace ap
 {
 PerspectiveCamera::PerspectiveCamera(float fovY, float aspectRatio, float zNear, float zFar)
-    : m_dirtyFlag(true), m_fovY(fovY), m_aspectRatio(aspectRatio), m_near(zNear), m_far(zFar)
+    : dirtyFlag(true), fovY(fovY), aspectRatio(aspectRatio), near(zNear), far(zFar)
 {
     AP_CORE_ASSERT(fovY != 0, "FOV can't be zero");
     AP_CORE_ASSERT(aspectRatio != 0, "Aspect ratio can't be zero");
@@ -14,27 +14,27 @@ PerspectiveCamera::PerspectiveCamera(float fovY, float aspectRatio, float zNear,
 
 void PerspectiveCamera::SetProjection(float fovY, float aspectRatio, float zNear, float zFar)
 {
-    m_fovY = fovY;
-    m_aspectRatio = aspectRatio;
-    m_near = zNear;
-    m_far = zFar;
+    fovY = fovY;
+    aspectRatio = aspectRatio;
+    near = zNear;
+    far = zFar;
 
-    m_dirtyFlag = true;
+    dirtyFlag = true;
 }
 
 void PerspectiveCamera::CalculateMatrices() const
 {
     static Transform oldT = transform;
 
-    if (!m_dirtyFlag && transform == oldT)
+    if (!dirtyFlag && transform == oldT)
         return;
 
-    m_projectionMatrix = glm::perspective(m_fovY, m_aspectRatio, m_near, m_far);
+    projectionMatrix = glm::perspective(fovY, aspectRatio, near, far);
 
-    m_viewMatrix = glm::inverse(transform.GetWorldMatrix());
+    viewMatrix = glm::inverse(transform.GetWorldMatrix());
 
-    m_viewProjectionMatrix = m_projectionMatrix * m_viewMatrix;
-    m_dirtyFlag = false;
+    viewProjectionMatrix = projectionMatrix * viewMatrix;
+    dirtyFlag = false;
     oldT = transform;
 }
 } // namespace ap

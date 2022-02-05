@@ -39,8 +39,8 @@ void Engine::Loop(float ts)
         system->OnUpdate(ts);
 
     // imgui->BeginFrame();
-    for (auto &system : systems)
-        system->OnDraw();
+    // for (auto &system : systems)
+    //    system->OnDraw();
     // imgui->EndFrame();
 
     // window->Update();

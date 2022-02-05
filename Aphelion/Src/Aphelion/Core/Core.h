@@ -4,15 +4,20 @@
 #ifdef _WIN64
 #define AP_PLATFORM_WIN
 #elif defined(_WIN32)
-#error "x86 Builds are not supported!"
+#error "x86 Builds are not supported"
 #elif defined(__EMSCRIPTEN__)
 #define AP_PLATFORM_WEB
-#elif defined(__APPLE__) || defined(__MACH__)
-#error "Only Windows and Emscripten are supported"
+#elif defined(__linux__)
+#define AP_PLATFORM_UNIX
+#else
+#error "Unsupported platform"
 #endif // End of platform detection
 
-/*Set up the DLL*/
-#ifdef AP_DYNAMIC_LINK
+/**
+ * Set up shared libs
+ * @TODO Verify if app in runtime works on Linux systems
+ */
+#if defined(AP_DYNAMIC_LINK) && defined(AP_PLATFORM_WIN)
 #ifdef AP_BUILD_DLL
 #define APHELION_API __declspec(dllexport)
 #else
@@ -22,18 +27,17 @@
 #define APHELION_API
 #endif
 
-/**
- * Set up the asserts and general debug macros
- */
+/* Set up the asserts and general debug macros */
 #if defined(AP_DEBUG) || defined(AP_FORCE_ASSERT)
 
-/**/
+/* Set up platform specific debug break */
 #ifdef AP_PLATFORM_WIN
 #define AP_DEBUG_BREAK __debugbreak();
 #else
 #define AP_DEBUG_BREAK raise(SIGTRAP);
 #endif
 
+/* Setup asserts which will break debugger when condition is false */
 #define AP_ASSERT(x, msg)                                                                                              \
     {                                                                                                                  \
         if (!(x))                                                                                                      \
@@ -52,6 +56,8 @@
             AP_DEBUG_BREAK()                                                                                           \
         }                                                                                                              \
     }
+
+/* Verify is like an assert, but will still execute the code when asserts are disabled */
 #define AP_VERIFY(x, msg)                                                                                              \
     {                                                                                                                  \
         AP_ASSERT(x, msg);                                                                                             \

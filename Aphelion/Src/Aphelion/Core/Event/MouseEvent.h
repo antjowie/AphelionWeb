@@ -1,32 +1,32 @@
 #pragma once
 #include <sstream>
 
-#include "Core.h"
-#include "Event/Event.h"
-#include "Input/MouseCodes.h"
+#include "Aphelion/Core/Core.h"
+#include "Aphelion/Core/Event/Event.h"
+#include "Aphelion/Core/Input/MouseCodes.h"
 
 namespace ap
 {
-class APHELION_API MouseButtonPressedEvent : public Event
+class MouseButtonPressedEvent : public Event
 {
   public:
-    MouseButtonPressedEvent(int button) : m_button(button)
+    APHELION_API MouseButtonPressedEvent(int button) : button(button)
     {
     }
 
-    inline int GetButton() const
+    APHELION_API int GetButton() const
     {
-        return m_button;
+        return button;
     }
-    inline unsigned GetRepeatCount() const
+    APHELION_API unsigned GetRepeatCount() const
     {
-        return m_repeatCount;
+        return repeatCount;
     }
 
-    std::string ToString() const override
+    APHELION_API std::string ToString() const override
     {
         std::stringstream ss;
-        ss << "MouseButtonPressedEvent: button " << m_button;
+        ss << "MouseButtonPressedEvent: button " << button;
         return ss.str();
     }
 
@@ -34,26 +34,26 @@ class APHELION_API MouseButtonPressedEvent : public Event
     EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouseButton)
 
   private:
-    int m_button;
-    unsigned m_repeatCount;
+    int button;
+    unsigned repeatCount;
 };
 
-class APHELION_API MouseButtonReleasedEvent : public Event
+class MouseButtonReleasedEvent : public Event
 {
   public:
-    MouseButtonReleasedEvent(int button) : m_button(button)
+    APHELION_API MouseButtonReleasedEvent(int button) : button(button)
     {
     }
 
-    inline int GetButton() const
+    APHELION_API int GetButton() const
     {
-        return m_button;
+        return button;
     }
 
-    std::string ToString() const override
+    APHELION_API std::string ToString() const override
     {
         std::stringstream ss;
-        ss << "MouseButtonReleasedEvent: button " << m_button;
+        ss << "MouseButtonReleasedEvent: button " << button;
         return ss.str();
     }
 
@@ -61,36 +61,36 @@ class APHELION_API MouseButtonReleasedEvent : public Event
     EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouseButton)
 
   private:
-    int m_button;
+    int button;
 };
 
 /**
  * Holds the new position of the mouse relative to the top left corner
  */
-class APHELION_API MouseMovedEvent : public Event
+class MouseMovedEvent : public Event
 {
   public:
-    MouseMovedEvent(float x, float y) : m_x(x), m_y(y)
+    APHELION_API MouseMovedEvent(float x, float y) : x(x), y(y)
     {
     }
 
-    inline float GetX() const
+    APHELION_API float GetX() const
     {
-        return m_x;
+        return x;
     }
-    inline float GetY() const
+    APHELION_API float GetY() const
     {
-        return m_y;
+        return y;
     }
-    inline std::pair<float, float> GetPosition() const
+    APHELION_API std::pair<float, float> GetPosition() const
     {
         return {GetX(), GetY()};
     }
 
-    std::string ToString() const override
+    APHELION_API std::string ToString() const override
     {
         std::stringstream ss;
-        ss << "MouseMovedEvent: x " << m_x << " y " << m_y;
+        ss << "MouseMovedEvent: x " << x << " y " << y;
         return ss.str();
     }
 
@@ -98,34 +98,34 @@ class APHELION_API MouseMovedEvent : public Event
     EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
 
   private:
-    float m_x;
-    float m_y;
+    float x;
+    float y;
 };
 
-class APHELION_API MouseScrolledEvent : public Event
+class MouseScrolledEvent : public Event
 {
   public:
-    MouseScrolledEvent(float xOffset, float Offset) : m_xOffset(xOffset), m_yOffset(Offset)
+    APHELION_API MouseScrolledEvent(float xOffset, float Offset) : xOffset(xOffset), yOffset(Offset)
     {
     }
 
-    inline float GetXOffset() const
+    APHELION_API float GetXOffset() const
     {
-        return m_xOffset;
+        return xOffset;
     }
-    inline float GetYOffset() const
+    APHELION_API float GetYOffset() const
     {
-        return m_yOffset;
+        return yOffset;
     }
-    inline std::pair<float, float> GetScrollOffset() const
+    APHELION_API std::pair<float, float> GetScrollOffset() const
     {
         return {GetXOffset(), GetYOffset()};
     }
 
-    std::string ToString() const override
+    APHELION_API std::string ToString() const override
     {
         std::stringstream ss;
-        ss << "MouseScrolledEvent: xOffset " << m_xOffset << " yOffset " << m_yOffset;
+        ss << "MouseScrolledEvent: xOffset " << xOffset << " yOffset " << yOffset;
         return ss.str();
     }
 
@@ -133,7 +133,7 @@ class APHELION_API MouseScrolledEvent : public Event
     EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
 
   private:
-    float m_xOffset;
-    float m_yOffset;
+    float xOffset;
+    float yOffset;
 };
 } // namespace ap

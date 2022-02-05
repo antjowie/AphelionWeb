@@ -70,20 +70,20 @@ enum EventCategory
  * implement the functions of this class in derived classes. They serve to
  * retrieve runtime information
  */
-class APHELION_API Event
+class Event
 {
   public:
     bool handled = false;
 
-    virtual EventType GetEventType() const = 0;
-    virtual const char *GetName() const = 0;
-    virtual int GetCategoryFlags() const = 0;
-    virtual std::string ToString() const
+    APHELION_API virtual EventType GetEventType() const = 0;
+    APHELION_API virtual const char *GetName() const = 0;
+    APHELION_API virtual int GetCategoryFlags() const = 0;
+    APHELION_API virtual std::string ToString() const
     {
         return GetName();
     }
 
-    inline bool IsInCategory(EventCategory category) const
+    APHELION_API inline bool IsInCategory(EventCategory category) const
     {
         return GetCategoryFlags() & category;
     }
@@ -93,10 +93,10 @@ class APHELION_API Event
  * Helper function to handle an event
  * If the template type matches the evennt type, the callback will be called
  */
-class APHELION_API EventDispatcher
+class EventDispatcher
 {
   public:
-    EventDispatcher(Event &event) : m_event(event)
+    APHELION_API EventDispatcher(Event &event) : event(event)
     {
     }
 
@@ -107,19 +107,19 @@ class APHELION_API EventDispatcher
      */
     template <typename T, typename F> bool Dispatch(const F &func)
     {
-        if (m_event.GetEventType() == T::GetStaticType())
+        if (event.GetEventType() == T::GetStaticType())
         {
-            m_event.handled = func(static_cast<T &>(m_event));
+            event.handled = func(static_cast<T &>(event));
             return true;
         }
         return false;
     }
 
   private:
-    Event &m_event;
+    Event &event;
 };
 
-inline std::ostream &operator<<(std::ostream &os, const Event &e)
+APHELION_API inline std::ostream &operator<<(std::ostream &os, const Event &e)
 {
     return os << e.ToString();
 }

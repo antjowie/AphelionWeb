@@ -6,30 +6,30 @@ namespace ap
 {
 OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
 {
-    glCreateBuffers(1, &m_id);
+    glCreateBuffers(1, &id);
     SetData(nullptr, size);
-    // glNamedBufferData(m_id, size, nullptr, GL_STATIC_DRAW);
-    // glNamedBufferData(m_id, size, nullptr, GL_STATIC_DRAW);
+    // glNamedBufferData(id, size, nullptr, GL_STATIC_DRAW);
+    // glNamedBufferData(id, size, nullptr, GL_STATIC_DRAW);
     // glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 }
 
 OpenGLVertexBuffer::OpenGLVertexBuffer(const float *vertices, uint32_t size)
 {
-    glCreateBuffers(1, &m_id);
+    glCreateBuffers(1, &id);
     SetData(vertices, size);
     // Bind();
-    // glNamedBufferData(m_id, size, vertices, GL_STATIC_DRAW);
+    // glNamedBufferData(id, size, vertices, GL_STATIC_DRAW);
     // glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }
 
 OpenGLVertexBuffer::~OpenGLVertexBuffer()
 {
-    glDeleteVertexArrays(1, &m_id);
+    glDeleteVertexArrays(1, &id);
 }
 
 void OpenGLVertexBuffer::Bind() const
 {
-    glBindBuffer(GL_ARRAY_BUFFER, m_id);
+    glBindBuffer(GL_ARRAY_BUFFER, id);
 }
 
 void OpenGLVertexBuffer::Unbind() const
@@ -47,72 +47,72 @@ void OpenGLVertexBuffer::SetData(const void *data, uint32_t size)
   sets up internal state) According to the wiki however, while filling the
   buffer the target doesn't matter
   */
-    glNamedBufferData(m_id, size, data, GL_STATIC_DRAW);
-    m_dirty = true;
-    m_size = size;
+    glNamedBufferData(id, size, data, GL_STATIC_DRAW);
+    dirty = true;
+    size = size;
 }
 
 const std::vector<float> &OpenGLVertexBuffer::GetData() const
 {
-    if (m_dirty)
+    if (dirty)
     {
-        m_dirty = false;
-        m_data.clear();
+        dirty = false;
+        data.clear();
         // We have to use resize or else the vector size var doesn't get updated
-        m_data.resize(m_size / sizeof(float));
+        data.resize(size / sizeof(float));
 
         // Get data from GPU
-        glGetNamedBufferSubData(m_id, 0, m_size, m_data.data());
+        glGetNamedBufferSubData(id, 0, size, data.data());
     }
 
-    return m_data;
+    return data;
 }
 
 ///////////////////////////////////
 // Vertex buffer
 ///////////////////////////////////
-OpenGLIndexBuffer::OpenGLIndexBuffer(const uint32_t *indices, uint32_t count) : m_count(count)
+OpenGLIndexBuffer::OpenGLIndexBuffer(const uint32_t *indices, uint32_t count) : count(count)
 {
-    // glGenBuffers(1, &m_id);
-    glCreateBuffers(1, &m_id);
+    // glGenBuffers(1, &id);
+    glCreateBuffers(1, &id);
     // Bind();
-    m_size = sizeof(uint32_t) * count;
-    glNamedBufferData(m_id, m_size, indices, GL_STATIC_DRAW);
-    m_dirty = true;
+    size = sizeof(uint32_t) * count;
+    glNamedBufferData(id, size, indices, GL_STATIC_DRAW);
+    dirty = true;
 }
 
 OpenGLIndexBuffer::~OpenGLIndexBuffer()
 {
-    glDeleteBuffers(1, &m_id);
+    glDeleteBuffers(1, &id);
 }
 
 void OpenGLIndexBuffer::Bind() const
 {
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
 }
 
 void OpenGLIndexBuffer::Unbind() const
 {
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
 }
 
 const std::vector<uint32_t> &OpenGLIndexBuffer::GetData() const
 {
-    if (m_dirty)
+    if (dirty)
     {
-        m_dirty = false;
-        m_data.clear();
-        m_data.resize(m_size / sizeof(uint32_t));
+        dirty = false;
+        data.clear();
+        data.resize(size / sizeof(uint32_t));
 
         // Get data from GPU
-        glGetNamedBufferSubData(m_id, 0, m_size, m_data.data());
+        glGetNamedBufferSubData(id, 0, size, data.data());
     }
 
-    return m_data;
+    return data;
 }
 
 uint32_t OpenGLIndexBuffer::GetCount() const
 {
-    return m_count;
+    return count;
 }
 } // namespace ap
