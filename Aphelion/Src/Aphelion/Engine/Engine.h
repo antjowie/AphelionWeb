@@ -40,8 +40,8 @@ class APHELION_API Engine
     void Loop(float ts);
     void PushEvent(Event &&event);
 
-    std::vector<std::unique_ptr<System>> m_systems;
-    std::unique_ptr<Window> m_window;
-    std::unique_ptr<ImGUISystem> m_imgui;
+    std::vector<std::unique_ptr<System>> systems;
+    // std::unique_ptr<Window> window;
+    // std::unique_ptr<ImGUISystem> imgui;
 };
 } // namespace ap

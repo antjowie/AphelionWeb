@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.18)
 
-option(APHELION_FORCE_ASSERT false)
+option(APHELION_FORCE_ASSERT "Force asserts even in release" false)
 
 add_library(Core
 	Event/Event.h
@@ -12,7 +12,7 @@ add_library(Core
 	Input/MouseCodes.h
 
 	Core.h
-	Helper.h
+	Util.h
 	Log.cpp
 	Log.h
 	System.h
@@ -39,6 +39,7 @@ PUBLIC
 	<unordered_map>
 	<unordered_set>
 	<type_traits>
+	<chrono>
 
 	# <glm/vec3.hpp>
 	# <glm/mat4x4.hpp>
@@ -53,9 +54,10 @@ PUBLIC
 	Log.h
 )
 
+# This is the only place where we define include dirs
+# For some reason, MSVC breaks down if I try to add local dir
 target_include_directories(Core PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}/../../
-	${CMAKE_CURRENT_SOURCE_DIR}/.
 )
 
 target_compile_definitions(Core

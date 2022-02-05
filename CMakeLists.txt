@@ -2,13 +2,27 @@ cmake_minimum_required(VERSION 3.18)
 
 project(Aphelion)
 
+# https://docs.microsoft.com/en-us/visualstudio/debugger/supported-code-changes-cpp?view=vs-2022
+option(AP_HOT_RELOAD "Support for hot reload in all configs" ON)
+if(AP_HOT_RELOAD)
+    if(MSVC)
+        add_link_options(/INCREMENTAL)
+        add_compile_options(/ZI)
+    else()
+        message(WARNING "Hot reload is only supported for MSVC")
+    endif()
+
+endif()
+
+
 # Can't build shared library. Causes a lot of errors. Can't create a vector of unique pointers???
 # Since building this project to a shared lib is no priority of mine, I will ignore it for now...
 # option(BUILD_SHARED_LIBS false CACHE)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+
 # Setup CPM as our dependency manager
-set(CPM_DOWNLOAD_VERSION 0.31.1)
+set(CPM_DOWNLOAD_VERSION 0.34.3)
 set(CPM_DOWNLOAD_LOCATION "${CMAKE_BINARY_DIR}/CMake/CPM_${CPM_DOWNLOAD_VERSION}.cmake")
 set(CPM_SOURCE_CACHE "${CMAKE_SOURCE_DIR}/ThirdParty" CACHE FILEPATH "" FORCE)
 
@@ -21,4 +35,4 @@ include(${CPM_DOWNLOAD_LOCATION})
 
 # Build all modules
 add_subdirectory(Aphelion)
-add_subdirectory(Sandbox/WASMGraphic)
+add_subdirectory(Sandbox/TestGame)

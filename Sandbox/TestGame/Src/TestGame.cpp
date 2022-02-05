@@ -2,7 +2,7 @@
 #include "Aphelion/Core/Log.h"
 #include "Aphelion/Core/System.h"
 #include "Aphelion/Engine/Engine.h"
-#include "Aphelion/Window/Window.h"
+//#include "Aphelion/Window/Window.h"
 //#include "imgui.h"
 
 class RenderSystem : public ap::System
@@ -10,6 +10,12 @@ class RenderSystem : public ap::System
   public:
     virtual void Init() override final
     {
+    }
+
+    virtual void OnUpdate(float ts) override final
+    {
+        AP_TRACE("Hello {}", ts);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 
     virtual void OnDraw() override final
@@ -27,6 +33,7 @@ class RenderSystem : public ap::System
     }
 };
 
+#include <iostream>
 int main()
 {
     ap::Engine::Get().AddSystem(std::make_unique<RenderSystem>());

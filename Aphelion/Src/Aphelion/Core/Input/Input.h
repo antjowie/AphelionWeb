@@ -22,29 +22,29 @@ class APHELION_API Input
      */
     static void EnableCursor(bool enable)
     {
-        return m_instance->EnableCursorImpl(enable);
+        return instance->EnableCursorImpl(enable);
     };
 
     static bool IsKeyPressed(KeyCode code)
     {
-        return m_instance->IsKeyPressedImpl(code);
+        return instance->IsKeyPressedImpl(code);
     }
     static bool IsButtonPressed(ButtonCode code)
     {
-        return m_instance->IsButtonPressedImpl(code);
+        return instance->IsButtonPressedImpl(code);
     }
 
     static void SetCursorPos(const glm::vec2 &pos)
     {
-        return m_instance->SetCursorPosImpl(pos);
+        return instance->SetCursorPosImpl(pos);
     }
     static void SetCursorX(float x)
     {
-        return m_instance->SetCursorXImpl(x);
+        return instance->SetCursorXImpl(x);
     }
     static void SetCursorY(float y)
     {
-        return m_instance->SetCursorYImpl(y);
+        return instance->SetCursorYImpl(y);
     }
 
     /**
@@ -52,15 +52,15 @@ class APHELION_API Input
      */
     static glm::dvec2 GetCursorPos()
     {
-        return m_instance->GetCursorPosImpl();
+        return instance->GetCursorPosImpl();
     }
     static float GetCursorX()
     {
-        return m_instance->GetCursorXImpl();
+        return instance->GetCursorXImpl();
     }
     static float GetCursorY()
     {
-        return m_instance->GetCursorYImpl();
+        return instance->GetCursorYImpl();
     }
 
   private:
@@ -79,6 +79,6 @@ class APHELION_API Input
 
     static std::unique_ptr<Input> Create();
 
-    static std::unique_ptr<Input> m_instance;
+    static std::unique_ptr<Input> instance;
 };
 } // namespace ap
