@@ -1,4 +1,6 @@
 ﻿---
 BasedOnStyle: Microsoft
-
+IncludeBlocks: Regroup
+PointerAlignment: Left
+UseTab: Never
 ...

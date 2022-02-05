@@ -1,18 +1,18 @@
 #pragma once
-#include <functional>
-#include <string>
-
 #include "Aphelion/Core/Core.h"
 #include "Aphelion/Core/Event/Event.h"
+
+#include <functional>
+#include <string>
 
 namespace ap
 {
 /**
  * This function is the function that the Window forwards the events to.
  */
-using EventCallbackFn = std::function<void(Event &&)>;
+using EventCallbackFn = std::function<void(Event&&)>;
 // Return true if handled
-using EventMiddlewareFn = std::function<bool(void *)>;
+using EventMiddlewareFn = std::function<bool(void*)>;
 
 /**
  * The WindowProps struct contains all the data consistent among all window
@@ -26,7 +26,7 @@ struct APHELION_API WindowProps
     unsigned height;
     EventCallbackFn eventCallback;
 
-    WindowProps(const std::string &title = "Aphelion Engine", unsigned width = 1280, unsigned height = 720)
+    WindowProps(const std::string& title = "Aphelion Engine", unsigned width = 1280, unsigned height = 720)
         : title(title), width(width), height(height)
     {
     }
@@ -76,6 +76,6 @@ class APHELION_API Window
      *
      * This is required to set up the ImGui renderer
      */
-    virtual void *GetNativeWindow() = 0;
+    virtual void* GetNativeWindow() = 0;
 };
 } // namespace ap
