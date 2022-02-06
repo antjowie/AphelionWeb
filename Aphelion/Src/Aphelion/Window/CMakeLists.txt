@@ -19,7 +19,7 @@ target_precompile_headers(Window PRIVATE ${APHELION_PCH})
 
 # Check desktop platform for glfw and glad
 if(CMAKE_SYSTEM_NAME STREQUAL Windows OR CMAKE_SYSTEM_NAME STREQUAL Linux)
-    add_library(glad
+    add_library(glad STATIC
         ThirdParty/glad/include/glad/gl.h
         ThirdParty/glad/include/KHR/khrplatform.h
         ThirdParty/glad/src/gl.c

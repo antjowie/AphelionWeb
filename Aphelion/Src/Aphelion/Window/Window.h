@@ -29,14 +29,14 @@ class Window
 {
 public:
     // Implemented in Platform source files
-    static std::unique_ptr<Window> Create(const WindowProps& props = WindowProps());
+    APHELION_API static std::unique_ptr<Window> Create(const WindowProps& props = WindowProps());
 
-    virtual ~Window() = default;
+    APHELION_API virtual ~Window() = default;
 
     /**
      * Poll events, swap buffers. Whatever a window needs to do on frame.
      */
-    virtual void Update() = 0;
+    APHELION_API virtual void Update() = 0;
 
     APHELION_API virtual std::pair<unsigned, unsigned> GetSize() const = 0;
     APHELION_API virtual void SetVSync(bool enable) = 0;
@@ -45,11 +45,11 @@ public:
      * Callback will be called with the native event before window converts
      * it to an Aphelion event. Usefull for code that expects native events (ImGUI backends).
      */
-    virtual void SetEventMiddleware(const EventMiddlewareFn& fn) = 0;
+    APHELION_API virtual void SetEventMiddleware(const EventMiddlewareFn& fn) = 0;
 
     /**
      * Return the native window
      */
-    virtual void* GetNativeWindow() = 0;
+    APHELION_API virtual void* GetNativeWindow() = 0;
 };
 } // namespace ap

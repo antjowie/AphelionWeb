@@ -8,13 +8,6 @@
 #include <memory>
 #include <vector>
 
-//#ifdef AP_BUILD_DLL
-////#define APHELION_API __declspec(dllexport)
-//#error Dope
-//#else
-//#error NOTDOPE
-//#endif
-
 namespace ap
 {
 

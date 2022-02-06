@@ -2,6 +2,7 @@
 
 #include "Aphelion/Core/Log.h"
 #include "Aphelion/Core/Time.h"
+#include "Aphelion/Window/Window.h"
 
 #include <memory>
 

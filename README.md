@@ -1,4 +1,5 @@
 # Aphelion Web
+[![CMake](https://github.com/antjowie/AphelionWeb/actions/workflows/cmake.yml/badge.svg)](https://github.com/antjowie/AphelionWeb/actions/workflows/cmake.yml)
 
 A multimedia library targeting the web (and desktop) using Emscripten. My goal is to create a simple 2D game (such as Flappy bird) in C++.
 After that, I also want to have it networked so that you can play it with friends.
