@@ -1,40 +1,40 @@
 #include "Platform/Web/WebImGUI.h"
 
+#include "Aphelion/Core/Event/Event.h"
+#include "Aphelion/Window/Window.h"
+
 #include <GLES3/gl3.h>
 #include <SDL2/SDL.h>
 #include <imgui.h>
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_sdl.h>
 
-#include "Aphelion/Core/Event/Event.h"
-#include "Aphelion/Window/Window.h"
-
 // https://github.com/ocornut/imgui/blob/master/examples/example_emscripten_opengl3/main.cpp
 namespace ap
 {
-bool OnNativeEvent(void *event)
+bool OnNativeEvent(void* event)
 {
-    ImGui_ImplSDL2_ProcessEvent(reinterpret_cast<SDL_Event *>(event));
-    ImGuiIO &io = ImGui::GetIO();
+    ImGui_ImplSDL2_ProcessEvent(reinterpret_cast<SDL_Event*>(event));
+    ImGuiIO& io = ImGui::GetIO();
     return io.WantCaptureMouse || io.WantCaptureKeyboard;
 }
 
-std::unique_ptr<ImGUISystem> ImGUISystem::Create(Window *window)
+std::unique_ptr<ImGUISystem> ImGUISystem::Create(Window* window)
 {
     return std::make_unique<WebImGUI>(window);
 }
 
-inline SDL_Window *ToSDLWindow(Window *window)
+inline SDL_Window* ToSDLWindow(Window* window)
 {
-    return reinterpret_cast<SDL_Window *>(window->GetNativeWindow());
+    return reinterpret_cast<SDL_Window*>(window->GetNativeWindow());
 }
 
-WebImGUI::WebImGUI(Window *window) : window(window)
+WebImGUI::WebImGUI(Window* window) : window(window)
 {
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO &io = ImGui::GetIO();
+    ImGuiIO& io = ImGui::GetIO();
     (void)io;
     // io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable
     // Keyboard Controls io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; //
@@ -50,7 +50,7 @@ WebImGUI::WebImGUI(Window *window) : window(window)
     // ImGui::StyleColorsClassic();
 
     // Setup Platform/Renderer backends
-    const char *glsl_version = "#version 300 es";
+    const char* glsl_version = "#version 300 es";
     SDL_GLContext context = SDL_GL_GetCurrentContext();
     ImGui_ImplSDL2_InitForOpenGL(ToSDLWindow(window), &context);
     ImGui_ImplOpenGL3_Init(glsl_version);

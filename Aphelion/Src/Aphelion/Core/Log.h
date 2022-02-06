@@ -1,8 +1,8 @@
 #pragma once
+#include "Core.h"
+
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
-
-#include "Core.h"
 
 // Ignore the warning about shared pointer needing a dll interface
 // #ifdef _MSC_VER
@@ -17,8 +17,8 @@ class Log
   public:
     APHELION_API static void Init();
 
-    APHELION_API static std::shared_ptr<spdlog::logger> &GetCoreLogger();
-    APHELION_API static std::shared_ptr<spdlog::logger> &GetClientLogger();
+    APHELION_API static std::shared_ptr<spdlog::logger>& GetCoreLogger();
+    APHELION_API static std::shared_ptr<spdlog::logger>& GetClientLogger();
 
   private:
     static std::shared_ptr<spdlog::logger> coreLogger;

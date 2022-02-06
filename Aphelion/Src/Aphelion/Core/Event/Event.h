@@ -1,10 +1,10 @@
 #pragma once
 
-#include <sstream>
-#include <string>
-
 #include "Aphelion/Core/Core.h"
 #include "Aphelion/Core/Util.h"
+
+#include <sstream>
+#include <string>
 /**
  * Events are used to communicate between major systems that we want to keep
  * decoupled. One example is input. Input events have to be abstracted since
@@ -53,7 +53,7 @@ enum EventCategory
     {                                                                                                                  \
         return GetStaticType();                                                                                        \
     }                                                                                                                  \
-    virtual const char *GetName() const override                                                                       \
+    virtual const char* GetName() const override                                                                       \
     {                                                                                                                  \
         return #type;                                                                                                  \
     }
@@ -76,7 +76,7 @@ class Event
     bool handled = false;
 
     APHELION_API virtual EventType GetEventType() const = 0;
-    APHELION_API virtual const char *GetName() const = 0;
+    APHELION_API virtual const char* GetName() const = 0;
     APHELION_API virtual int GetCategoryFlags() const = 0;
     APHELION_API virtual std::string ToString() const
     {
@@ -96,7 +96,7 @@ class Event
 class EventDispatcher
 {
   public:
-    APHELION_API EventDispatcher(Event &event) : event(event)
+    APHELION_API EventDispatcher(Event& event) : event(event)
     {
     }
 
@@ -105,21 +105,21 @@ class EventDispatcher
      * Returns true if the callback was called (meaning the event was of correct
      * type)
      */
-    template <typename T, typename F> bool Dispatch(const F &func)
+    template <typename T, typename F> bool Dispatch(const F& func)
     {
         if (event.GetEventType() == T::GetStaticType())
         {
-            event.handled = func(static_cast<T &>(event));
+            event.handled = func(static_cast<T&>(event));
             return true;
         }
         return false;
     }
 
   private:
-    Event &event;
+    Event& event;
 };
 
-APHELION_API inline std::ostream &operator<<(std::ostream &os, const Event &e)
+APHELION_API inline std::ostream& operator<<(std::ostream& os, const Event& e)
 {
     return os << e.ToString();
 }

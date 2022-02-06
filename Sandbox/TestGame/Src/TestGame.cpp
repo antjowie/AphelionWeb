@@ -35,7 +35,7 @@ class RenderSystem : public ap::System
         // if (show_demo_window) ImGui::ShowDemoWindow(&show_demo_window);
     }
 
-    virtual void OnEvent(ap::Event &event) override final
+    virtual void OnEvent(ap::Event& event) override final
     {
         AP_TRACE("Got event {}", event);
     }

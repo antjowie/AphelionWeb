@@ -22,10 +22,10 @@ class APHELION_API WebWindow : public Window
      *
      * This is required to set up the ImGui renderer
      */
-    virtual void *GetNativeWindow() override final;
+    virtual void* GetNativeWindow() override final;
 
   private:
-    SDL_Window *window;
+    SDL_Window* window;
     WindowProps props;
     EventMiddlewareFn eventMiddleware;
 };

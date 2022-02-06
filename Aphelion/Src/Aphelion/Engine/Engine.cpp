@@ -1,13 +1,13 @@
 #include "Aphelion/Engine/Engine.h"
 
-#include <memory>
-
 #include "Aphelion/Core/Log.h"
 #include "Aphelion/Core/Time.h"
 
+#include <memory>
+
 namespace ap
 {
-Engine &Engine::Get()
+Engine& Engine::Get()
 {
     static Engine engine;
     return engine;
@@ -19,7 +19,7 @@ Engine::Engine()
 
     // Create window
     WindowProps props;
-    props.eventCallback = [&](Event &&e) { PushEvent(std::move(e)); };
+    props.eventCallback = [&](Event&& e) { PushEvent(std::move(e)); };
     // window = Window::Create(props);
 
     // Create ImGUI
@@ -29,13 +29,13 @@ Engine::Engine()
 void Engine::Init()
 {
     AP_CORE_INFO("Intializing systems");
-    for (auto &system : systems)
+    for (auto& system : systems)
         system->Init();
 }
 
 void Engine::Loop(float ts)
 {
-    for (auto &system : systems)
+    for (auto& system : systems)
         system->OnUpdate(ts);
 
     // imgui->BeginFrame();
@@ -46,7 +46,7 @@ void Engine::Loop(float ts)
     // window->Update();
 }
 
-void Engine::PushEvent(Event &&event)
+void Engine::PushEvent(Event&& event)
 {
     int i = 0;
     for (auto iter = systems.rbegin(); iter != systems.rend(); iter++)
@@ -57,14 +57,14 @@ void Engine::PushEvent(Event &&event)
     }
 }
 
-void Engine::AddSystem(std::unique_ptr<System> &&system)
+void Engine::AddSystem(std::unique_ptr<System>&& system)
 {
     systems.push_back(std::move(system));
 }
 
-void Engine::AddSystems(std::vector<std::unique_ptr<System>> &&systems)
+void Engine::AddSystems(std::vector<std::unique_ptr<System>>&& systems)
 {
-    for (auto &system : systems)
+    for (auto& system : systems)
         AddSystem(std::move(system));
 }
 } // namespace ap

@@ -1,12 +1,12 @@
 #include "Platform/Web/WebWindow.h"
 
-#include <GLES3/gl3.h>
-#include <SDL2/sdl.h>
-
 #include "Aphelion/Core/Event/KeyEvent.h"
 #include "Aphelion/Core/Event/MouseEvent.h"
 #include "Aphelion/Core/Event/WindowEvent.h"
 #include "Aphelion/Core/Log.h"
+
+#include <GLES3/gl3.h>
+#include <SDL2/sdl.h>
 
 namespace ap
 {
@@ -143,7 +143,7 @@ void WebWindow::Update()
 
         /* Window events */
         case SDL_WINDOWEVENT: {
-            auto &window = event.window;
+            auto& window = event.window;
             switch (window.event)
             {
             case SDL_WINDOWEVENT_SHOWN:
@@ -349,7 +349,7 @@ void WebWindow::SetVSync(bool enable)
     SDL_GL_SetSwapInterval(enable ? 1 : 0); // Enable vsync
 }
 
-void *WebWindow::GetNativeWindow()
+void* WebWindow::GetNativeWindow()
 {
     return window;
 }

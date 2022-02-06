@@ -1,9 +1,9 @@
 #pragma once
-#include <sstream>
-
 #include "Aphelion/Core/Core.h"
 #include "Aphelion/Core/Event/Event.h"
 #include "Aphelion/Core/Input/MouseCodes.h"
+
+#include <sstream>
 
 namespace ap
 {

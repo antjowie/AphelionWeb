@@ -1,12 +1,12 @@
 #pragma once
-#include <memory>
-#include <vector>
-
 #include "Aphelion/Core/Core.h"
 #include "Aphelion/Core/Event/Event.h"
 #include "Aphelion/Core/System.h"
 #include "Aphelion/ImGUI/ImGUISystem.h"
 #include "Aphelion/Window/Window.h"
+
+#include <memory>
+#include <vector>
 
 //#ifdef AP_BUILD_DLL
 ////#define APHELION_API __declspec(dllexport)
@@ -33,19 +33,19 @@ namespace ap
 class Engine
 {
   public:
-    APHELION_API static Engine &Get();
+    APHELION_API static Engine& Get();
 
     APHELION_API void Run();
 
-    APHELION_API void AddSystem(std::unique_ptr<System> &&system);
-    APHELION_API void AddSystems(std::vector<std::unique_ptr<System>> &&systems);
+    APHELION_API void AddSystem(std::unique_ptr<System>&& system);
+    APHELION_API void AddSystems(std::vector<std::unique_ptr<System>>&& systems);
 
   private:
     Engine();
 
     void Init();
     void Loop(float ts);
-    void PushEvent(Event &&event);
+    void PushEvent(Event&& event);
 
     std::vector<std::unique_ptr<System>> systems;
     // std::unique_ptr<Window> window;

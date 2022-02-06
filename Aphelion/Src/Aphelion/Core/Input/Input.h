@@ -1,9 +1,9 @@
 #pragma once
-#include <memory>
-
 #include "Aphelion/Core/Core.h"
 #include "Aphelion/Core/Input/KeyCodes.h"
 #include "Aphelion/Core/Input/MouseCodes.h"
+
+#include <memory>
 
 namespace ap
 {
@@ -34,7 +34,7 @@ class APHELION_API Input
         return instance->IsButtonPressedImpl(code);
     }
 
-    static void SetCursorPos(const glm::vec2 &pos)
+    static void SetCursorPos(const glm::vec2& pos)
     {
         return instance->SetCursorPosImpl(pos);
     }
@@ -69,7 +69,7 @@ class APHELION_API Input
     virtual bool IsKeyPressedImpl(KeyCode code) = 0;
     virtual bool IsButtonPressedImpl(ButtonCode code) = 0;
 
-    virtual void SetCursorPosImpl(const glm::vec2 &pos) = 0;
+    virtual void SetCursorPosImpl(const glm::vec2& pos) = 0;
     virtual void SetCursorXImpl(float x) = 0;
     virtual void SetCursorYImpl(float y) = 0;
 

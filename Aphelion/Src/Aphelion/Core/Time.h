@@ -1,7 +1,7 @@
 #pragma once
-#include <chrono>
-
 #include "Core.h"
+
+#include <chrono>
 
 namespace ap
 {
