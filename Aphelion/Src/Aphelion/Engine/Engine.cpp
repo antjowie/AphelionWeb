@@ -19,8 +19,8 @@ Engine::Engine()
 
     // Create window
     WindowProps props;
-    props.eventCallback = [&](Event&& e) { PushEvent(std::move(e)); };
-    // window = Window::Create(props);
+    window = Window::Create(props);
+    // props.eventCallback = [&](Event&& e) { PushEvent(std::move(e)); };
 
     // Create ImGUI
     // imgui = ImGUISystem::Create(window.get());
@@ -43,7 +43,7 @@ void Engine::Loop(float ts)
     //    system->OnDraw();
     // imgui->EndFrame();
 
-    // window->Update();
+    window->Update();
 }
 
 void Engine::PushEvent(Event&& event)

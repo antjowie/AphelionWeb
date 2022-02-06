@@ -1,6 +1,7 @@
 ﻿---
 BasedOnStyle: Microsoft
-IncludeBlocks: Regroup
+SortIncludes: false
 PointerAlignment: Left
 UseTab: Never
+AccessModifierOffset: -4
 ...

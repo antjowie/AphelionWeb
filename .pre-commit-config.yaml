@@ -3,8 +3,11 @@ repos:
       rev: v4.1.0
       hooks:
           - id: trailing-whitespace
+            exclude: (.*/ThirdParty($|/.*)')
           - id: end-of-file-fixer
+            exclude: (.*/ThirdParty($|/.*)')
     - repo: https://github.com/pre-commit/mirrors-clang-format
       rev: v13.0.0
       hooks:
           - id: clang-format
+            exclude: (.*/ThirdParty($|/.*)')

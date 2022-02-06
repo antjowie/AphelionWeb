@@ -44,7 +44,7 @@
         {                                                                                                              \
             AP_ERROR("Assertion Failed: {0}", msg);                                                                    \
             ap::Log::GetClientLogger()->flush();                                                                       \
-            AP_DEBUG_BREAK()                                                                                           \
+            AP_DEBUG_BREAK;                                                                                            \
         }                                                                                                              \
     }
 #define AP_CORE_ASSERT(x, msg)                                                                                         \
@@ -53,18 +53,18 @@
         {                                                                                                              \
             AP_CORE_ERROR("Assertion Failed: {0}", msg);                                                               \
             ap::Log::GetCoreLogger()->flush();                                                                         \
-            AP_DEBUG_BREAK()                                                                                           \
+            AP_DEBUG_BREAK;                                                                                            \
         }                                                                                                              \
     }
 
 /* Verify is like an assert, but will still execute the code when asserts are disabled */
 #define AP_VERIFY(x, msg)                                                                                              \
     {                                                                                                                  \
-        AP_ASSERT(x, msg);                                                                                             \
+        AP_ASSERT(x, msg)                                                                                              \
     }
 #define AP_CORE_VERIFY(x, msg)                                                                                         \
     {                                                                                                                  \
-        AP_CORE_ASSERT(x, msg);                                                                                        \
+        AP_CORE_ASSERT(x, msg)                                                                                         \
     }
 #else
 #define AP_ASSERT(x, msg)

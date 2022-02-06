@@ -32,7 +32,7 @@ namespace ap
  */
 class Engine
 {
-  public:
+public:
     APHELION_API static Engine& Get();
 
     APHELION_API void Run();
@@ -40,7 +40,7 @@ class Engine
     APHELION_API void AddSystem(std::unique_ptr<System>&& system);
     APHELION_API void AddSystems(std::vector<std::unique_ptr<System>>&& systems);
 
-  private:
+private:
     Engine();
 
     void Init();
@@ -48,7 +48,7 @@ class Engine
     void PushEvent(Event&& event);
 
     std::vector<std::unique_ptr<System>> systems;
-    // std::unique_ptr<Window> window;
+    std::unique_ptr<Window> window;
     // std::unique_ptr<ImGUISystem> imgui;
 };
 } // namespace ap

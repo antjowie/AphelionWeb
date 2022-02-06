@@ -7,24 +7,20 @@ namespace ap
 {
 class APHELION_API WebWindow : public Window
 {
-  public:
+public:
     WebWindow(WindowProps props);
+
+    virtual void Update() override final;
 
     virtual unsigned GetWidth() const override final;
     virtual unsigned GetHeight() const override final;
 
-    virtual void SetEventMiddleware(EventMiddlewareFn fn) override final;
-    virtual void Update() override final;
     virtual void SetVSync(bool enable) override final;
 
-    /**
-     * Return the native window
-     *
-     * This is required to set up the ImGui renderer
-     */
+    virtual void SetEventMiddleware(EventMiddlewareFn fn) override final;
     virtual void* GetNativeWindow() override final;
 
-  private:
+private:
     SDL_Window* window;
     WindowProps props;
     EventMiddlewareFn eventMiddleware;

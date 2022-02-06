@@ -33,7 +33,7 @@ add_subdirectory(Src/Aphelion/Core)
 add_subdirectory(Src/Aphelion/Engine)
 # add_subdirectory(Src/Aphelion/ImGUI)
 # add_subdirectory(Src/Aphelion/Renderer)
-# add_subdirectory(Src/Aphelion/Window)
+add_subdirectory(Src/Aphelion/Window)
 
 remove_definitions(AP_BUILD_DLL)
 # TODO we probably want to remove shared lib compile option
