@@ -9,6 +9,8 @@ add_library(Core
     Event/MouseEvent.h
     Event/WindowEvent.h
 
+    # Input/Input.h
+    # Input/Input.cpp
     Input/KeyCodes.h
     Input/MouseCodes.h
 

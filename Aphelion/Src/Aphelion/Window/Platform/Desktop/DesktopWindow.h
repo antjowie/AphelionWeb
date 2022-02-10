@@ -21,6 +21,7 @@ public:
     {
         eventMiddleware = fn;
     }
+
     virtual void* GetNativeWindow() override final
     {
         return window;

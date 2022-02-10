@@ -20,8 +20,8 @@ Engine::Engine()
 
     // Create window
     WindowProps props;
+    props.eventCb = [&](Event&& e) { PushEvent(std::move(e)); };
     window = Window::Create(props);
-    // props.eventCallback = [&](Event&& e) { PushEvent(std::move(e)); };
 
     // Create ImGUI
     // imgui = ImGUISystem::Create(window.get());
