@@ -9,8 +9,10 @@ std::shared_ptr<spdlog::logger> Log::clientLogger;
 
 void Log::Init()
 {
-    spdlog::set_pattern("%^[%T] %n: %v%$");
-    coreLogger = spdlog::stdout_color_mt("APHELION");
+    spdlog::set_pattern("%^[%T] %n (%s:%#): %v%$");
+    spdlog::set_level(spdlog::level::trace);
+
+    coreLogger = spdlog::stdout_color_mt("CORE");
     coreLogger->set_level(spdlog::level::trace);
 
     clientLogger = spdlog::stdout_color_mt("APP");
