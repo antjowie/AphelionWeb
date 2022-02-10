@@ -1,4 +1,5 @@
 #include "Aphelion/Engine/Engine.h"
+#include "Aphelion/Core/Event/WindowEvent.h"
 
 #include "Aphelion/Core/Log.h"
 #include "Aphelion/Core/Time.h"
@@ -17,21 +18,40 @@ Engine& Engine::Get()
 Engine::Engine()
 {
     Log::Init();
+    AP_CORE_TRACE("Constructing engine");
 
     // Create window
     WindowProps props;
     props.eventCb = [&](Event&& e) { PushEvent(std::move(e)); };
     window = Window::Create(props);
 
+    // Add window close event handler
+    class AppCloseSystem : public System
+    {
+        virtual void OnEvent(Event& event) override final
+        {
+            if (event.GetEventType() == EventType::WindowClose)
+            {
+                Engine::Get().RequestShutdown();
+            }
+        }
+    };
+    systems.push_back(std::make_unique<AppCloseSystem>());
+
     // Create ImGUI
     // imgui = ImGUISystem::Create(window.get());
 }
 
-void Engine::Init()
+void Engine::InitSystems()
 {
     AP_CORE_INFO("Intializing systems");
     for (auto& system : systems)
         system->Init();
+}
+
+void Engine::RequestShutdown()
+{
+    shutdownRequested = true;
 }
 
 void Engine::Loop(float ts)
@@ -60,7 +80,7 @@ void Engine::PushEvent(Event&& event)
 
 void Engine::AddSystem(std::unique_ptr<System>&& system)
 {
-    systems.push_back(std::move(system));
+    Get().systems.push_back(std::move(system));
 }
 
 void Engine::AddSystems(std::vector<std::unique_ptr<System>>&& systems)

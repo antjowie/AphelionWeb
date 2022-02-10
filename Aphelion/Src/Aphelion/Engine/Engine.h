@@ -12,36 +12,31 @@ namespace ap
 {
 
 /**
- * Engine is the runtime of the application. To use this either check the Sanbox
- * project.
- *
- * Usage example
- * 1. Create instance of the engine
- *  Engine instance;
- * 2. Add your own systems
- *  instance.AddSystem(ExampleSystem());
- * 3. Run the engine
- *  instance.Run();
+ * Engine is the runtime of the application. Call Run once you have added all your systems
  */
 class Engine
 {
 public:
-    APHELION_API static Engine& Get();
+    APHELION_API static void Run();
 
-    APHELION_API void Run();
-
-    APHELION_API void AddSystem(std::unique_ptr<System>&& system);
-    APHELION_API void AddSystems(std::vector<std::unique_ptr<System>>&& systems);
+    APHELION_API static void AddSystem(std::unique_ptr<System>&& system);
+    APHELION_API static void AddSystems(std::vector<std::unique_ptr<System>>&& systems);
 
 private:
     Engine();
+    ~Engine() = default;
 
-    void Init();
+    static Engine& Get();
+
+    void InitSystems();
+    void RequestShutdown();
     void Loop(float ts);
     void PushEvent(Event&& event);
 
     std::vector<std::unique_ptr<System>> systems;
     std::unique_ptr<Window> window;
     // std::unique_ptr<ImGUISystem> imgui;
+
+    bool shutdownRequested = false;
 };
 } // namespace ap

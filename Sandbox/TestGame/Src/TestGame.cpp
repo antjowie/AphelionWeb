@@ -31,6 +31,6 @@ public:
 
 int main()
 {
-    ap::Engine::Get().AddSystem(std::make_unique<RenderSystem>());
-    ap::Engine::Get().Run();
+    ap::Engine::AddSystem(std::make_unique<RenderSystem>());
+    ap::Engine::Run();
 }

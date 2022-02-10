@@ -5,12 +5,13 @@ namespace ap
 {
 void Engine::Run()
 {
-    Init();
+    Engine& engine = Get();
+    engine.InitSystems();
 
     Timer timer;
-    while (true)
+    while (!engine.shutdownRequested)
     {
-        Loop(timer.Reset());
+        engine.Loop(timer.Reset());
     }
 }
 } // namespace ap
