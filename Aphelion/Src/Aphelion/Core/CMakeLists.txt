@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.16)
 
 option(APHELION_FORCE_ASSERT "Force asserts even in release" false)
 
