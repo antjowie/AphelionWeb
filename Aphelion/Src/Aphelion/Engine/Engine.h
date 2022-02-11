@@ -2,7 +2,7 @@
 #include "Aphelion/Core/Core.h"
 #include "Aphelion/Core/Event/Event.h"
 #include "Aphelion/Core/System.h"
-#include "Aphelion/ImGUI/ImGUISystem.h"
+#include "Aphelion/ImGui/ImGuiSystem.h"
 #include "Aphelion/Window/Window.h"
 
 #include <memory>

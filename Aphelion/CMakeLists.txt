@@ -31,7 +31,7 @@ endif()
 
 add_subdirectory(Src/Aphelion/Core)
 add_subdirectory(Src/Aphelion/Engine)
-add_subdirectory(Src/Aphelion/ImGUI)
+add_subdirectory(Src/Aphelion/ImGui)
 # add_subdirectory(Src/Aphelion/Renderer)
 add_subdirectory(Src/Aphelion/Window)
 

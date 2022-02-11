@@ -1,4 +1,4 @@
-#include "Platform/Web/WebImGUI.h"
+#include "Platform/Web/WebImGui.h"
 
 #include "Aphelion/Core/Event/Event.h"
 #include "Aphelion/Window/Window.h"
@@ -19,9 +19,9 @@ bool OnNativeEvent(void* event)
     return io.WantCaptureMouse || io.WantCaptureKeyboard;
 }
 
-std::unique_ptr<ImGUISystem> ImGUISystem::Create(Window* window)
+std::unique_ptr<ImGuiSystem> ImGuiSystem::Create(Window* window)
 {
-    return std::make_unique<WebImGUI>(window);
+    return std::make_unique<WebImGui>(window);
 }
 
 inline SDL_Window* ToSDLWindow(Window* window)
@@ -29,7 +29,7 @@ inline SDL_Window* ToSDLWindow(Window* window)
     return reinterpret_cast<SDL_Window*>(window->GetNativeWindow());
 }
 
-WebImGUI::WebImGUI(Window* window) : window(window)
+WebImGui::WebImGui(Window* window) : window(window)
 {
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -78,21 +78,21 @@ WebImGUI::WebImGUI(Window* window) : window(window)
     window->SetEventMiddleware(OnNativeEvent);
 }
 
-WebImGUI::~WebImGUI()
+WebImGui::~WebImGui()
 {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplSDL2_Shutdown();
     ImGui::DestroyContext();
 }
 
-void WebImGUI::BeginFrame()
+void WebImGui::BeginFrame()
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame(ToSDLWindow(window));
     ImGui::NewFrame();
 }
 
-void WebImGUI::EndFrame()
+void WebImGui::EndFrame()
 {
     ImGui::Render();
     SDL_GL_MakeCurrent(ToSDLWindow(window), SDL_GL_GetCurrentContext());

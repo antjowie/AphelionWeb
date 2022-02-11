@@ -38,7 +38,7 @@ Engine::Engine()
     };
     systems.push_back(std::make_unique<AppCloseSystem>());
 
-    // Create ImGUI
+    // Create ImGui
     imgui = ImGuiSystem::Create(window.get());
 }
 

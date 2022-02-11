@@ -7,7 +7,7 @@ namespace ap
 class Event;
 class Window;
 /**
- * Interface for the class that handles our ImGUI state
+ * Interface for the class that handles our ImGui state
  * The engine creates an instance of this class
  */
 class APHELION_API ImGuiSystem

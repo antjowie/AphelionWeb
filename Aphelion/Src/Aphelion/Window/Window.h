@@ -43,7 +43,7 @@ public:
 
     /**
      * Callback will be called with the native event before window converts
-     * it to an Aphelion event. Usefull for code that expects native events (ImGUI backends).
+     * it to an Aphelion event. Usefull for code that expects native events (ImGui backends).
      */
     APHELION_API virtual void SetEventMiddleware(const EventMiddlewareFn& fn) = 0;
 

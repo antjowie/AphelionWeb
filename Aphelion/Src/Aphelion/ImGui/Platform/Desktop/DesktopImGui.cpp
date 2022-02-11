@@ -1,4 +1,4 @@
-#include "Aphelion/ImGUI/Platform/Desktop/DesktopImGui.h"
+#include "Aphelion/ImGui/Platform/Desktop/DesktopImGui.h"
 
 #include "Aphelion/Core/Event/Event.h"
 #include "Aphelion/Core/Log.h"
