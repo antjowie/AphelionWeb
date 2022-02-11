@@ -39,12 +39,12 @@ Engine::Engine()
     systems.push_back(std::make_unique<AppCloseSystem>());
 
     // Create ImGUI
-    // imgui = ImGUISystem::Create(window.get());
+    imgui = ImGuiSystem::Create(window.get());
 }
 
 void Engine::InitSystems()
 {
-    AP_CORE_INFO("Intializing systems");
+    AP_CORE_TRACE("Intializing systems");
     for (auto& system : systems)
         system->Init();
 }
@@ -59,12 +59,12 @@ void Engine::Loop(float ts)
     for (auto& system : systems)
         system->OnUpdate(ts);
 
-    // imgui->BeginFrame();
-    // for (auto &system : systems)
-    //    system->OnDraw();
-    // imgui->EndFrame();
-
     window->Update();
+
+    imgui->BeginFrame();
+    for (auto& system : systems)
+        system->OnDraw();
+    imgui->EndFrame();
 }
 
 void Engine::PushEvent(Event&& event)

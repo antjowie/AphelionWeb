@@ -34,7 +34,7 @@ DesktopWindow::DesktopWindow(const WindowProps& props) : props(props)
 
     // Setup glad and OpenGL contxt
     glfwMakeContextCurrent(window);
-    AP_CORE_ASSERT(gladLoadGL(glfwGetProcAddress), "Failed to initialize OpenGL context")
+    AP_CORE_VERIFY(gladLoadGL(glfwGetProcAddress), "Failed to initialize OpenGL context")
     AP_CORE_INFO("OpenGL Info:");
     AP_CORE_INFO("  Vendor: {0}", glGetString(GL_VENDOR));
     AP_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
@@ -142,14 +142,10 @@ DesktopWindow::~DesktopWindow()
 
 void DesktopWindow::Update()
 {
-    /* Render here */
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    /* Swap front and back buffers */
+    glfwPollEvents();
     glfwSwapBuffers(window);
 
-    /* Poll for and process events */
-    glfwPollEvents();
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 std::pair<unsigned, unsigned> DesktopWindow::GetSize() const

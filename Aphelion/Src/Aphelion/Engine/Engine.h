@@ -35,7 +35,7 @@ private:
 
     std::vector<std::unique_ptr<System>> systems;
     std::unique_ptr<Window> window;
-    // std::unique_ptr<ImGUISystem> imgui;
+    std::unique_ptr<ImGuiSystem> imgui;
 
     bool shutdownRequested = false;
 };

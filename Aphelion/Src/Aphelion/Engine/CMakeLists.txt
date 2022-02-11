@@ -20,5 +20,5 @@ target_link_libraries(Engine
 PUBLIC
     Aphelion::Core
     Aphelion::Window
-    # Aphelion::ImGUI
+    Aphelion::ImGui
 )

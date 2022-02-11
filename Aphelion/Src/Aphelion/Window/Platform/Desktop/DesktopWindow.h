@@ -19,7 +19,7 @@ public:
 
     virtual void SetEventMiddleware(const EventMiddlewareFn& fn) override final
     {
-        eventMiddleware = fn;
+        // Empty on purpose, we don't need event middleware for glfw
     }
 
     virtual void* GetNativeWindow() override final
@@ -29,7 +29,6 @@ public:
 
 private:
     WindowProps props;
-    EventMiddlewareFn eventMiddleware = nullptr;
     GLFWwindow* window = nullptr;
 };
 } // namespace ap

@@ -1,58 +1,71 @@
 cmake_minimum_required(VERSION 3.18)
 
-add_library(ImGUI
-    $<$<PLATFORM_ID:Emscripten>:
-        Platform/Web/WebImGUI.cpp
-        Platform/Web/WebImGUI.h
+add_library(ImGui
+    $<$<PLATFORM_ID:Windows,Linux>:
+        Platform/Desktop/DesktopImGui.cpp
+        Platform/Desktop/DesktopImGui.h
     >
 
-    ImGUISystem.h
+    $<$<PLATFORM_ID:Emscripten>:
+        Platform/Web/WebImGui.cpp
+        Platform/Web/WebImGui.h
+    >
+
+    ImGuiSystem.h
 )
-add_library(Aphelion::ImGUI ALIAS ImGUI)
+add_library(Aphelion::ImGui ALIAS ImGui)
 
 CPMAddPackage(
-    NAME DearImGUI
+    NAME DearImGui
     GIT_REPOSITORY https://github.com/ocornut/imgui
-    GIT_TAG 732cd837a9ed8ecb2ce4035e7d40a1c9a04ae240
+    GIT_TAG 1e14cc5cae703b7cdf0e33c50165d6dd289fcb1f
     DOWNLOAD_ONLY YES
 )
 
-if (DearImGUI_ADDED)
-    # FILE(GLOB DearImGUI_sources ${DearImGUI_SOURCE_DIR}/*.cpp)
-    add_library(DearImGUI STATIC
-        ${DearImGUI_SOURCE_DIR}/imconfig.h
-        ${DearImGUI_SOURCE_DIR}/imgui.cpp
-        ${DearImGUI_SOURCE_DIR}/imgui.h
-        ${DearImGUI_SOURCE_DIR}/imgui_demo.cpp
-        ${DearImGUI_SOURCE_DIR}/imgui_draw.cpp
-        ${DearImGUI_SOURCE_DIR}/imgui_internal.h
-        ${DearImGUI_SOURCE_DIR}/imgui_tables.cpp
-        ${DearImGUI_SOURCE_DIR}/imgui_widgets.cpp
-        ${DearImGUI_SOURCE_DIR}/imstb_rectpack.h
-        ${DearImGUI_SOURCE_DIR}/imstb_textedit.h
-        ${DearImGUI_SOURCE_DIR}/imstb_truetype.h
+if (DearImGui_ADDED)
+    # FILE(GLOB DearImGui_sources ${DearImGui_SOURCE_DIR}/*.cpp)
+    add_library(DearImGui STATIC
+        $<$<PLATFORM_ID:Windows,Linux>:
+            ${DearImGui_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
+            ${DearImGui_SOURCE_DIR}/backends/imgui_impl_opengl3.h
+            ${DearImGui_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
+            ${DearImGui_SOURCE_DIR}/backends/imgui_impl_glfw.h
+        >
 
         $<$<PLATFORM_ID:Emscripten>:
-            ${DearImGUI_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
-            ${DearImGUI_SOURCE_DIR}/backends/imgui_impl_opengl3.h
-            ${DearImGUI_SOURCE_DIR}/backends/imgui_impl_sdl.cpp
-            ${DearImGUI_SOURCE_DIR}/backends/imgui_impl_sdl.h
+            ${DearImGui_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
+            ${DearImGui_SOURCE_DIR}/backends/imgui_impl_opengl3.h
+            ${DearImGui_SOURCE_DIR}/backends/imgui_impl_sdl.cpp
+            ${DearImGui_SOURCE_DIR}/backends/imgui_impl_sdl.h
         >
+
+        ${DearImGui_SOURCE_DIR}/imconfig.h
+        ${DearImGui_SOURCE_DIR}/imgui.cpp
+        ${DearImGui_SOURCE_DIR}/imgui.h
+        ${DearImGui_SOURCE_DIR}/imgui_demo.cpp
+        ${DearImGui_SOURCE_DIR}/imgui_draw.cpp
+        ${DearImGui_SOURCE_DIR}/imgui_internal.h
+        ${DearImGui_SOURCE_DIR}/imgui_tables.cpp
+        ${DearImGui_SOURCE_DIR}/imgui_widgets.cpp
+        ${DearImGui_SOURCE_DIR}/imstb_rectpack.h
+        ${DearImGui_SOURCE_DIR}/imstb_textedit.h
+        ${DearImGui_SOURCE_DIR}/imstb_truetype.h
     )
 
-    target_include_directories(DearImGUI PUBLIC
-        ${DearImGUI_SOURCE_DIR}/.
-        ${DearImGUI_SOURCE_DIR}/backends/.
+    target_include_directories(DearImGui PUBLIC
+        ${DearImGui_SOURCE_DIR}/.
     )
+
+    target_link_libraries(DearImGui PUBLIC Aphelion::Window)
 else()
-    message(FATAL_ERROR "Could not create a target from Dear ImGUI")
+    message(FATAL_ERROR "Could not create a target from Dear ImGui")
 endif()
 
-target_include_directories(ImGUI PRIVATE ./)
-target_link_libraries(ImGUI
+target_precompile_headers(ImGui PRIVATE ${APHELION_PCH})
+
+target_link_libraries(ImGui
 PUBLIC
     Aphelion::Core
-    # DearImGUI
-PRIVATE
     Aphelion::Window
+    DearImGui
 )
