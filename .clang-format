@@ -1,4 +1,7 @@
 ﻿---
 BasedOnStyle: Microsoft
-
+SortIncludes: false
+PointerAlignment: Left
+UseTab: Never
+AccessModifierOffset: -4
 ...

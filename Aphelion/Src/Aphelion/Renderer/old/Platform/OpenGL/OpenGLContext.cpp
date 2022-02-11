@@ -5,19 +5,19 @@
 
 namespace ap
 {
-OpenGLContext::OpenGLContext(GLFWwindow *windowHandle) : m_window(windowHandle)
+OpenGLContext::OpenGLContext(GLFWwindow *windowHandle) : window(windowHandle)
 {
-    AP_CORE_ASSERT(m_window, "Window handle can't be null");
+    AP_CORE_ASSERT(window, "Window handle can't be null");
 }
 
 void OpenGLContext::Init()
 {
     // Init GLFW
-    glfwMakeContextCurrent(m_window);
+    glfwMakeContextCurrent(window);
 
     // Init Glad
     gladLoadGLLoader(GLADloadproc(glfwGetProcAddress));
-    glfwMakeContextCurrent(m_window);
+    glfwMakeContextCurrent(window);
 
     int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     AP_CORE_ASSERT(status, "Failed to initialize Glad!");
@@ -30,6 +30,6 @@ void OpenGLContext::Init()
 
 void OpenGLContext::SwapBuffers()
 {
-    glfwSwapBuffers(m_window);
+    glfwSwapBuffers(window);
 }
 } // namespace ap

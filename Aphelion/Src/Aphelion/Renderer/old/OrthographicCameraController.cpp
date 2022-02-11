@@ -10,7 +10,7 @@
 namespace ap
 {
 OrthographicCameraController::OrthographicCameraController(float aspectRatio, float degrees)
-    : m_aspectRatio(aspectRatio), m_zoom(1), m_camera(-m_aspectRatio * m_zoom, m_aspectRatio * m_zoom, -m_zoom, m_zoom)
+    : aspectRatio(aspectRatio), zoom(1), camera(-aspectRatio * zoom, aspectRatio * zoom, -zoom, zoom)
 {
 }
 
@@ -32,7 +32,7 @@ void OrthographicCameraController::OnUpdate(Timestep ts)
     if (Input::IsKeyPressed(KeyCode::LeftShift))
         offset *= 10.f;
 
-    m_camera.SetPosition(m_camera.GetPosition() + glm::vec3(offset, 0.f) * ts.Seconds());
+    camera.SetPosition(camera.GetPosition() + glm::vec3(offset, 0.f) * ts.Seconds());
 
     float degrees = 0.f;
     constexpr float degOffset = 90.f;
@@ -41,7 +41,7 @@ void OrthographicCameraController::OnUpdate(Timestep ts)
     if (Input::IsKeyPressed(KeyCode::E))
         degrees -= degOffset;
 
-    m_camera.SetRotation(m_camera.GetRotation() + degrees * ts);
+    camera.SetRotation(camera.GetRotation() + degrees * ts);
 }
 
 void OrthographicCameraController::OnEvent(Event &e)
@@ -49,7 +49,7 @@ void OrthographicCameraController::OnEvent(Event &e)
     EventDispatcher d(e);
 
     if (d.Dispatch<WindowResizeEvent>([&](WindowResizeEvent &e) {
-            m_aspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
+            aspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
             UpdateProjection();
             return false;
         }))
@@ -65,7 +65,7 @@ void OrthographicCameraController::OnEvent(Event &e)
 
 void OrthographicCameraController::UpdateProjection()
 {
-    m_camera.SetProjection(-m_aspectRatio * m_zoom, m_aspectRatio * m_zoom, -m_zoom, m_zoom);
+    camera.SetProjection(-aspectRatio * zoom, aspectRatio * zoom, -zoom, zoom);
 }
 
 } // namespace ap

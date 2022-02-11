@@ -19,19 +19,19 @@ constexpr inline APHELION_API unsigned Bit(unsigned bit)
 template <typename T> class Reverse
 {
   public:
-    explicit Reverse(T &iterable) : m_iterable{iterable}
+    explicit Reverse(T& iterable) : iterable{iterable}
     {
     }
     auto begin() const
     {
-        return std::rbegin(m_iterable);
+        return std::rbegin(iterable);
     }
     auto end() const
     {
-        return std::rend(m_iterable);
+        return std::rend(iterable);
     }
 
   private:
-    T &m_iterable;
+    T& iterable;
 };
 } // namespace ap

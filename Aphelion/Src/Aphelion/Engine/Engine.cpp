@@ -1,13 +1,15 @@
 #include "Aphelion/Engine/Engine.h"
-
-#include <memory>
+#include "Aphelion/Core/Event/WindowEvent.h"
 
 #include "Aphelion/Core/Log.h"
 #include "Aphelion/Core/Time.h"
+#include "Aphelion/Window/Window.h"
+
+#include <memory>
 
 namespace ap
 {
-Engine &Engine::Get()
+Engine& Engine::Get()
 {
     static Engine engine;
     return engine;
@@ -16,40 +18,59 @@ Engine &Engine::Get()
 Engine::Engine()
 {
     Log::Init();
+    AP_CORE_TRACE("Constructing engine");
 
     // Create window
     WindowProps props;
-    props.eventCallback = [&](Event &&e) { PushEvent(std::move(e)); };
-    m_window = Window::Create(props);
+    props.eventCb = [&](Event&& e) { PushEvent(std::move(e)); };
+    window = Window::Create(props);
+
+    // Add window close event handler
+    class AppCloseSystem : public System
+    {
+        virtual void OnEvent(Event& event) override final
+        {
+            if (event.GetEventType() == EventType::WindowClose)
+            {
+                Engine::Get().RequestShutdown();
+            }
+        }
+    };
+    systems.push_back(std::make_unique<AppCloseSystem>());
 
     // Create ImGUI
-    m_imgui = ImGUISystem::Create(m_window.get());
+    imgui = ImGuiSystem::Create(window.get());
 }
 
-void Engine::Init()
+void Engine::InitSystems()
 {
-    AP_CORE_INFO("Intializing systems");
-    for (auto &system : m_systems)
+    AP_CORE_TRACE("Intializing systems");
+    for (auto& system : systems)
         system->Init();
+}
+
+void Engine::RequestShutdown()
+{
+    shutdownRequested = true;
 }
 
 void Engine::Loop(float ts)
 {
-    for (auto &system : m_systems)
+    for (auto& system : systems)
         system->OnUpdate(ts);
 
-    m_imgui->BeginFrame();
-    for (auto &system : m_systems)
-        system->OnDraw();
-    m_imgui->EndFrame();
+    window->Update();
 
-    m_window->Update();
+    imgui->BeginFrame();
+    for (auto& system : systems)
+        system->OnDraw();
+    imgui->EndFrame();
 }
 
-void Engine::PushEvent(Event &&event)
+void Engine::PushEvent(Event&& event)
 {
     int i = 0;
-    for (auto iter = m_systems.rbegin(); iter != m_systems.rend(); iter++)
+    for (auto iter = systems.rbegin(); iter != systems.rend(); iter++)
     {
         (*iter)->OnEvent(event);
         if (event.handled)
@@ -57,14 +78,14 @@ void Engine::PushEvent(Event &&event)
     }
 }
 
-void Engine::AddSystem(std::unique_ptr<System> &&system)
+void Engine::AddSystem(std::unique_ptr<System>&& system)
 {
-    m_systems.push_back(std::move(system));
+    Get().systems.push_back(std::move(system));
 }
 
-void Engine::AddSystems(std::vector<std::unique_ptr<System>> &&systems)
+void Engine::AddSystems(std::vector<std::unique_ptr<System>>&& systems)
 {
-    for (auto &system : systems)
+    for (auto& system : systems)
         AddSystem(std::move(system));
 }
 } // namespace ap

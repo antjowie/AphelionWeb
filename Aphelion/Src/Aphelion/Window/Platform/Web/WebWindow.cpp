@@ -1,12 +1,12 @@
 #include "Platform/Web/WebWindow.h"
 
-#include <GLES3/gl3.h>
-#include <SDL2/sdl.h>
-
 #include "Aphelion/Core/Event/KeyEvent.h"
 #include "Aphelion/Core/Event/MouseEvent.h"
 #include "Aphelion/Core/Event/WindowEvent.h"
 #include "Aphelion/Core/Log.h"
+
+#include <GLES3/gl3.h>
+#include <SDL2/sdl.h>
 
 namespace ap
 {
@@ -16,7 +16,7 @@ std::unique_ptr<Window> Window::Create(WindowProps props)
     return std::make_unique<WebWindow>(props);
 }
 
-WebWindow::WebWindow(WindowProps props) : m_props(props)
+WebWindow::WebWindow(WindowProps props) : props(props)
 {
     // Setup SDL
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -39,9 +39,9 @@ WebWindow::WebWindow(WindowProps props) : m_props(props)
     SDL_GetCurrentDisplayMode(0, &current);
     SDL_WindowFlags window_flags =
         (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
-    m_window = SDL_CreateWindow(props.title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, props.width,
-                                props.height, window_flags);
-    static auto context = SDL_GL_CreateContext(m_window);
+    window = SDL_CreateWindow(props.title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, props.width,
+                              props.height, window_flags);
+    static auto context = SDL_GL_CreateContext(window);
     if (!context)
     {
         AP_CORE_CRITICAL("Window creation SDL Context failed! {}", SDL_GetError());
@@ -59,7 +59,7 @@ unsigned WebWindow::GetWidth() const
 {
     int width;
     int height;
-    SDL_GetWindowSize(m_window, &width, &height);
+    SDL_GetWindowSize(window, &width, &height);
     return width;
 }
 
@@ -67,13 +67,13 @@ unsigned WebWindow::GetHeight() const
 {
     int width;
     int height;
-    SDL_GetWindowSize(m_window, &width, &height);
+    SDL_GetWindowSize(window, &width, &height);
     return height;
 }
 
 void WebWindow::SetEventMiddleware(EventMiddlewareFn fn)
 {
-    m_eventMiddleware = fn;
+    eventMiddleware = fn;
 }
 
 void WebWindow::Update()
@@ -83,14 +83,14 @@ void WebWindow::Update()
     while (SDL_PollEvent(&event))
     {
         // If we have a middleware, have it handle it first
-        if (m_eventMiddleware && m_eventMiddleware(&event))
+        if (eventMiddleware && eventMiddleware(&event))
             continue;
 
         // Convert SDL event to Aphelion event and propogate to systems
         switch (event.type)
         {
         case SDL_QUIT: /**< User-requested quit */
-            m_props.eventCallback(WindowCloseEvent());
+            props.eventCallback(WindowCloseEvent());
             break;
 
         /* These application events have special meaning on iOS, see README-ios.md
@@ -143,26 +143,26 @@ void WebWindow::Update()
 
         /* Window events */
         case SDL_WINDOWEVENT: {
-            auto &window = event.window;
+            auto& window = event.window;
             switch (window.event)
             {
             case SDL_WINDOWEVENT_SHOWN:
-                m_props.eventCallback(WindowIconifyEvent(false));
+                props.eventCallback(WindowIconifyEvent(false));
                 break;
             case SDL_WINDOWEVENT_HIDDEN:
-                m_props.eventCallback(WindowIconifyEvent(true));
+                props.eventCallback(WindowIconifyEvent(true));
                 break;
             case SDL_WINDOWEVENT_EXPOSED:
                 AP_CORE_WARN("SDL_WINDOWEVENT_EXPOSED not handled in window");
                 break;
             case SDL_WINDOWEVENT_MOVED:
-                m_props.eventCallback(WindowMoveEvent(window.data1, window.data2));
+                props.eventCallback(WindowMoveEvent(window.data1, window.data2));
                 break;
             case SDL_WINDOWEVENT_RESIZED:
-                m_props.eventCallback(WindowResizeEvent(window.data1, window.data2));
+                props.eventCallback(WindowResizeEvent(window.data1, window.data2));
                 break;
             case SDL_WINDOWEVENT_SIZE_CHANGED:
-                m_props.eventCallback(WindowResizeEvent(window.data1, window.data2));
+                props.eventCallback(WindowResizeEvent(window.data1, window.data2));
                 break;
             case SDL_WINDOWEVENT_MINIMIZED:
                 AP_CORE_WARN("SDL_WINDOWEVENT_MINIMIZED not handled in window");
@@ -186,7 +186,7 @@ void WebWindow::Update()
                 AP_CORE_WARN("SDL_WINDOWEVENT_FOCUS_LOST not handled in window");
                 break;
             case SDL_WINDOWEVENT_CLOSE:
-                m_props.eventCallback(WindowCloseEvent());
+                props.eventCallback(WindowCloseEvent());
                 break;
             case SDL_WINDOWEVENT_TAKE_FOCUS:
                 AP_CORE_WARN("SDL_WINDOWEVENT_TAKE_FOCUS not handled in window");
@@ -207,11 +207,11 @@ void WebWindow::Update()
 
         /* Keyboard events */
         case SDL_KEYDOWN:
-            m_props.eventCallback(KeyPressedEvent(event.key.keysym.sym, event.key.repeat)); /**< Key pressed */
+            props.eventCallback(KeyPressedEvent(event.key.keysym.sym, event.key.repeat)); /**< Key pressed */
         case SDL_KEYUP:
-            m_props.eventCallback(KeyReleasedEvent(event.key.keysym.sym)); /**< Key pressed */
+            props.eventCallback(KeyReleasedEvent(event.key.keysym.sym)); /**< Key pressed */
         case SDL_TEXTEDITING:
-            m_props.eventCallback(KeyTypedEvent(event.key.keysym.sym));
+            props.eventCallback(KeyTypedEvent(event.key.keysym.sym));
             break; /**< Keyboard text editing (composition) */
         case SDL_TEXTINPUT:
             AP_CORE_WARN("SDL_TEXTINPUT not handled in window");
@@ -224,17 +224,17 @@ void WebWindow::Update()
 
         /* Mouse events */
         case SDL_MOUSEMOTION:
-            m_props.eventCallback(MouseMovedEvent(event.motion.x, event.motion.y));
+            props.eventCallback(MouseMovedEvent(event.motion.x, event.motion.y));
 
             break; /**< Mouse moved */
         case SDL_MOUSEBUTTONDOWN:
-            m_props.eventCallback(MouseButtonPressedEvent(event.button.button));
+            props.eventCallback(MouseButtonPressedEvent(event.button.button));
             break; /**< Mouse button pressed */
         case SDL_MOUSEBUTTONUP:
-            m_props.eventCallback(MouseButtonReleasedEvent(event.button.button));
+            props.eventCallback(MouseButtonReleasedEvent(event.button.button));
             break; /**< Mouse button released */
         case SDL_MOUSEWHEEL:
-            m_props.eventCallback(MouseScrolledEvent(event.wheel.x, event.wheel.y));
+            props.eventCallback(MouseScrolledEvent(event.wheel.x, event.wheel.y));
             break; /**< Mouse wheel motion */
 
         /* Joystick events */
@@ -336,7 +336,7 @@ void WebWindow::Update()
         }
     }
 
-    SDL_GL_SwapWindow(m_window);
+    SDL_GL_SwapWindow(window);
 }
 
 // void WebWindow::SetEventCallback(const EventCallbackFn& callback)
@@ -349,9 +349,9 @@ void WebWindow::SetVSync(bool enable)
     SDL_GL_SetSwapInterval(enable ? 1 : 0); // Enable vsync
 }
 
-void *WebWindow::GetNativeWindow()
+void* WebWindow::GetNativeWindow()
 {
-    return m_window;
+    return window;
 }
 
 } // namespace ap

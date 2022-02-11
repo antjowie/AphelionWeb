@@ -1,38 +1,38 @@
 #pragma once
-#include <chrono>
-
 #include "Core.h"
+
+#include <chrono>
 
 namespace ap
 {
-class APHELION_API Timer
+class Timer
 {
   public:
     using Clock = std::chrono::high_resolution_clock;
 
-    Timer() : m_begin(Clock::now()), m_last(m_begin)
+    APHELION_API Timer() : begin(Clock::now()), last(begin)
     {
     }
 
-    float Total() const
+    APHELION_API float Total() const
     {
-        return float((Clock::now() - m_begin).count() * 1e-9f);
+        return float((Clock::now() - begin).count() * 1e-9f);
     }
 
-    float Elapsed() const
+    APHELION_API float Elapsed() const
     {
-        return float((Clock::now() - m_last).count() * 1e-9f);
+        return float((Clock::now() - last).count() * 1e-9f);
     }
 
-    float Reset()
+    APHELION_API float Reset()
     {
         auto ts = Elapsed();
-        m_last = Clock::now();
+        last = Clock::now();
         return ts;
     }
 
   private:
-    Clock::time_point m_begin;
-    Clock::time_point m_last;
+    Clock::time_point begin;
+    Clock::time_point last;
 };
 } // namespace ap

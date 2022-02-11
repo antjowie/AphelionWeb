@@ -23,17 +23,17 @@ class APHELION_API PerspectiveCameraController
 
     PerspectiveCamera &GetCamera()
     {
-        return m_camera;
+        return camera;
     }
     const PerspectiveCamera &GetCamera() const
     {
-        return m_camera;
+        return camera;
     }
 
   private:
-    PerspectiveCamera m_camera;
+    PerspectiveCamera camera;
 
-    bool m_isRotating;
-    glm::dvec2 m_oldCursorPos;
+    bool isRotating;
+    glm::dvec2 oldCursorPos;
 };
 } // namespace ap

@@ -1,9 +1,9 @@
 #pragma once
-#include <memory>
+#include "Aphelion/Core/Core.h"
+#include "Aphelion/Core/Input/KeyCodes.h"
+#include "Aphelion/Core/Input/MouseCodes.h"
 
-#include "Core.h"
-#include "Input/KeyCodes.h"
-#include "Input/MouseCodes.h"
+#include <memory>
 
 namespace ap
 {
@@ -11,65 +11,65 @@ namespace ap
  * TODO: Cursor functions take a vec2 instead of a uvec2. This should be
  * refactored
  */
-class APHELION_API Input
+class Input
 {
-  public:
+public:
     /**
      * When cursor is disabled, the cursor will be invisible and stay centered.
      * CursorMoveEvents will still contain the new cursor position
      *
      * TODO: This maybe should be a window specific function
      */
-    static void EnableCursor(bool enable)
+    APHELION_API static void EnableCursor(bool enable)
     {
-        return m_instance->EnableCursorImpl(enable);
+        return instance->EnableCursorImpl(enable);
     };
 
-    static bool IsKeyPressed(KeyCode code)
+    APHELION_API static bool IsKeyPressed(KeyCode code)
     {
-        return m_instance->IsKeyPressedImpl(code);
+        return instance->IsKeyPressedImpl(code);
     }
-    static bool IsButtonPressed(ButtonCode code)
+    APHELION_API static bool IsButtonPressed(ButtonCode code)
     {
-        return m_instance->IsButtonPressedImpl(code);
+        return instance->IsButtonPressedImpl(code);
     }
 
-    static void SetCursorPos(const glm::vec2 &pos)
+    APHELION_API static void SetCursorPos(const glm::vec2& pos)
     {
-        return m_instance->SetCursorPosImpl(pos);
+        return instance->SetCursorPosImpl(pos);
     }
-    static void SetCursorX(float x)
+    APHELION_API static void SetCursorX(float x)
     {
-        return m_instance->SetCursorXImpl(x);
+        return instance->SetCursorXImpl(x);
     }
-    static void SetCursorY(float y)
+    APHELION_API static void SetCursorY(float y)
     {
-        return m_instance->SetCursorYImpl(y);
+        return instance->SetCursorYImpl(y);
     }
 
     /**
      * Returns the position in screen coordinates
      */
-    static glm::dvec2 GetCursorPos()
+    APHELION_API static glm::dvec2 GetCursorPos()
     {
-        return m_instance->GetCursorPosImpl();
+        return instance->GetCursorPosImpl();
     }
-    static float GetCursorX()
+    APHELION_API static float GetCursorX()
     {
-        return m_instance->GetCursorXImpl();
+        return instance->GetCursorXImpl();
     }
-    static float GetCursorY()
+    APHELION_API static float GetCursorY()
     {
-        return m_instance->GetCursorYImpl();
+        return instance->GetCursorYImpl();
     }
 
-  private:
+private:
     virtual void EnableCursorImpl(bool enable) = 0;
 
     virtual bool IsKeyPressedImpl(KeyCode code) = 0;
     virtual bool IsButtonPressedImpl(ButtonCode code) = 0;
 
-    virtual void SetCursorPosImpl(const glm::vec2 &pos) = 0;
+    virtual void SetCursorPosImpl(const glm::vec2& pos) = 0;
     virtual void SetCursorXImpl(float x) = 0;
     virtual void SetCursorYImpl(float y) = 0;
 
@@ -79,6 +79,6 @@ class APHELION_API Input
 
     static std::unique_ptr<Input> Create();
 
-    static std::unique_ptr<Input> m_instance;
+    static std::unique_ptr<Input> instance;
 };
 } // namespace ap

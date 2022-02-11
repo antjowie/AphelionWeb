@@ -94,7 +94,7 @@ class APHELION_API VertexBuffer
     static VertexBufferRef Create(const float *vertices, uint32_t size);
 
   private:
-    std::vector<BufferElement> m_elements;
+    std::vector<BufferElement> elements;
 };
 
 class APHELION_API IndexBuffer;

@@ -30,7 +30,7 @@ class APHELION_API OpenGLShader : public Shader
     void Compile(const std::unordered_map<unsigned, std::string> &shaders);
     int GetUniformLocation(const char *name) const;
 
-    unsigned m_id;
-    std::string m_name;
+    unsigned id;
+    std::string name;
 };
 } // namespace ap

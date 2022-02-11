@@ -8,13 +8,13 @@
 namespace ap
 {
 PerspectiveCameraController::PerspectiveCameraController(float fovYRadians, float aspectRatio, float zNear, float zFar)
-    : m_camera(fovYRadians, aspectRatio, zNear, zFar), m_isRotating(false), m_oldCursorPos(0)
+    : camera(fovYRadians, aspectRatio, zNear, zFar), isRotating(false), oldCursorPos(0)
 {
 }
 
 void PerspectiveCameraController::OnUpdate(Timestep ts)
 {
-    if (!m_isRotating)
+    if (!isRotating)
         return;
 
     glm::vec3 offset(0);
@@ -22,9 +22,9 @@ void PerspectiveCameraController::OnUpdate(Timestep ts)
     // default 'looks' into the -z direction. We want to transform relatively
     // among the camera view dir. Camera view dir and transform forward are not
     // the same
-    const glm::vec3 forward(-m_camera.transform.GetForward());
-    const glm::vec3 right(m_camera.transform.GetRight());
-    const glm::vec3 up(m_camera.transform.GetWorldUp());
+    const glm::vec3 forward(-camera.transform.GetForward());
+    const glm::vec3 right(camera.transform.GetRight());
+    const glm::vec3 up(camera.transform.GetWorldUp());
 
     if (Input::IsKeyPressed(KeyCode::W))
         offset += forward;
@@ -42,7 +42,7 @@ void PerspectiveCameraController::OnUpdate(Timestep ts)
     if (Input::IsKeyPressed(KeyCode::LeftShift))
         offset *= 10.f;
 
-    m_camera.transform.SetPosition(m_camera.transform.GetPosition() + offset * ts.Seconds() * 5.f);
+    camera.transform.SetPosition(camera.transform.GetPosition() + offset * ts.Seconds() * 5.f);
 }
 
 void PerspectiveCameraController::OnEvent(Event &e)
@@ -50,13 +50,13 @@ void PerspectiveCameraController::OnEvent(Event &e)
     EventDispatcher d(e);
 
     static bool initial = true;
-    if (m_isRotating)
+    if (isRotating)
     {
         // For some reason camera tends to jump on first frame when capturing, so we
         // ignore first frame
         d.Dispatch<MouseMovedEvent>([&](MouseMovedEvent &e) {
             // TODO: Add a sensitivity variable for offset
-            auto offset = glm::dvec2(e.GetX(), e.GetY()) - m_oldCursorPos;
+            auto offset = glm::dvec2(e.GetX(), e.GetY()) - oldCursorPos;
             offset = offset / 25. * glm::two_pi<double>();
 
             if (initial)
@@ -73,7 +73,7 @@ void PerspectiveCameraController::OnEvent(Event &e)
 
             // Move cursor up with 10 px == +y rotation
             // Cursor up is - offset, so negate y
-            m_camera.transform.Rotate(Radians(glm::vec3(-offset.y, -offset.x, 0)));
+            camera.transform.Rotate(Radians(glm::vec3(-offset.y, -offset.x, 0)));
             initial = false;
             return false;
         });
@@ -87,7 +87,7 @@ void PerspectiveCameraController::OnEvent(Event &e)
     //        if (e.GetButton() == ButtonCode::Right)
     //        {
     //            Input::EnableCursor(false);
-    //            m_isRotating = true;
+    //            isRotating = true;
     //        }
     //        return false;
     //    });
@@ -96,12 +96,12 @@ void PerspectiveCameraController::OnEvent(Event &e)
     //        if (e.GetButton() == ButtonCode::Right)
     //        {
     //            Input::EnableCursor(true);
-    //            m_isRotating = false;
+    //            isRotating = false;
     //        }
     //        return false;
     //    });
 
-    m_oldCursorPos = Input::GetCursorPos();
+    oldCursorPos = Input::GetCursorPos();
 }
 
 void PerspectiveCameraController::Enable(bool enable)
@@ -109,13 +109,13 @@ void PerspectiveCameraController::Enable(bool enable)
     if (enable)
     {
         Input::EnableCursor(false);
-        m_oldCursorPos = Input::GetCursorPos();
-        m_isRotating = true;
+        oldCursorPos = Input::GetCursorPos();
+        isRotating = true;
     }
     else
     {
         Input::EnableCursor(true);
-        m_isRotating = false;
+        isRotating = false;
     }
 }
 } // namespace ap

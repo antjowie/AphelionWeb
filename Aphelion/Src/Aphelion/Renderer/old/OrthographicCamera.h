@@ -15,50 +15,50 @@ class APHELION_API OrthographicCamera
 
     void SetPosition(const glm::vec3 &pos)
     {
-        m_position = pos;
-        m_dirtyFlag = true;
+        position = pos;
+        dirtyFlag = true;
     }
     const glm::vec3 GetPosition() const
     {
-        return m_position;
+        return position;
     }
 
     void SetRotation(float degrees)
     {
-        m_degrees = degrees;
-        m_dirtyFlag = true;
+        degrees = degrees;
+        dirtyFlag = true;
     }
     float GetRotation()
     {
-        return m_degrees;
+        return degrees;
     }
 
     const glm::mat4 &GetProjectionMatrix() const
     {
         CalculateMatrices();
-        return m_projectionMatrix;
+        return projectionMatrix;
     }
     const glm::mat4 &GetViewMatrix() const
     {
         CalculateMatrices();
-        return m_viewMatrix;
+        return viewMatrix;
     }
     const glm::mat4 &GetViewProjectionMatrix() const
     {
         CalculateMatrices();
-        return m_viewProjectionMatrix;
+        return viewProjectionMatrix;
     }
 
   private:
     void CalculateMatrices() const;
 
     // We calculate the matrices only upon request and cache it
-    mutable bool m_dirtyFlag;
-    mutable glm::mat4 m_projectionMatrix;
-    mutable glm::mat4 m_viewMatrix;
-    mutable glm::mat4 m_viewProjectionMatrix;
+    mutable bool dirtyFlag;
+    mutable glm::mat4 projectionMatrix;
+    mutable glm::mat4 viewMatrix;
+    mutable glm::mat4 viewProjectionMatrix;
 
-    glm::vec3 m_position;
-    float m_degrees;
+    glm::vec3 position;
+    float degrees;
 };
 } // namespace ap

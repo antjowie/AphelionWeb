@@ -1,40 +1,40 @@
 #include "Platform/Web/WebImGUI.h"
 
+#include "Aphelion/Core/Event/Event.h"
+#include "Aphelion/Window/Window.h"
+
 #include <GLES3/gl3.h>
 #include <SDL2/SDL.h>
 #include <imgui.h>
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_sdl.h>
 
-#include "Aphelion/Core/Event/Event.h"
-#include "Aphelion/Window/Window.h"
-
 // https://github.com/ocornut/imgui/blob/master/examples/example_emscripten_opengl3/main.cpp
 namespace ap
 {
-bool OnNativeEvent(void *event)
+bool OnNativeEvent(void* event)
 {
-    ImGui_ImplSDL2_ProcessEvent(reinterpret_cast<SDL_Event *>(event));
-    ImGuiIO &io = ImGui::GetIO();
+    ImGui_ImplSDL2_ProcessEvent(reinterpret_cast<SDL_Event*>(event));
+    ImGuiIO& io = ImGui::GetIO();
     return io.WantCaptureMouse || io.WantCaptureKeyboard;
 }
 
-std::unique_ptr<ImGUISystem> ImGUISystem::Create(Window *window)
+std::unique_ptr<ImGUISystem> ImGUISystem::Create(Window* window)
 {
     return std::make_unique<WebImGUI>(window);
 }
 
-inline SDL_Window *ToSDLWindow(Window *window)
+inline SDL_Window* ToSDLWindow(Window* window)
 {
-    return reinterpret_cast<SDL_Window *>(window->GetNativeWindow());
+    return reinterpret_cast<SDL_Window*>(window->GetNativeWindow());
 }
 
-WebImGUI::WebImGUI(Window *window) : m_window(window)
+WebImGUI::WebImGUI(Window* window) : window(window)
 {
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO &io = ImGui::GetIO();
+    ImGuiIO& io = ImGui::GetIO();
     (void)io;
     // io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable
     // Keyboard Controls io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; //
@@ -50,9 +50,9 @@ WebImGUI::WebImGUI(Window *window) : m_window(window)
     // ImGui::StyleColorsClassic();
 
     // Setup Platform/Renderer backends
-    const char *glsl_version = "#version 300 es";
+    const char* glsl_version = "#version 300 es";
     SDL_GLContext context = SDL_GL_GetCurrentContext();
-    ImGui_ImplSDL2_InitForOpenGL(ToSDLWindow(m_window), &context);
+    ImGui_ImplSDL2_InitForOpenGL(ToSDLWindow(window), &context);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
     // Load Fonts
@@ -88,20 +88,20 @@ WebImGUI::~WebImGUI()
 void WebImGUI::BeginFrame()
 {
     ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplSDL2_NewFrame(ToSDLWindow(m_window));
+    ImGui_ImplSDL2_NewFrame(ToSDLWindow(window));
     ImGui::NewFrame();
 }
 
 void WebImGUI::EndFrame()
 {
     ImGui::Render();
-    SDL_GL_MakeCurrent(ToSDLWindow(m_window), SDL_GL_GetCurrentContext());
-    glViewport(0, 0, m_window->GetWidth(), m_window->GetHeight());
+    SDL_GL_MakeCurrent(ToSDLWindow(window), SDL_GL_GetCurrentContext());
+    glViewport(0, 0, window->GetWidth(), window->GetHeight());
     // glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w,
     //              clear_color.z * clear_color.w, clear_color.w);
     glClear(GL_COLOR_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-    SDL_GL_SwapWindow(ToSDLWindow(m_window));
+    SDL_GL_SwapWindow(ToSDLWindow(window));
 }
 
 } // namespace ap

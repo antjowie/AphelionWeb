@@ -39,12 +39,12 @@ uint32_t BufferElement::GetComponentCount() const
 
 void VertexBuffer::AddElement(const BufferElement &elem)
 {
-    m_elements.push_back(elem);
+    elements.push_back(elem);
 }
 
 const std::vector<BufferElement> &VertexBuffer::GetElements() const
 {
-    return m_elements;
+    return elements;
 }
 
 std::shared_ptr<VertexBuffer> VertexBuffer::Create(uint32_t size)

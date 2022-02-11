@@ -1,16 +1,17 @@
-#include "Engine.h"
-#include "Time.h"
+#include "Aphelion/Core/Time.h"
+#include "Aphelion/Engine/Engine.h"
 
 namespace ap
 {
 void Engine::Run()
 {
-    Init();
+    Engine& engine = Get();
+    engine.InitSystems();
 
     Timer timer;
-    while (true)
+    while (!engine.shutdownRequested)
     {
-        Loop(timer.Reset());
+        engine.Loop(timer.Reset());
     }
 }
 } // namespace ap

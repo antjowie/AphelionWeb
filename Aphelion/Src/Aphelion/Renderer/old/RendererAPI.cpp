@@ -5,11 +5,11 @@
 
 namespace ap
 {
-RendererAPI::API RendererAPI::m_api = RendererAPI::API::OpenGL;
+RendererAPI::API RendererAPI::api = RendererAPI::API::OpenGL;
 
 std::unique_ptr<RendererAPI> RendererAPI::Create()
 {
-    switch (m_api)
+    switch (api)
     {
     case RendererAPI::API::None:
         AP_CORE_CRITICAL("RenderAPI None is not yet supported");

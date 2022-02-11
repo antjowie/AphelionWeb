@@ -16,7 +16,7 @@ class APHELION_API OpenGLContext : public GraphicsContext
     virtual void SwapBuffers();
 
   private:
-    GLFWwindow *m_window;
+    GLFWwindow *window;
 };
 
 } // namespace ap

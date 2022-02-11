@@ -1,47 +1,42 @@
 #pragma once
-#include <memory>
-#include <vector>
-
 #include "Aphelion/Core/Core.h"
 #include "Aphelion/Core/Event/Event.h"
 #include "Aphelion/Core/System.h"
 #include "Aphelion/ImGUI/ImGUISystem.h"
 #include "Aphelion/Window/Window.h"
 
+#include <memory>
+#include <vector>
+
 namespace ap
 {
 
 /**
- * Engine is the runtime of the application. To use this either check the Sanbox
- * project.
- *
- * Usage example
- * 1. Create instance of the engine
- *  Engine instance;
- * 2. Add your own systems
- *  instance.AddSystem(ExampleSystem());
- * 3. Run the engine
- *  instance.Run();
+ * Engine is the runtime of the application. Call Run once you have added all your systems
  */
-class APHELION_API Engine
+class Engine
 {
-  public:
-    static Engine &Get();
+public:
+    APHELION_API static void Run();
 
-    void Run();
+    APHELION_API static void AddSystem(std::unique_ptr<System>&& system);
+    APHELION_API static void AddSystems(std::vector<std::unique_ptr<System>>&& systems);
 
-    void AddSystem(std::unique_ptr<System> &&system);
-    void AddSystems(std::vector<std::unique_ptr<System>> &&systems);
-
-  private:
+private:
     Engine();
+    ~Engine() = default;
 
-    void Init();
+    static Engine& Get();
+
+    void InitSystems();
+    void RequestShutdown();
     void Loop(float ts);
-    void PushEvent(Event &&event);
+    void PushEvent(Event&& event);
 
-    std::vector<std::unique_ptr<System>> m_systems;
-    std::unique_ptr<Window> m_window;
-    std::unique_ptr<ImGUISystem> m_imgui;
+    std::vector<std::unique_ptr<System>> systems;
+    std::unique_ptr<Window> window;
+    std::unique_ptr<ImGuiSystem> imgui;
+
+    bool shutdownRequested = false;
 };
 } // namespace ap
