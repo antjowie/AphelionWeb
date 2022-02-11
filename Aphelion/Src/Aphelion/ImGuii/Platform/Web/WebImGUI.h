@@ -4,14 +4,14 @@ namespace ap
 {
 class APHELION_API WebImGUI : public ImGUISystem
 {
-  public:
+public:
     WebImGUI(Window* window);
     virtual ~WebImGUI();
 
     virtual void BeginFrame() override final;
     virtual void EndFrame() override final;
 
-  private:
+private:
     Window* window;
 };
 

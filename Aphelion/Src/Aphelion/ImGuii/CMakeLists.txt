@@ -15,6 +15,8 @@ add_library(ImGui
 )
 add_library(Aphelion::ImGui ALIAS ImGui)
 
+target_precompile_headers(ImGui PRIVATE ${APHELION_PCH})
+
 CPMAddPackage(
     NAME DearImGui
     GIT_REPOSITORY https://github.com/ocornut/imgui
@@ -60,8 +62,6 @@ if (DearImGui_ADDED)
 else()
     message(FATAL_ERROR "Could not create a target from Dear ImGui")
 endif()
-
-target_precompile_headers(ImGui PRIVATE ${APHELION_PCH})
 
 target_link_libraries(ImGui
 PUBLIC
