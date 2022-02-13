@@ -21,6 +21,8 @@ public:
     virtual void OnEvent(Event& event) = 0;
     virtual void BeginFrame() = 0;
     virtual void EndFrame() = 0;
+
+    virtual void SetContext() = 0;
 };
 
 } // namespace ap

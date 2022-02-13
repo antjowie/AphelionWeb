@@ -17,8 +17,6 @@ add_library(Aphelion::ImGui ALIAS ImGui)
 
 target_precompile_headers(ImGui REUSE_FROM Core)
 
-target_include_directories(ImGui PRIVATE ./)
-
 CPMAddPackage(
     NAME DearImGui
     GIT_REPOSITORY https://github.com/ocornut/imgui
@@ -28,7 +26,7 @@ CPMAddPackage(
 
 if (DearImGui_ADDED)
     # FILE(GLOB DearImGui_sources ${DearImGui_SOURCE_DIR}/*.cpp)
-    add_library(DearImGui STATIC
+    add_library(DearImGui
         $<$<PLATFORM_ID:Windows,Linux>:
             ${DearImGui_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
             ${DearImGui_SOURCE_DIR}/backends/imgui_impl_opengl3.h
@@ -56,11 +54,15 @@ if (DearImGui_ADDED)
         ${DearImGui_SOURCE_DIR}/imstb_truetype.h
     )
 
+    target_precompile_headers(DearImGui PRIVATE
+    Platform/Desktop/ImGuiBuild.h
+    )
+
     target_include_directories(DearImGui PUBLIC
         ${DearImGui_SOURCE_DIR}/.
     )
 
-    target_link_libraries(DearImGui PUBLIC Aphelion::Window)
+    target_link_libraries(DearImGui PRIVATE Aphelion::Window)
 else()
     message(FATAL_ERROR "Could not create a target from Dear ImGui")
 endif()

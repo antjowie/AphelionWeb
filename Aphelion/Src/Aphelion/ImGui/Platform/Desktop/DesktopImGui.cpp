@@ -4,6 +4,7 @@
 #include "Aphelion/Core/Log.h"
 #include "Aphelion/Window/Window.h"
 
+#define IMGUI_API APHELION_API
 #include <GLFW/glfw3.h> // Will drag system OpenGL headers
 #include <imgui.h>
 #include <backends/imgui_impl_opengl3.h>
@@ -115,6 +116,11 @@ void DesktopImGui::EndFrame()
         ImGui::RenderPlatformWindowsDefault();
         glfwMakeContextCurrent(backup_current_context);
     }
+}
+
+void DesktopImGui::SetContext()
+{
+    ImGui::SetCurrentContext(nullptr);
 }
 
 } // namespace ap

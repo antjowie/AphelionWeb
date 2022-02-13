@@ -132,11 +132,12 @@ DesktopWindow::DesktopWindow(const WindowProps& props) : props(props)
 
 DesktopWindow::~DesktopWindow()
 {
-    AP_CORE_TRACE("Destroying window");
     if (window)
     {
+        AP_CORE_TRACE("Destroying window");
         glfwDestroyWindow(window);
     }
+    AP_CORE_TRACE("Terminating glfw");
     glfwTerminate();
 }
 
