@@ -15,7 +15,7 @@ target_link_libraries(TestGame PRIVATE
     Aphelion::Window
 )
 
-if(BUILD_SHARED_LIBS)
+if(BUILD_SHARED_LIBS AND CMAKE_SYSTEM_NAME STREQUAL Windows)
 add_custom_command(TARGET TestGame POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:TestGame> $<TARGET_FILE_DIR:TestGame>
   COMMAND_EXPAND_LISTS

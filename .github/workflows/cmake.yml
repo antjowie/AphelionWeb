@@ -31,7 +31,9 @@ jobs:
 
       - name: Install linux dependencies
         if: matrix.platforms == 'ubuntu-latest'
-        run: sudo apt install xorg-dev
+        run: |
+            sudo apt-get update
+            sudo apt install xorg-dev
 
       - name: Configure CMake
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
