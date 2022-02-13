@@ -14,9 +14,9 @@ namespace ap
  * Events are propogate in the opposite direction however. This allows us to
  * push a debug system that may want to intercept some events
  */
-class APHELION_API System
+class System
 {
-  public:
+public:
     virtual void Init(){};
     virtual void Deinit(){};
     virtual void OnUpdate(float ts){};

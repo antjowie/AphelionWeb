@@ -27,7 +27,6 @@ message(
 if(BUILD_SHARED_LIBS)
     add_compile_definitions(AP_BUILD_DLL)
     add_compile_options($<$<NOT:$<PLATFORM_ID:Windows>>:-fPIC>)
-    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON FORCE)
 endif()
 
 add_subdirectory(Src/Aphelion/Core)

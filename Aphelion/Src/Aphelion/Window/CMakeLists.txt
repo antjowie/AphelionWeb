@@ -15,7 +15,7 @@ add_library(Window
 )
 add_library(Aphelion::Window ALIAS Window)
 
-target_precompile_headers(Window REUSE_FROM Aphelion::Core)
+target_precompile_headers(Window REUSE_FROM Core)
 
 target_include_directories(Window PRIVATE ./)
 

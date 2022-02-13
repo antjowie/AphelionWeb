@@ -6,4 +6,4 @@ add_library(Renderer
 )
 
 add_library(Aphelion::Renderer ALIAS Renderer)
-target_link_libraries(Renderer PUBLIC Aphelion::Core)
+target_link_libraries(Renderer PUBLIC Core)

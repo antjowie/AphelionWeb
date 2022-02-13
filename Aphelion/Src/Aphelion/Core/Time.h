@@ -5,33 +5,33 @@
 
 namespace ap
 {
-class Timer
+class APHELION_API Timer
 {
-  public:
+public:
     using Clock = std::chrono::high_resolution_clock;
 
-    APHELION_API Timer() : begin(Clock::now()), last(begin)
+    Timer() : begin(Clock::now()), last(begin)
     {
     }
 
-    APHELION_API float Total() const
+    float Total() const
     {
         return float((Clock::now() - begin).count() * 1e-9f);
     }
 
-    APHELION_API float Elapsed() const
+    float Elapsed() const
     {
         return float((Clock::now() - last).count() * 1e-9f);
     }
 
-    APHELION_API float Reset()
+    float Reset()
     {
         auto ts = Elapsed();
         last = Clock::now();
         return ts;
     }
 
-  private:
+private:
     Clock::time_point begin;
     Clock::time_point last;
 };

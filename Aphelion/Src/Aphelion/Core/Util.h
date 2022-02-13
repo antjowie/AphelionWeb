@@ -3,7 +3,7 @@
 
 namespace ap
 {
-constexpr inline APHELION_API unsigned Bit(unsigned bit)
+constexpr inline unsigned Bit(unsigned bit)
 {
     return 1 << bit;
 }
@@ -18,7 +18,7 @@ constexpr inline APHELION_API unsigned Bit(unsigned bit)
  */
 template <typename T> class Reverse
 {
-  public:
+public:
     explicit Reverse(T& iterable) : iterable{iterable}
     {
     }
@@ -31,7 +31,7 @@ template <typename T> class Reverse
         return std::rend(iterable);
     }
 
-  private:
+private:
     T& iterable;
 };
 } // namespace ap

@@ -14,7 +14,7 @@ add_library(Engine
 )
 add_library(Aphelion::Engine ALIAS Engine)
 
-target_precompile_headers(Engine REUSE_FROM Aphelion::Core)
+target_precompile_headers(Engine REUSE_FROM Core)
 
 target_include_directories(Engine PRIVATE ./)
 
