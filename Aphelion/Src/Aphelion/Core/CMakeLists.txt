@@ -24,14 +24,21 @@ add_library(Core
 )
 add_library(Aphelion::Core ALIAS Core)
 
-CPMAddPackage(gh:gabime/spdlog@1.8.2)
-target_link_libraries(Core PUBLIC
-    spdlog::spdlog
-)
-
 target_precompile_headers(Core
 PRIVATE
-    ${APHELION_PCH}
+    <iostream>
+    <memory>
+    <utility>
+    <algorithm>
+    <functional>
+    <string>
+    <sstream>
+    <array>
+    <vector>
+    <unordered_map>
+    <unordered_set>
+    <type_traits>
+    <chrono>
 
     # <glm/vec3.hpp>
     # <glm/mat4x4.hpp>
@@ -48,8 +55,16 @@ PRIVATE
 
 # This is the only place where we define include dirs
 # For some reason, MSVC breaks down if I try to add local dir
-target_include_directories(Core PUBLIC
+target_include_directories(Core
+PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/../../
+PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/.
+)
+
+CPMAddPackage(gh:gabime/spdlog@1.8.2)
+target_link_libraries(Core PUBLIC
+    spdlog::spdlog
 )
 
 target_compile_definitions(Core

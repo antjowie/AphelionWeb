@@ -15,7 +15,9 @@ add_library(ImGui
 )
 add_library(Aphelion::ImGui ALIAS ImGui)
 
-target_precompile_headers(ImGui PRIVATE ${APHELION_PCH})
+target_precompile_headers(ImGui REUSE_FROM Aphelion::Core)
+
+target_include_directories(ImGui PRIVATE ./)
 
 CPMAddPackage(
     NAME DearImGui

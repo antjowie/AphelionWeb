@@ -15,7 +15,6 @@ if(APHELION_HOT_RELOAD)
 
 endif()
 
-
 # Can't build shared library. Causes a lot of errors. Can't create a vector of unique pointers???
 # Since building this project to a shared lib is no priority of mine, I will ignore it for now...
 option(BUILD_SHARED_LIBS false)
@@ -33,36 +32,6 @@ if(NOT (EXISTS ${CPM_DOWNLOAD_LOCATION}))
 endif()
 
 include(${CPM_DOWNLOAD_LOCATION})
-
-# Sets up an Aphelion system as a dependecy for a target
-function(target_add_dependency CurrTarget Dependency)
-target_link_libraries(${CurrTarget} PRIVATE ${Dependency})
-
-if(BUILD_SHARED_LIBS)
-add_custom_command(TARGET ${CurrTarget} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    $<TARGET_FILE:${Dependency}>
-	"${CMAKE_CURRENT_BINARY_DIR}"
-)
-endif()
-endfunction()
-
-# Setup sources for PCH
-set(APHELION_PCH
-    <iostream>
-    <memory>
-    <utility>
-    <algorithm>
-    <functional>
-    <string>
-    <sstream>
-    <array>
-    <vector>
-    <unordered_map>
-    <unordered_set>
-    <type_traits>
-    <chrono>
-)
 
 # Build all modules
 add_subdirectory(Aphelion)
