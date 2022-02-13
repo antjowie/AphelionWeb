@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.21)
 
 project(Aphelion)
 
@@ -29,17 +29,6 @@ if(NOT (EXISTS ${CPM_DOWNLOAD_LOCATION}))
 endif()
 
 include(${CPM_DOWNLOAD_LOCATION})
-
-# Function to set up whatever code is required for a project
-# that uses Aphelion
-function(setup_project Project)
-if(BUILD_SHARED_LIBS)
-add_custom_command(TARGET Project POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:TestGame> $<TARGET_FILE_DIR:TestGame>
-  COMMAND_EXPAND_LISTS
-)
-endif()
-endfunction()
 
 # Build all modules
 add_subdirectory(Aphelion)
