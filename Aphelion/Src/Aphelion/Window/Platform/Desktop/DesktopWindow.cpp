@@ -1,4 +1,4 @@
-#include "Aphelion/Window/Platform/Desktop/DesktopWindow.h"
+#include "Platform/Desktop/DesktopWindow.h"
 #include "Aphelion/Core/Log.h"
 #include "Aphelion/Core/Event/KeyEvent.h"
 #include "Aphelion/Core/Event/MouseEvent.h"

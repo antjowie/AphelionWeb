@@ -1,15 +1,23 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.21)
 
 add_executable(TestGame
-	"Src/TestGame.cpp"
+	Src/TestGame.cpp
 )
 
+# target_precompile_headers(TestGame REUSE_FROM Core)
 target_include_directories(TestGame PUBLIC /Src/)
-target_precompile_headers(TestGame PRIVATE ${APHELION_PCH})
+
 message(STATUS "Suffix: ${CMAKE_EXECUTABLE_SUFFIX}")
 
-# TODO Have a better way of copying over Dlls instead of adding every library
-target_add_dependency(TestGame Aphelion::Core)
-target_add_dependency(TestGame Aphelion::Engine)
-target_add_dependency(TestGame Aphelion::Window)
-target_add_dependency(TestGame glfw)
+target_link_libraries(TestGame PRIVATE
+    Aphelion::Core
+    Aphelion::Engine
+    Aphelion::Window
+)
+
+if(BUILD_SHARED_LIBS AND CMAKE_SYSTEM_NAME STREQUAL Windows)
+add_custom_command(TARGET TestGame POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:TestGame> $<TARGET_FILE_DIR:TestGame>
+  COMMAND_EXPAND_LISTS
+)
+endif()

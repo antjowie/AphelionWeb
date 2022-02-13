@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.21)
 
 add_library(Window
     $<$<PLATFORM_ID:Windows,Linux>:
@@ -15,7 +15,9 @@ add_library(Window
 )
 add_library(Aphelion::Window ALIAS Window)
 
-target_precompile_headers(Window PRIVATE ${APHELION_PCH})
+target_precompile_headers(Window REUSE_FROM Core)
+
+target_include_directories(Window PRIVATE ./)
 
 # Check desktop platform for glfw and glad
 if(CMAKE_SYSTEM_NAME STREQUAL Windows OR CMAKE_SYSTEM_NAME STREQUAL Linux)

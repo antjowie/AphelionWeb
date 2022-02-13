@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.21)
 
 add_library(Engine
     $<$<PLATFORM_ID:Windows,Linux>:
@@ -14,7 +14,9 @@ add_library(Engine
 )
 add_library(Aphelion::Engine ALIAS Engine)
 
-target_precompile_headers(Engine PRIVATE ${APHELION_PCH})
+target_precompile_headers(Engine REUSE_FROM Core)
+
+target_include_directories(Engine PRIVATE ./)
 
 target_link_libraries(Engine
 PUBLIC
