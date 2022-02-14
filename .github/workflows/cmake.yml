@@ -52,7 +52,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         # if: github.ref == 'refs/heads/master'
         with:
-          name: Aphelion-${{ matrix.platforms }}-${{ matrix.platforms }}
+          name: Aphelion_${{ matrix.platforms }}_${{ matrix.presets }}
           path: |
             ${{github.workspace}}/build/**/Sandbox/
             #${{github.workspace}}/**/Sandbox/*.dll
