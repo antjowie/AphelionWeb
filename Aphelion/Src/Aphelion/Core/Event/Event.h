@@ -70,33 +70,33 @@ enum EventCategory
  * implement the functions of this class in derived classes. They serve to
  * retrieve runtime information
  */
-class Event
+class APHELION_API Event
 {
-  public:
-    bool handled = false;
-
-    APHELION_API virtual EventType GetEventType() const = 0;
-    APHELION_API virtual const char* GetName() const = 0;
-    APHELION_API virtual int GetCategoryFlags() const = 0;
-    APHELION_API virtual std::string ToString() const
+public:
+    virtual EventType GetEventType() const = 0;
+    virtual const char* GetName() const = 0;
+    virtual int GetCategoryFlags() const = 0;
+    virtual std::string ToString() const
     {
         return GetName();
     }
 
-    APHELION_API inline bool IsInCategory(EventCategory category) const
+    bool IsInCategory(EventCategory category) const
     {
         return GetCategoryFlags() & category;
     }
+
+    bool handled = false;
 };
 
 /**
  * Helper function to handle an event
  * If the template type matches the evennt type, the callback will be called
  */
-class EventDispatcher
+class APHELION_API EventDispatcher
 {
-  public:
-    APHELION_API EventDispatcher(Event& event) : event(event)
+public:
+    EventDispatcher(Event& event) : event(event)
     {
     }
 
@@ -115,11 +115,11 @@ class EventDispatcher
         return false;
     }
 
-  private:
+private:
     Event& event;
 };
 
-APHELION_API inline std::ostream& operator<<(std::ostream& os, const Event& e)
+inline std::ostream& operator<<(std::ostream& os, const Event& e)
 {
     return os << e.ToString();
 }
