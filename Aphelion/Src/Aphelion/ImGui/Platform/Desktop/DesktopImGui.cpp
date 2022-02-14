@@ -117,10 +117,4 @@ void DesktopImGui::EndFrame()
         glfwMakeContextCurrent(backup_current_context);
     }
 }
-
-void DesktopImGui::SetContext()
-{
-    ImGui::SetCurrentContext(nullptr);
-}
-
 } // namespace ap

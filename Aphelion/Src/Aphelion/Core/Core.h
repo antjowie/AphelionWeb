@@ -18,7 +18,7 @@
  * @TODO Verify if app in runtime works on Linux systems
  */
 #if defined(AP_DYNAMIC_LINK) && defined(AP_PLATFORM_WIN)
-#ifdef AP_BUILD_DLL
+#ifdef AP_EXPORT
 #define APHELION_API __declspec(dllexport)
 #else
 #define APHELION_API __declspec(dllimport)

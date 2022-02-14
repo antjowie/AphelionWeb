@@ -25,9 +25,9 @@ message(
 # endif()
 
 if(BUILD_SHARED_LIBS)
-    add_compile_definitions(AP_BUILD_DLL)
     add_compile_options($<$<NOT:$<PLATFORM_ID:Windows>>:-fPIC>)
 endif()
+add_compile_definitions(AP_EXPORT)
 
 add_subdirectory(Src/Aphelion/Core)
 add_subdirectory(Src/Aphelion/Engine)
@@ -35,6 +35,6 @@ add_subdirectory(Src/Aphelion/ImGui)
 # add_subdirectory(Src/Aphelion/Renderer)
 add_subdirectory(Src/Aphelion/Window)
 
-remove_definitions(AP_BUILD_DLL)
+remove_definitions(AP_EXPORT)
 # TODO we probably want to remove shared lib compile option
 # remove_compile_options()

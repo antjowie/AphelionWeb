@@ -14,8 +14,6 @@ public:
     virtual void BeginFrame() override final;
     virtual void EndFrame() override final;
 
-    virtual void SetContext() override final;
-
 private:
     Window* window = nullptr;
 };

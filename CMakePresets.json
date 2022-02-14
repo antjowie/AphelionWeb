@@ -1,0 +1,104 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 21,
+        "patch": 0
+    },
+    "configurePresets": [
+
+        {
+            "name": "base-static",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "APHELION_HOT_RELOAD": "OFF",
+                "APHELION_FORCE_ASSERT": "OFF",
+                "BUILD_SHARED_LIBS": "OFF"
+            }
+        },
+        {
+            "name": "base-shared",
+            "hidden": true,
+            "inherits": "base-static",
+            "cacheVariables": {
+                "BUILD_SHARED_LIBS": "ON"
+            }
+        },
+        {
+            "name": "debug",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "release",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "hot-reload",
+            "hidden": true,
+            "cacheVariables": {
+                "APHELION_HOT_RELOAD": "ON"
+            }
+        },
+
+
+        {
+            "name": "debug-static",
+            "inherits": [ "debug", "base-static" ]
+        },
+        {
+            "name": "debug-static-hot-reload",
+            "inherits": [ "debug", "hot-reload", "base-static" ]
+        },
+        {
+            "name": "release-static",
+            "inherits": [ "release", "base-static" ]
+        },
+        {
+            "name": "release-static-hot-reload",
+            "inherits": [ "release", "hot-reload", "base-static" ]
+        },
+
+
+        {
+            "name": "debug-shared",
+            "inherits": [ "debug", "base-shared" ]
+        },
+        {
+            "name": "debug-shared-hot-reload",
+            "inherits": [ "debug", "hot-reload", "base-shared" ]
+        },
+        {
+            "name": "release-shared",
+            "inherits": [ "release", "base-shared" ]
+        },
+        {
+            "name": "release-shared-hot-reload",
+            "inherits": [ "release", "hot-reload", "base-shared" ]
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "default",
+            "configurePreset": "release-static",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        }
+    ]
+}

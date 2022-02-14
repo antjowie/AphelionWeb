@@ -57,8 +57,8 @@ target_include_directories(Core
 PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/../../
 # For some reason, MSVC breaks down if I try to add local dir
-PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../
+# PRIVATE
+#     ${CMAKE_CURRENT_SOURCE_DIR}/.
 )
 
 CPMAddPackage(gh:gabime/spdlog@1.8.2)

@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.21)
 project(Aphelion)
 
 # https://docs.microsoft.com/en-us/visualstudio/debugger/supported-code-changes-cpp?view=vs-2022
+# https://docs.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio?view=msvc-170#edit-and-continue-for-cmake-projects
 option(APHELION_HOT_RELOAD "Support for hot reload in all configs" OFF)
 if(APHELION_HOT_RELOAD)
     if(MSVC)

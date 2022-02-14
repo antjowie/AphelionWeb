@@ -17,9 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         platforms: [windows-latest, ubuntu-latest]
-        archetypes: [Release]
-        #archetypes: [Debug, Release]
-        linkage: [BUILD_SHARED_LIBS=ON, BUILD_SHARED_LIBS=OFF]
+        presets: [release-shared, release-static]
 
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
     # You can convert this to a matrix build if you need cross-platform coverage.
@@ -28,6 +26,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Install linux dependencies
         if: matrix.platforms == 'ubuntu-latest'
@@ -38,7 +37,7 @@ jobs:
       - name: Configure CMake
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
         # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{ matrix.archetypes }} -D${{ matrix.linkage }}
+        run: cmake -B ${{github.workspace}}/build --preset ${{ matrix.presets }}
 
       - name: Build
         # Build your program with the given configuration
@@ -48,12 +47,12 @@ jobs:
         working-directory: ${{github.workspace}}/build
         # Execute tests defined by the CMake configuration.
         # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-        run: ctest -C =${{ matrix.archetypes }}
+        run: ctest
 
       - uses: actions/upload-artifact@v2
         # if: github.ref == 'refs/heads/master'
         with:
-          name: ${{ matrix.platforms }}-${{ matrix.archetypes }}-${{ matrix.linkage }}
+          name: Aphelion-${{ matrix.platforms }}-${{ matrix.platforms }}
           path: |
             ${{github.workspace}}/build/**/Sandbox/
             #${{github.workspace}}/**/Sandbox/*.dll

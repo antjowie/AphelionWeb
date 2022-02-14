@@ -15,14 +15,11 @@ class APHELION_API ImGuiSystem
 public:
     static std::unique_ptr<ImGuiSystem> Create(Window* window);
 
-    // ImGuiSystem(const std::unique_ptr<Window>& window) = default;
     virtual ~ImGuiSystem() = default;
 
     virtual void OnEvent(Event& event) = 0;
     virtual void BeginFrame() = 0;
     virtual void EndFrame() = 0;
-
-    virtual void SetContext() = 0;
 };
 
 } // namespace ap
